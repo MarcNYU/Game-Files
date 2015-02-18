@@ -76,10 +76,10 @@ int main() {
     
     // game loop
     
-    bool top_collison = false;
-    bool bottom_collison = false;
-    bool right_collison = false;
-    bool left_collison = false;
+//    bool top_collison = false;
+//    bool bottom_collison = false;
+//    bool right_collison = false;
+//    bool left_collison = false;
     
     while (!done) {
         while (SDL_PollEvent(&event)) {
@@ -114,28 +114,8 @@ int main() {
 //            if (ball.y > 600 - (ceiling.height/2)) {
 //            if (!(ball.y < 1.9)) {
 //                top_collison = true;
-//                ball.y -= position;
+                ball.y -= position;
                 ball.direction_y = -fabs(ball.direction_y); // negative
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-            }
-            //Player 2 arrows
-//            else if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
-            else if (ball.x < p2.x + p2.width &&
-                     ball.x > p2.x &&
-                     ball.y < p2.y + p2.height &&
-                     ball.y > p2.y){
-//                right_collison = true;
-//                ball.x -= position;
-                float t = ((ball.y - p2.y) / p2.height) - 0.5f;
-                ball.direction_x = -fabs(ball.direction_x); // negative
-                ball.direction_y = t;
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 p2.Draw();
@@ -152,9 +132,29 @@ int main() {
                      ball.y <= p1.y + p1.height &&
                      ball.y >= p1.y){
 //                left_collison = true;
-//                ball.x += position;
+                ball.x += position;
                 float t = ((ball.y - p1.y) / p1.height) - 0.5f;
                 ball.direction_x = fabs(ball.direction_x); // positive
+                ball.direction_y = t;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            //Player 2 arrows
+//            else if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
+            else if (ball.x >= p2.x &&
+                     ball.x <= p2.x + p2.width &&
+                     ball.y <= p2.y + p2.height &&
+                     ball.y >= p2.y){
+//                right_collison = true;
+                ball.x -= position;
+                float t = ((ball.y - p2.y) / p2.height) - 0.5f;
+                ball.direction_x = -fabs(ball.direction_x); // negative
                 ball.direction_y = t;
                 
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -170,7 +170,7 @@ int main() {
 //            else if (ball.y < -600 + (ceiling.height/2)){
 //            else if (!(ball.y > -600)){
 //                bottom_collison = true;
-//                ball.y += position;
+                ball.y += position;
                 ball.direction_y = fabs(ball.direction_y); // positive
                 
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -215,23 +215,49 @@ int main() {
 //                ball.y += ball.direction_y * ball.speed;
                 if (ball.direction_x < 0.0) {
                     ball.x -= position;
+                    
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    p2.Draw();
+                    p1.Draw();
+                    ceiling.Draw();
+                    floor.Draw();
+                    net.Draw();
+                    ball.Draw();
                 }else if (ball.direction_x > 0.0){
                     ball.x += position;
+                    
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    p2.Draw();
+                    p1.Draw();
+                    ceiling.Draw();
+                    floor.Draw();
+                    net.Draw();
+                    ball.Draw();
                 }
                 
                 if (ball.direction_y < 0.0) {
                     ball.y -= position;
+                    
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    p2.Draw();
+                    p1.Draw();
+                    ceiling.Draw();
+                    floor.Draw();
+                    net.Draw();
+                    ball.Draw();
                 }else if (ball.direction_y > 0.0){
                     ball.y += position;
+                    
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    p2.Draw();
+                    p1.Draw();
+                    ceiling.Draw();
+                    floor.Draw();
+                    net.Draw();
+                    ball.Draw();
                 }
                 
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
+                
                 
                 
 //                if ((top_collison == false) && (bottom_collison == false) && (right_collison == false) && (left_collison == false)) {
@@ -385,6 +411,10 @@ int main() {
 }
 
 void Entity::Draw() {
+    
+    glMatrixMode(GL_MODELVIEW);
+    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
+    
     glLoadIdentity();
     glTranslatef(x, y, 0.0);
     glScalef(width, height, 0.0);
@@ -422,22 +452,22 @@ void Setup() {
     
 }
 
-bool collisonCheck(Entity& obj1, Entity& obj2) {
-    //OBJECT 1
-    float top_surface1 = obj1.y + (obj1.height/2);
-    float bottom_surface1 = obj1.y - (obj1.height/2);
-    float right_surface1 = obj1.x + (obj1.width/2);
-    float left_surface1 = obj1.x - (obj1.width/2);
-    
-    //OBJECT 2
-    float top_surface2 = obj2.y + (obj2.height/2);
-    float bottom_surface2 = obj2.y - (obj2.height/2);
-    float right_surface2 = obj2.x + (obj2.width/2);
-    float left_surface2 = obj2.x - (obj2.width/2);
-    
-    
-    return ((bottom_surface1 <= top_surface2) || (left_surface1 <= right_surface2) || (top_surface1 >= bottom_surface2) || (right_surface1 >= left_surface2));
-}
+//bool collisonCheck(Entity& obj1, Entity& obj2) {
+//    //OBJECT 1
+//    float top_surface1 = obj1.y + (obj1.height/2);
+//    float bottom_surface1 = obj1.y - (obj1.height/2);
+//    float right_surface1 = obj1.x + (obj1.width/2);
+//    float left_surface1 = obj1.x - (obj1.width/2);
+//    
+//    //OBJECT 2
+//    float top_surface2 = obj2.y + (obj2.height/2);
+//    float bottom_surface2 = obj2.y - (obj2.height/2);
+//    float right_surface2 = obj2.x + (obj2.width/2);
+//    float left_surface2 = obj2.x - (obj2.width/2);
+//    
+//    
+//    return ((bottom_surface1 <= top_surface2) || (left_surface1 <= right_surface2) || (top_surface1 >= bottom_surface2) || (right_surface1 >= left_surface2));
+//}
 
 //bool collisonCheck(Entity& obj1, Entity& obj2){
 //    //OBJECT 1
@@ -454,27 +484,27 @@ bool collisonCheck(Entity& obj1, Entity& obj2) {
 //
 //}
 
-void Update(Entity& obj, float lastFrameTicks) {
-    // move stuff and check for collisions
-    float ticks = (float)SDL_GetTicks()/1000.0f;
-    float elapsed = ticks - lastFrameTicks;
-    lastFrameTicks = ticks;
-    
-    //Ball Motion
-    float direction_vector = sqrtf( powf(obj.x, 2.0) + powf(obj.y, 2.0) );
-    float position;
-    
-    position = direction_vector * elapsed;
-    
-    obj.x = position;
-    obj.y = position;
-    obj.Draw();
-    
-}
-void Render() {
-    // for all game elements
-    // setup transforms, render sprites
-}
+//void Update(Entity& obj, float lastFrameTicks) {
+//    // move stuff and check for collisions
+//    float ticks = (float)SDL_GetTicks()/1000.0f;
+//    float elapsed = ticks - lastFrameTicks;
+//    lastFrameTicks = ticks;
+//    
+//    //Ball Motion
+//    float direction_vector = sqrtf( powf(obj.x, 2.0) + powf(obj.y, 2.0) );
+//    float position;
+//    
+//    position = direction_vector * elapsed;
+//    
+//    obj.x = position;
+//    obj.y = position;
+//    obj.Draw();
+//    
+//}
+//void Render() {
+//    // for all game elements
+//    // setup transforms, render sprites
+//}
 void Cleanup() {
     // cleanup joysticks, textures, etc.
     glClear(GL_COLOR_BUFFER_BIT);
