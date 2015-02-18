@@ -49,8 +49,8 @@ int main() {
     bool done = false;
     SDL_Event event;
     
-    Entity p1(-0.9, 0.0, 0.1, 0.5);
-    Entity p2(0.9, 0.0, 0.1, 0.5);
+    Entity p1(-0.9, 0.0, 0.07, 0.333);
+    Entity p2(0.9, 0.0, 0.07, 0.333);
     
     Entity ceiling (0.0, 1.0, 2.0, 0.0625);
     Entity floor (0.0, -1.0, 2.0, 0.0625);
@@ -112,9 +112,10 @@ int main() {
             //Upper Bound
             if ((ball.y + (ball.height/2)) > (ceiling.y - (ceiling.height/2))) {
 //            if (ball.y > 600 - (ceiling.height/2)) {
+//            if (!(ball.y < 1.9)) {
 //                top_collison = true;
 //                ball.y -= position;
-                ball.direction_y = -fabs(ball.direction_y); // force it to be negative
+                ball.direction_y = -fabs(ball.direction_y); // negative
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 p2.Draw();
@@ -126,14 +127,14 @@ int main() {
             }
             //Player 2 arrows
 //            else if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
-            else if (ball.x <= p2.x + p2.width &&
-                     ball.x >= p2.x &&
-                     ball.y <= p2.y + p2.height &&
-                     ball.y >= p2.y){
+            else if (ball.x < p2.x + p2.width &&
+                     ball.x > p2.x &&
+                     ball.y < p2.y + p2.height &&
+                     ball.y > p2.y){
 //                right_collison = true;
 //                ball.x -= position;
                 float t = ((ball.y - p2.y) / p2.height) - 0.5f;
-                ball.direction_x = -fabs(ball.direction_x); // force it to be negative
+                ball.direction_x = -fabs(ball.direction_x); // negative
                 ball.direction_y = t;
                 
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -153,7 +154,7 @@ int main() {
 //                left_collison = true;
 //                ball.x += position;
                 float t = ((ball.y - p1.y) / p1.height) - 0.5f;
-                ball.direction_x = fabs(ball.direction_x); // force it to be positive
+                ball.direction_x = fabs(ball.direction_x); // positive
                 ball.direction_y = t;
                 
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -166,10 +167,11 @@ int main() {
             }
             //Lower Bound
             else if (!((ball.y - (ball.height/2)) > (floor.y + (floor.height/2)))){
-//            else if (ball.y < 600 + (ceiling.height/2)){
+//            else if (ball.y < -600 + (ceiling.height/2)){
+//            else if (!(ball.y > -600)){
 //                bottom_collison = true;
 //                ball.y += position;
-                ball.direction_y = fabs(ball.direction_y); // force it to be positive
+                ball.direction_y = fabs(ball.direction_y); // positive
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 p2.Draw();
@@ -213,13 +215,13 @@ int main() {
 //                ball.y += ball.direction_y * ball.speed;
                 if (ball.direction_x < 0.0) {
                     ball.x -= position;
-                }else{
+                }else if (ball.direction_x > 0.0){
                     ball.x += position;
                 }
                 
                 if (ball.direction_y < 0.0) {
                     ball.y -= position;
-                }else{
+                }else if (ball.direction_y > 0.0){
                     ball.y += position;
                 }
                 
