@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		2C68C7871A87E69A00BFDF6D /* sp_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68C7861A87E69A00BFDF6D /* sp_car.png */; };
 		2CB2F4E81A87F3F600094FCD /* whirlpool.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB2F4E71A87F3F600094FCD /* whirlpool.png */; };
+		2CB8E12C1A943F820015D411 /* pong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC74B1A8E463D001E5DE9 /* pong.cpp */; };
 		2CE77BDB1A882F8600969ED4 /* lx_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE77BDA1A882F8600969ED4 /* lx_car.png */; };
 		2CE77BDD1A882F8E00969ED4 /* truck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE77BDC1A882F8E00969ED4 /* truck.png */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86B619AE5C710066C1FD /* InfoPlist.strings */; };
-		6D5A86BA19AE5C710066C1FD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D5A86B919AE5C710066C1FD /* main.cpp */; };
 		6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86BC19AE5C710066C1FD /* Credits.rtf */; };
 		6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86C519AE5C710066C1FD /* Images.xcassets */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
@@ -22,8 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C02B25F1A9251FB00C08B3D /* hw1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = hw1.cpp; sourceTree = "<group>"; };
+		2C2FC74B1A8E463D001E5DE9 /* pong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pong.cpp; sourceTree = "<group>"; };
+		2C2FC74C1A8E463D001E5DE9 /* pong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pong.h; sourceTree = "<group>"; };
 		2C68C7861A87E69A00BFDF6D /* sp_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sp_car.png; sourceTree = "<group>"; };
+		2C8676651A90F6F40073D7AF /* ptest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ptest.cpp; sourceTree = "<group>"; };
 		2CB2F4E71A87F3F600094FCD /* whirlpool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whirlpool.png; sourceTree = "<group>"; };
+		2CB8E12A1A941FA70015D411 /* pong2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pong2.cpp; sourceTree = "<group>"; };
 		2CE77BDA1A882F8600969ED4 /* lx_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lx_car.png; sourceTree = "<group>"; };
 		2CE77BDC1A882F8E00969ED4 /* truck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = truck.png; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* NYUCodebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUCodebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +152,11 @@
 			isa = PBXGroup;
 			children = (
 				6D5A86B919AE5C710066C1FD /* main.cpp */,
+				2C2FC74B1A8E463D001E5DE9 /* pong.cpp */,
+				2CB8E12A1A941FA70015D411 /* pong2.cpp */,
+				2C8676651A90F6F40073D7AF /* ptest.cpp */,
+				2C02B25F1A9251FB00C08B3D /* hw1.cpp */,
+				2C2FC74C1A8E463D001E5DE9 /* pong.h */,
 			);
 			name = Code;
 			sourceTree = "<group>";
@@ -221,7 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D5A86BA19AE5C710066C1FD /* main.cpp in Sources */,
+				2CB8E12C1A943F820015D411 /* pong.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
