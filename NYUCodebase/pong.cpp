@@ -38,7 +38,7 @@ void Setup();
 void ProcessEvents();
 bool collisonCheck(Entity& obj1, Entity& obj2);
 void Update(Entity& obj, float lastFrameTicks);
-void Render();
+//void Render();
 void Cleanup();
 
 
@@ -401,7 +401,7 @@ int main() {
         }
         SDL_GL_SwapWindow(displayWindow);
         
-        Render();
+//        Render();
         
         
     }
@@ -413,8 +413,8 @@ int main() {
 void Entity::Draw() {
     
     glMatrixMode(GL_MODELVIEW);
-    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
     
+    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
     glLoadIdentity();
     glTranslatef(x, y, 0.0);
     glScalef(width, height, 0.0);

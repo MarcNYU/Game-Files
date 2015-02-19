@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C68C7871A87E69A00BFDF6D /* sp_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68C7861A87E69A00BFDF6D /* sp_car.png */; };
+		2C92CFE61A96388700E42573 /* Game_Algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C92CFE41A96388700E42573 /* Game_Algorithm.cpp */; };
 		2CB2F4E81A87F3F600094FCD /* whirlpool.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CB2F4E71A87F3F600094FCD /* whirlpool.png */; };
 		2CB8E12C1A943F820015D411 /* pong.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC74B1A8E463D001E5DE9 /* pong.cpp */; };
 		2CE77BDB1A882F8600969ED4 /* lx_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE77BDA1A882F8600969ED4 /* lx_car.png */; };
@@ -26,9 +27,11 @@
 		2C2FC74B1A8E463D001E5DE9 /* pong.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pong.cpp; sourceTree = "<group>"; };
 		2C2FC74C1A8E463D001E5DE9 /* pong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pong.h; sourceTree = "<group>"; };
 		2C68C7861A87E69A00BFDF6D /* sp_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sp_car.png; sourceTree = "<group>"; };
-		2C8676651A90F6F40073D7AF /* ptest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ptest.cpp; sourceTree = "<group>"; };
+		2C8676651A90F6F40073D7AF /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		2C92CFE41A96388700E42573 /* Game_Algorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game_Algorithm.cpp; sourceTree = "<group>"; };
+		2C92CFE51A96388700E42573 /* Game_Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game_Algorithm.h; sourceTree = "<group>"; };
 		2CB2F4E71A87F3F600094FCD /* whirlpool.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whirlpool.png; sourceTree = "<group>"; };
-		2CB8E12A1A941FA70015D411 /* pong2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pong2.cpp; sourceTree = "<group>"; };
+		2CB8E12A1A941FA70015D411 /* backup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = backup.cpp; sourceTree = "<group>"; };
 		2CE77BDA1A882F8600969ED4 /* lx_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lx_car.png; sourceTree = "<group>"; };
 		2CE77BDC1A882F8E00969ED4 /* truck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = truck.png; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* NYUCodebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUCodebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,10 +155,12 @@
 			isa = PBXGroup;
 			children = (
 				6D5A86B919AE5C710066C1FD /* main.cpp */,
-				2C2FC74B1A8E463D001E5DE9 /* pong.cpp */,
-				2CB8E12A1A941FA70015D411 /* pong2.cpp */,
-				2C8676651A90F6F40073D7AF /* ptest.cpp */,
 				2C02B25F1A9251FB00C08B3D /* hw1.cpp */,
+				2C2FC74B1A8E463D001E5DE9 /* pong.cpp */,
+				2C92CFE41A96388700E42573 /* Game_Algorithm.cpp */,
+				2C92CFE51A96388700E42573 /* Game_Algorithm.h */,
+				2CB8E12A1A941FA70015D411 /* backup.cpp */,
+				2C8676651A90F6F40073D7AF /* test.cpp */,
 				2C2FC74C1A8E463D001E5DE9 /* pong.h */,
 			);
 			name = Code;
@@ -232,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB8E12C1A943F820015D411 /* pong.cpp in Sources */,
+				2C92CFE61A96388700E42573 /* Game_Algorithm.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
