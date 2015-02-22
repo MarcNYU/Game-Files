@@ -7,32 +7,15 @@
 //
 
 #include "Game_Algorithm.h"
+#include "Entity.h"
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 #include <iostream>
 
+
 SDL_Window* displayWindow;
 
-
-class Entity {
-public:
-    Entity (float xCord, float yCord, float w, float h, float red, float green, float blue) : x(xCord), y(yCord), rotation(0.0), width(w), height(h), r(red), g(green), b(blue){}
-    void DrawVectorGraphic();
-    void DrawSprite();
-    float x;
-    float y;
-    float rotation;
-    GLint textureID;
-    float width;
-    float height;
-    float speed;
-    float direction_x;
-    float direction_y;
-    float r;
-    float g;
-    float b;
-};
 
 void Setup();
 bool ProcessEvents();
