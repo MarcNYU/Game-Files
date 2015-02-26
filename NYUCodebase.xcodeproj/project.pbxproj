@@ -9,18 +9,17 @@
 /* Begin PBXBuildFile section */
 		2C33D2171A98C55B004F86F1 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C33D2161A98C55B004F86F1 /* preview.png */; };
 		2C68C7871A87E69A00BFDF6D /* sp_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C68C7861A87E69A00BFDF6D /* sp_car.png */; };
-		2CA3DC271A9A5E1600BBDA93 /* Space_Invaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E66191A978316001C0DC1 /* Space_Invaders.cpp */; };
-		2CA3DC281A9A61E000BBDA93 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E661E1A978684001C0DC1 /* Entity.cpp */; };
+		2C736AA11A9F5EA4000D1100 /* ClassDemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C33D2141A98B485004F86F1 /* ClassDemoApp.cpp */; };
 		2CA3DC2A1A9A6AF000BBDA93 /* playerShip1_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC291A9A6AF000BBDA93 /* playerShip1_red.png */; };
 		2CA3DC2C1A9A6B0D00BBDA93 /* enemyBlack1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC2B1A9A6B0D00BBDA93 /* enemyBlack1.png */; };
 		2CA3DC2E1A9A6B1A00BBDA93 /* enemyBlue2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC2D1A9A6B1A00BBDA93 /* enemyBlue2.png */; };
 		2CA3DC301A9A6B2B00BBDA93 /* enemyGreen3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC2F1A9A6B2B00BBDA93 /* enemyGreen3.png */; };
 		2CA3DC321A9A6B3800BBDA93 /* enemyRed4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC311A9A6B3800BBDA93 /* enemyRed4.png */; };
 		2CA3DC341A9A6B7F00BBDA93 /* ufoYellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC331A9A6B7F00BBDA93 /* ufoYellow.png */; };
-		2CA3DC361A9A6BB400BBDA93 /* laserBlue01.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC351A9A6BB400BBDA93 /* laserBlue01.png */; };
 		2CA3DC381A9A6BEF00BBDA93 /* meteorGrey_big1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA3DC371A9A6BEF00BBDA93 /* meteorGrey_big1.png */; };
 		2CE77BDB1A882F8600969ED4 /* lx_car.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE77BDA1A882F8600969ED4 /* lx_car.png */; };
 		2CE77BDD1A882F8E00969ED4 /* truck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE77BDC1A882F8E00969ED4 /* truck.png */; };
+		2CFEE1FE1A9B717C00975BE5 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2E661E1A978684001C0DC1 /* Entity.cpp */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86B619AE5C710066C1FD /* InfoPlist.strings */; };
 		6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86BC19AE5C710066C1FD /* Credits.rtf */; };
@@ -43,6 +42,7 @@
 		2C33D2141A98B485004F86F1 /* ClassDemoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ClassDemoApp.cpp; sourceTree = "<group>"; };
 		2C33D2161A98C55B004F86F1 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
 		2C68C7861A87E69A00BFDF6D /* sp_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sp_car.png; sourceTree = "<group>"; };
+		2C7309581A9D2D7E00EECAD7 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		2C92CFE41A96388700E42573 /* Game_Algorithm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Game_Algorithm.cpp; sourceTree = "<group>"; };
 		2C92CFE51A96388700E42573 /* Game_Algorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game_Algorithm.h; sourceTree = "<group>"; };
 		2CA3DC241A9A45A900BBDA93 /* default.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = default.cpp; sourceTree = "<group>"; };
@@ -52,7 +52,6 @@
 		2CA3DC2F1A9A6B2B00BBDA93 /* enemyGreen3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemyGreen3.png; sourceTree = "<group>"; };
 		2CA3DC311A9A6B3800BBDA93 /* enemyRed4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemyRed4.png; sourceTree = "<group>"; };
 		2CA3DC331A9A6B7F00BBDA93 /* ufoYellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ufoYellow.png; sourceTree = "<group>"; };
-		2CA3DC351A9A6BB400BBDA93 /* laserBlue01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laserBlue01.png; sourceTree = "<group>"; };
 		2CA3DC371A9A6BEF00BBDA93 /* meteorGrey_big1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = meteorGrey_big1.png; sourceTree = "<group>"; };
 		2CE77BDA1A882F8600969ED4 /* lx_car.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lx_car.png; sourceTree = "<group>"; };
 		2CE77BDC1A882F8E00969ED4 /* truck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = truck.png; sourceTree = "<group>"; };
@@ -153,7 +152,6 @@
 				2CA3DC311A9A6B3800BBDA93 /* enemyRed4.png */,
 				2CA3DC331A9A6B7F00BBDA93 /* ufoYellow.png */,
 				2CA3DC291A9A6AF000BBDA93 /* playerShip1_red.png */,
-				2CA3DC351A9A6BB400BBDA93 /* laserBlue01.png */,
 				2CA3DC371A9A6BEF00BBDA93 /* meteorGrey_big1.png */,
 				6D5A86C519AE5C710066C1FD /* Images.xcassets */,
 				6D5A86B519AE5C710066C1FD /* NYUCodebase-Info.plist */,
@@ -190,6 +188,7 @@
 				2C2FC74C1A8E463D001E5DE9 /* pong.h */,
 				2CA3DC241A9A45A900BBDA93 /* default.cpp */,
 				2C2E66191A978316001C0DC1 /* Space_Invaders.cpp */,
+				2C7309581A9D2D7E00EECAD7 /* player.cpp */,
 				2C33D2121A98B459004F86F1 /* SpriteSheet.cpp */,
 				2C2E661B1A978345001C0DC1 /* SpriteSheet.h */,
 				2C2E661E1A978684001C0DC1 /* Entity.cpp */,
@@ -261,7 +260,6 @@
 				2CA3DC2A1A9A6AF000BBDA93 /* playerShip1_red.png in Resources */,
 				2C68C7871A87E69A00BFDF6D /* sp_car.png in Resources */,
 				2CA3DC321A9A6B3800BBDA93 /* enemyRed4.png in Resources */,
-				2CA3DC361A9A6BB400BBDA93 /* laserBlue01.png in Resources */,
 				2CA3DC2C1A9A6B0D00BBDA93 /* enemyBlack1.png in Resources */,
 				2CA3DC2E1A9A6B1A00BBDA93 /* enemyBlue2.png in Resources */,
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
@@ -280,8 +278,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CA3DC281A9A61E000BBDA93 /* Entity.cpp in Sources */,
-				2CA3DC271A9A5E1600BBDA93 /* Space_Invaders.cpp in Sources */,
+				2CFEE1FE1A9B717C00975BE5 /* Entity.cpp in Sources */,
+				2C736AA11A9F5EA4000D1100 /* ClassDemoApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

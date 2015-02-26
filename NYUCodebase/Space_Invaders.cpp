@@ -22,11 +22,13 @@ SDL_Window* displayWindow;
 
 class Bullet : public Entity {
 public:
+    Bullet() : Entity(0, x, y, 0.015625, 0.03125, 1.0){}
     void Update(float elapsed) {y += elapsed;}
     float x;
     float y;
     bool visible;
     float angle;
+//    int texture;
 };
 
 
@@ -36,7 +38,7 @@ void playerControls(Entity player);
 GLuint LoadTexture(const char *image_path);
 void DrawSpriteSheetSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
 void DrawText(int fontTexture, std::string text, float size, float spacing, float r, float g, float b, float a);
-void shootBullet(Bullet bullets[MAX_BULLETS], int bulletIndex);
+void shootBullet(std::vector<Bullet> bullets, int bulletIndex);
 
 
 void Setup();
@@ -66,32 +68,40 @@ int main(int argc, char *argv[])
     pace = elapsed;
     int phase = 0;
     
-    const int runAnimation[] = {9, 10, 11, 12, 13};
-    const int numFrames = 5;
-    float animationElapsed = 0.0f;
-    float framesPerSecond = 30.0f;
-    
-    int index = 10;
-    int spriteCountX = 8;
-    int spriteCountY = 4;
-    float u = (float)(((int)index) % spriteCountX) / (float) spriteCountX;
-    float v = (float)(((int)index) / spriteCountX) / (float) spriteCountY;
-    float spriteWidth = 1.0/(float)spriteCountX;
-    float spriteHeight = 1.0/(float)spriteCountY;
-    GLfloat quadUVs[] = { u, v,
-        u, v+spriteHeight,
-        u+spriteWidth, v+spriteHeight,
-        u+spriteWidth, v};
     
     
+    Entity nullSpace(0, 0.0, 0.0, 0.0, 0.0, 0.0);
     
-    std::vector<Bullet> bullets;
-    for (int amt = 0; amt < MAX_BULLETS; amt++) {
-        Bullet lazer;
-    }
     
     /*----------------------------------PLAYER-------------------------------------*/
     Entity player(LoadTexture("playerShip1_red.png"), 0.0, -0.9, 0.1, 0.1, 0.001);
+    
+    /*----------------------------------BULLETS-------------------------------------*/
+    std::vector<Entity> bullets;
+//    for (int amt = 0; amt < MAX_BULLETS; amt++) {
+//        Bullet laser;
+//        laser.x = player.x;
+//        laser.y = player.y;
+//        laser.visible = false;
+//        laser.angle = 0.0;
+//        
+//        bullets.push_back(laser);
+//    }
+    for (int amt = 0; amt < MAX_BULLETS; amt++) {
+        Entity laser(0, player.x, player.y, 0.015625, 0.03125, 1.0);
+        //        laser.x = player.x;
+        //        laser.y = -0.7;
+        //        laser.visible = false;
+        //        laser.angle = 0.0;
+        bullets.push_back(laser);
+    }
+    
+    bool shot = false;
+    int clip = -1;
+    
+    
+    
+//    Entity laser(0, player.x, -0.9, 0.015625, 0.03125, 0.001);
     
     /*----------------------------------ALIENS-------------------------------------*/
     float zero_position_x = -.9;
@@ -103,15 +113,15 @@ int main(int argc, char *argv[])
     std::vector<Entity> enemyLine5 = makeEnemyLine(LoadTexture("enemyBlack1.png"), zero_position_x, 0.4, 0.0625, 0.0625, 0.001);
     
     /*----------------------------------WALLS-------------------------------------*/
-    float cord = -1.1;
-    
-    std::vector<Entity> walls;
-    for (size_t i = 0; i < 4; i++) {
-        cord += 0.436;
-        Entity blocker(LoadTexture("meteorGrey_big1.png"), cord, -0.7, 0.2, 0.0625, 0);
-        walls.push_back(blocker);
-        
-    }
+//    float cord = -1.1;
+//    
+//    std::vector<Entity> walls;
+//    for (size_t i = 0; i < 4; i++) {
+//        cord += 0.436;
+//        Entity blocker(LoadTexture("meteorGrey_big1.png"), cord, -0.7, 0.2, 0.0625, 0);
+//        walls.push_back(blocker);
+//        
+//    }
     /*----------------------------------GAME LOOP-------------------------------------*/
     while (!done) {
         while (SDL_PollEvent(&event)) {
@@ -130,26 +140,51 @@ int main(int argc, char *argv[])
 //            DrawSpriteSheetSprite(spriteTestTexture, runAnimation[currentIndex], 8, 4);
             
             /*----------------------------------PLAYER-------------------------------------*/
-            
             if(keys[SDL_SCANCODE_RIGHT]) {
                 if ((player.x + (player.height/2)) < 0.95) {
                     float x_position = player.speed;
+                    //                    bullets[clip].x = player.x;
                     player.x += x_position;
                     glClear(GL_COLOR_BUFFER_BIT);
                     //Update
+                    //                    bullets[clip].Draw();
                     player.Draw();
                 }
             } else if(keys[SDL_SCANCODE_LEFT]) {
                 if ((player.x - (player.height/2)) > -0.95) {
                     float x_position = player.speed;
+                    //                    bullets[clip].x = player.x;
                     player.x -= x_position;
                     glClear(GL_COLOR_BUFFER_BIT);
                     //Update
+                    //                    bullets[clip].Draw();
                     player.Draw();
                 }
             } else if(keys[SDL_SCANCODE_SPACE]) {
-                shootBullet(<#Bullet *bullets#>, <#int bulletIndex#>)
+                shot = true;
+                clip++;
+                bullets[clip].x = player.x;
             }
+            
+            
+            if (clip < bullets.size()) {
+                if (shot == true) {
+                    //                    bullets[clip].x = player.x;
+                    //                    glLoadIdentity();
+                    bullets[clip].y += 0.01;
+                    glClear(GL_COLOR_BUFFER_BIT);
+                    bullets[clip].Draw();
+                    player.Draw();
+                    if (bullets[clip].y > 1.1) {
+                        bullets[clip].y = player.y;
+                        bullets[clip].x = player.x;
+                        shot = false;
+                    }
+                    
+                }
+                
+            } else
+                clip = 0;
 
             
             /*----------------------------------ENENIES-------------------------------------*/
@@ -166,7 +201,67 @@ int main(int argc, char *argv[])
                         enemyLine4[i].x += pace;
                         enemyLine5[i].x += pace;
                         
+                        if (bullets[clip].x == enemyLine1[i].x || (bullets[clip].x >= (enemyLine1[i].x - (enemyLine1[i].width/2)) && bullets[clip].x <= (enemyLine1[i].x + (enemyLine1[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine1[i].y - (enemyLine1[i].height/2))) {
+                                if (enemyLine1[i].textureID != nullSpace.textureID) {
+                                    enemyLine1[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine2[i].x || (bullets[clip].x >= (enemyLine2[i].x - (enemyLine2[i].width/2)) && bullets[clip].x <= (enemyLine2[i].x + (enemyLine2[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine2[i].y - (enemyLine2[i].height/2))) {
+                                if (enemyLine2[i].textureID != nullSpace.textureID) {
+                                    enemyLine2[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine3[i].x || (bullets[clip].x >= (enemyLine3[i].x - (enemyLine3[i].width/2)) && bullets[clip].x <= (enemyLine3[i].x + (enemyLine3[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine3[i].y - (enemyLine3[i].height/2))) {
+                                if (enemyLine3[i].textureID != nullSpace.textureID) {
+                                    enemyLine3[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine4[i].x || (bullets[clip].x >= (enemyLine4[i].x - (enemyLine4[i].width/2)) && bullets[clip].x <= (enemyLine4[i].x + (enemyLine4[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine4[i].y - (enemyLine4[i].height/2))) {
+                                if (enemyLine4[i].textureID != nullSpace.textureID) {
+                                    enemyLine4[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine5[i].x || (bullets[clip].x >= (enemyLine5[i].x - (enemyLine5[i].width/2)) && bullets[clip].x <= (enemyLine5[i].x + (enemyLine5[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine5[i].y - (enemyLine5[i].height/2))) {
+                                if (enemyLine5[i].textureID != nullSpace.textureID) {
+                                    enemyLine5[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } 
                         
+                        //REDRAW ASSETS
+                        if (shot == true) {
+                            bullets[clip].Draw();
+                        }
                         player.Draw();
                         
                         enemyLine1[i].Draw();
@@ -174,50 +269,51 @@ int main(int argc, char *argv[])
                         enemyLine3[i].Draw();
                         enemyLine4[i].Draw();
                         enemyLine5[i].Draw();
-                        walls[0].Draw();
-                        walls[1].Draw();
-                        walls[2].Draw();
-                        walls[3].Draw();
+//                        walls[0].Draw();
+//                        walls[1].Draw();
+//                        walls[2].Draw();
+//                        walls[3].Draw();
+                        
+
                         
                         switch (phase) {
                             case 2:
-                                pace += lastFrameTicks/9000;
-                                enemyLine1[i].y = -0.3;
+                                pace += lastFrameTicks/9000;//SPEED SHIFT
+                                enemyLine1[i].y = -0.3;//BOTTOMLINE
                                 enemyLine2[i].y = -0.2;
                                 enemyLine3[i].y = -0.1;
                                 enemyLine4[i].y = 0.0;
-                                enemyLine5[i].y = 0.1;
+                                enemyLine5[i].y = 0.1;//TOPLINE
                                 break;
                             case 4:
-                                pace += lastFrameTicks/7000;
-                                enemyLine1[i].y = -0.5;
+                                pace += lastFrameTicks/7000;//SPEED SHIFT
+                                enemyLine1[i].y = -0.5;//BOTTOMLINE
                                 enemyLine2[i].y = -0.4;
                                 enemyLine3[i].y = -0.3;
                                 enemyLine4[i].y = -0.2;
-                                enemyLine5[i].y = -0.1;
+                                enemyLine5[i].y = -0.1;//TOPLINE
                                 break;
                             case 6:
-                                pace += lastFrameTicks/500;
-//                                enemyLine1[i].y = -0.7;
+//                                pace += lastFrameTicks/3000;//SPEED SHIFT
+//                                enemyLine1[i].y = -0.7;//BOTTOMLINE
                                 enemyLine2[i].y = -0.6;
                                 enemyLine3[i].y = -0.5;
                                 enemyLine4[i].y = -0.4;
-                                enemyLine5[i].y = -0.3;
+                                enemyLine5[i].y = -0.3;//TOPLINE
                                 break;
                             case 8:
-                                pace += lastFrameTicks/300;
-//                                enemyLine1[i].y = -0.9;
+//                                pace += lastFrameTicks/3000;//SPEED SHIFT
+//                                enemyLine1[i].y = -0.9;//BOTTOMLINE
 //                                enemyLine2[i].y = -0.8;
 //                                enemyLine3[i].y = -0.7;
                                 enemyLine4[i].y = -0.6;
-                                enemyLine5[i].y = -0.5;
+                                enemyLine5[i].y = -0.5;//TOPLINE
                                 break;
                             default:
                                 break;
                         }
                         
                     }
-                    //Draw
                 }else {
                     phase++;
                     std::cout << phase << std::endl;
@@ -239,6 +335,67 @@ int main(int argc, char *argv[])
                         enemyLine4[i].x -= pace;
                         enemyLine5[i].x -= pace;
                         
+                        if (bullets[clip].x == enemyLine1[i].x || (bullets[clip].x >= (enemyLine1[i].x - (enemyLine1[i].width/2)) && bullets[clip].x <= (enemyLine1[i].x + (enemyLine1[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine1[i].y - (enemyLine1[i].height/2))) {
+                                if (enemyLine1[i].textureID != nullSpace.textureID) {
+                                    enemyLine1[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine2[i].x || (bullets[clip].x >= (enemyLine2[i].x - (enemyLine2[i].width/2)) && bullets[clip].x <= (enemyLine2[i].x + (enemyLine2[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine2[i].y - (enemyLine2[i].height/2))) {
+                                if (enemyLine2[i].textureID != nullSpace.textureID) {
+                                    enemyLine2[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine3[i].x || (bullets[clip].x >= (enemyLine3[i].x - (enemyLine3[i].width/2)) && bullets[clip].x <= (enemyLine3[i].x + (enemyLine3[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine3[i].y - (enemyLine3[i].height/2))) {
+                                if (enemyLine3[i].textureID != nullSpace.textureID) {
+                                    enemyLine3[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine4[i].x || (bullets[clip].x >= (enemyLine4[i].x - (enemyLine4[i].width/2)) && bullets[clip].x <= (enemyLine4[i].x + (enemyLine4[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine4[i].y - (enemyLine4[i].height/2))) {
+                                if (enemyLine4[i].textureID != nullSpace.textureID) {
+                                    enemyLine4[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        } else if (bullets[clip].x == enemyLine5[i].x || (bullets[clip].x >= (enemyLine5[i].x - (enemyLine5[i].width/2)) && bullets[clip].x <= (enemyLine5[i].x + (enemyLine5[i].width/2)))) {
+                            if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine5[i].y - (enemyLine5[i].height/2))) {
+                                if (enemyLine5[i].textureID != nullSpace.textureID) {
+                                    enemyLine5[i] = nullSpace;
+                                    bullets[clip].y = player.y;
+                                    bullets[clip].x = player.x;
+                                    shot = false;
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                        //REDRAW ASSETS
+                        if (shot == true) {
+                            bullets[clip].Draw();
+                        }
                         player.Draw();
                         
                         enemyLine1[i].Draw();
@@ -246,58 +403,59 @@ int main(int argc, char *argv[])
                         enemyLine3[i].Draw();
                         enemyLine4[i].Draw();
                         enemyLine5[i].Draw();
-                        walls[0].Draw();
-                        walls[1].Draw();
-                        walls[2].Draw();
-                        walls[3].Draw();
+//                        walls[0].Draw();
+//                        walls[1].Draw();
+//                        walls[2].Draw();
+//                        walls[3].Draw();
+                        
+
                         
                         switch (phase) {
                             case 1:
-                                pace += lastFrameTicks/9000;
-                                enemyLine1[i].y = -0.2;
+                                pace += lastFrameTicks/9000;//SPEED SHIFT
+                                enemyLine1[i].y = -0.2;//BOTTOMLINE
                                 enemyLine2[i].y = -0.1;
                                 enemyLine3[i].y = 0.0;
                                 enemyLine4[i].y = 0.1;
-                                enemyLine5[i].y = 0.2;
+                                enemyLine5[i].y = 0.2;//TOPLINE
                                 break;
                             case 3:
-                                pace += lastFrameTicks/7000;
-                                enemyLine1[i].y = -0.4;
+                                pace += lastFrameTicks/7000;//SPEED SHIFT
+                                enemyLine1[i].y = -0.4;//BOTTOMLINE
                                 enemyLine2[i].y = -0.3;
                                 enemyLine3[i].y = -0.2;
                                 enemyLine4[i].y = -0.1;
-                                enemyLine5[i].y = 0.0;
+                                enemyLine5[i].y = 0.0;//TOPLINE
                                 break;
                             case 5:
-                                pace += lastFrameTicks/500;
-                                enemyLine1[i].y = -0.6;
+//                                pace += lastFrameTicks/5000;//SPEED SHIFT
+                                enemyLine1[i].y = -0.6;//BOTTOMLINE
                                 enemyLine2[i].y = -0.5;
                                 enemyLine3[i].y = -0.4;
                                 enemyLine4[i].y = -0.3;
-                                enemyLine5[i].y = -0.2;
+                                enemyLine5[i].y = -0.2;//TOPLINE
                                 break;
                             case 7:
-                                pace += lastFrameTicks/300;
-//                                enemyLine1[i].y = -0.8;
+//                                pace += lastFrameTicks/3000;//SPEED SHIFT
+//                                enemyLine1[i].y = -0.8;//BOTTOMLINE
 //                                enemyLine2[i].y = -0.7;
                                 enemyLine3[i].y = -0.6;
                                 enemyLine4[i].y = -0.5;
-                                enemyLine5[i].y = -0.4;
+                                enemyLine5[i].y = -0.4;//TOPLINE
                                 break;
                             case 9:
-                                pace += lastFrameTicks/300;
-//                                enemyLine1[i].y = -1.0;
+//                                pace += lastFrameTicks/3000;//SPEED SHIFT
+//                                enemyLine1[i].y = -1.0;//BOTTOMLINE
 //                                enemyLine2[i].y = -0.9;
 //                                enemyLine3[i].y = -0.8;
 //                                enemyLine4[i].y = -0.7;
-                                enemyLine5[i].y = -0.6;
+                                enemyLine5[i].y = -0.6;//TOPLINE
                                 break;
                             default:
                                 break;
                         }
                         
                     }
-                    //Draw
                 }else {
                     phase++;
                     std::cout << phase << std::endl;
@@ -365,13 +523,14 @@ GLuint LoadTexture(const char *image_path) {
     glBindTexture(GL_TEXTURE_2D, textureID);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_BGRA,
                  GL_UNSIGNED_BYTE, surface->pixels);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     SDL_FreeSurface(surface);
     return textureID;
 }
 
 void shootBullet(Bullet bullets[MAX_BULLETS], int bulletIndex) {
+    bullets[bulletIndex].Draw();
     bullets[bulletIndex].visible = true;
 //    bullets[bulletIndex].x = -1.2;
     bullets[bulletIndex].y = -0.7;
@@ -423,6 +582,19 @@ void DrawText(int fontTexture, std::string text, float size, float spacing, floa
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
     glDrawArrays(GL_QUADS, 0, text.size() * 4);
 }
+
+
+
+
+
+
+
+
+/*-----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
 
 
 
