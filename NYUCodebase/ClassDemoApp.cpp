@@ -11,8 +11,6 @@
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 
-#define MAX_BULLETS 30
-
 
 class ClassDemoApp {
 public:
@@ -27,21 +25,9 @@ private:
     bool done;
     float lastFrameTicks;
     SDL_Window* displayWindow;
-    int bulletIndex = 0;
-//    Bullet bullets[MAX_BULLETS];
 };
 
 
-//void ClassDemoApp::shootBullet() {
-//    bullets[bulletIndex].visible = true;
-//    bullets[bulletIndex].x = -1.2;
-//    bullets[bulletIndex].y = 0.0;
-//    bullets[bulletIndex].angle = (float)(45 - (rand() % 90));
-//    bulletIndex++;
-//    if(bulletIndex > MAX_BULLETS-1) {
-//        bulletIndex = 0;
-//    }
-//}
 
 enum GameState { STATE_MAIN_MENU, STATE_GAME_LEVEL };
 

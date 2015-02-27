@@ -86,299 +86,6 @@ int main() {
             if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
                 done = true;
             }
-            
-            
-            //FIX COLISIONS
-            
-            /*----------------------------------BALL-------------------------------------*/
-            
-            // move stuff and check for collisions
-            float ticks = (float)SDL_GetTicks()/3000.0f;
-            float elapsed = ticks - lastFrameTicks;
-            lastFrameTicks = ticks;
-            
-            float position;
-            
-            position = elapsed;
-            
-            
-            float length = sqrt((ball.direction_x * ball.direction_x) + (ball.direction_y * ball.direction_y));
-            if (length != 0.0f) {
-                length = 1.0f / length;
-                ball.direction_x *= length;
-                ball.direction_y *= length;
-                
-            }
-            //Upper Bound
-            if ((ball.y + (ball.height/2)) > (ceiling.y - (ceiling.height/2))) {
-//            if (ball.y > 600 - (ceiling.height/2)) {
-//            if (!(ball.y < 1.9)) {
-//                top_collison = true;
-                ball.y -= position;
-                ball.direction_y = -fabs(ball.direction_y); // negative
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-            }
-            //Player 1 wasd
-//            else if (!((ball.x - (ball.width/2)) > (p2.x + (p2.width/2)))){
-            else if (ball.x <= p1.x + p1.width &&
-                     ball.x >= p1.x &&
-                     ball.y <= p1.y + p1.height &&
-                     ball.y >= p1.y){
-//                left_collison = true;
-                ball.x += position;
-                float t = ((ball.y - p1.y) / p1.height) - 0.5f;
-                ball.direction_x = fabs(ball.direction_x); // positive
-                ball.direction_y = t;
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-            }
-            //Player 2 arrows
-//            else if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
-            else if (ball.x >= p2.x &&
-                     ball.x <= p2.x + p2.width &&
-                     ball.y <= p2.y + p2.height &&
-                     ball.y >= p2.y){
-//                right_collison = true;
-                ball.x -= position;
-                float t = ((ball.y - p2.y) / p2.height) - 0.5f;
-                ball.direction_x = -fabs(ball.direction_x); // negative
-                ball.direction_y = t;
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-            }
-            //Lower Bound
-            else if (!((ball.y - (ball.height/2)) > (floor.y + (floor.height/2)))){
-//            else if (ball.y < -600 + (ceiling.height/2)){
-//            else if (!(ball.y > -600)){
-//                bottom_collison = true;
-                ball.y += position;
-                ball.direction_y = fabs(ball.direction_y); // positive
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-            }
-            // hit left wall
-            else if (ball.x < -1.0) {
-                //score_right;
-                p2.g = 0.0;
-                p2.b = 0.0;
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-
-            }
-            // hit right wall
-            else if (ball.x > 1.0) {
-                //score_left;
-                p1.g = 0.0;
-                p1.b = 0.0;
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                p2.Draw();
-                p1.Draw();
-                ceiling.Draw();
-                floor.Draw();
-                net.Draw();
-                ball.Draw();
-                
-            }else{
-//                ball.x += ball.direction_x * ball.speed;
-//                ball.y += ball.direction_y * ball.speed;
-                if (ball.direction_x < 0.0) {
-                    ball.x -= position;
-                    
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }else if (ball.direction_x > 0.0){
-                    ball.x += position;
-                    
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-                if (ball.direction_y < 0.0) {
-                    ball.y -= position;
-                    
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }else if (ball.direction_y > 0.0){
-                    ball.y += position;
-                    
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-                
-                
-                
-//                if ((top_collison == false) && (bottom_collison == false) && (right_collison == false) && (left_collison == false)) {
-//                    ball.x -= positionX;
-////                    ball.y += positionY;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    p1.Draw();
-//                    p2.Draw();
-//                    ceiling.Draw();
-//                    floor.Draw();
-//                    net.Draw();
-//                    ball.Draw();
-//                }
-//                else if(top_collison == true){
-//                    ball.y -= positionY;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    p1.Draw();
-//                    p2.Draw();
-//                    ceiling.Draw();
-//                    floor.Draw();
-//                    net.Draw();
-//                    ball.Draw();
-//                }
-//                else if(right_collison == true){
-//                    ball.x -= positionX;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    p1.Draw();
-//                    p2.Draw();
-//                    ceiling.Draw();
-//                    floor.Draw();
-//                    net.Draw();
-//                    ball.Draw();
-//                }
-//                else if(bottom_collison == true){
-//                    ball.y += positionY;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    p1.Draw();
-//                    p2.Draw();
-//                    ceiling.Draw();
-//                    floor.Draw();
-//                    net.Draw();
-//                    ball.Draw();
-//                }
-//                else if(left_collison == true){
-//                    ball.x += positionX;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    p1.Draw();
-//                    p2.Draw();
-//                    ceiling.Draw();
-//                    floor.Draw();
-//                    net.Draw();
-//                    ball.Draw();
-//                }
-            }
-            
-            
-            
-            /*----------------------------------PLAYER-------------------------------------*/
-            if(keys[SDL_SCANCODE_UP]) {
-//                std::cout<<"UP"<<std::endl;
-                if ((ceiling.y - (ceiling.height/2)) >= (p2.y + (p2.height/2))) {
-                    float y_position = 0.02;
-                    p2.y += y_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-                
-                
-            } else if(keys[SDL_SCANCODE_DOWN]) {
-//                std::cout<<"DOWN"<<std::endl;
-                if ((floor.y + (floor.height/2)) <= (p2.y - (p2.height/2))) {
-                    float y_position = 0.02;
-                    p2.y -= y_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-
-            }
-            if(keys[SDL_SCANCODE_W]) {
-//                std::cout<<"W"<<std::endl;
-                if ((ceiling.y - (ceiling.height/2)) >= (p1.y + (p1.height/2))) {
-                    float y_position = 0.02;
-                    p1.y += y_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-                
-            } else if(keys[SDL_SCANCODE_S]) {
-//                std::cout<<"S"<<std::endl;
-                if ((floor.y + (floor.height/2)) <= (p1.y - (p1.height/2))) {
-                    float y_position = 0.02;
-                    p1.y -= y_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    p2.Draw();
-                    p1.Draw();
-                    ceiling.Draw();
-                    floor.Draw();
-                    net.Draw();
-                    ball.Draw();
-                }
-                
-            }
-
             else if(event.type == SDL_KEYDOWN) {
                 if(event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
                     ball.x = 0.0;
@@ -398,7 +105,302 @@ int main() {
                     ball.Draw();
                 }
             }
+
         }
+        //FIX COLISIONS
+        
+        /*----------------------------------BALL-------------------------------------*/
+        
+        // move stuff and check for collisions
+        float ticks = (float)SDL_GetTicks()/3000.0f;
+        float elapsed = ticks - lastFrameTicks;
+        lastFrameTicks = ticks;
+        
+        float position;
+        
+        position = elapsed;
+        
+        
+        float length = sqrt((ball.direction_x * ball.direction_x) + (ball.direction_y * ball.direction_y));
+        if (length != 0.0f) {
+            length = 1.0f / length;
+            ball.direction_x *= length;
+            ball.direction_y *= length;
+            
+        }
+        //Upper Bound
+        if ((ball.y + (ball.height/2)) > (ceiling.y - (ceiling.height/2))) {
+            //            if (ball.y > 600 - (ceiling.height/2)) {
+            //            if (!(ball.y < 1.9)) {
+            //                top_collison = true;
+            ball.y -= position;
+            ball.direction_y = -fabs(ball.direction_y); // negative
+            
+            glClear(GL_COLOR_BUFFER_BIT);
+            p2.Draw();
+            p1.Draw();
+            ceiling.Draw();
+            floor.Draw();
+            net.Draw();
+            ball.Draw();
+        }
+        //Player 1 wasd
+        //            else if (!((ball.x - (ball.width/2)) > (p2.x + (p2.width/2)))){
+        else if (ball.x <= p1.x + p1.width &&
+                 ball.x >= p1.x &&
+                 ball.y <= p1.y + p1.height &&
+                 ball.y >= p1.y){
+            //                left_collison = true;
+            ball.x += position;
+            float t = ((ball.y - p1.y) / p1.height) - 0.5f;
+            ball.direction_x = fabs(ball.direction_x); // positive
+            ball.direction_y = t;
+            
+            glClear(GL_COLOR_BUFFER_BIT);
+            p2.Draw();
+            p1.Draw();
+            ceiling.Draw();
+            floor.Draw();
+            net.Draw();
+            ball.Draw();
+        }
+        //Player 2 arrows
+        //            else if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
+        else if (ball.x >= p2.x &&
+                 ball.x <= p2.x + p2.width &&
+                 ball.y <= p2.y + p2.height &&
+                 ball.y >= p2.y){
+            //                right_collison = true;
+            if (!((ball.x + (ball.width/2)) < (p1.x - (p1.width/2)))){
+                ball.x -= position;
+                float t = ((ball.y - p2.y) / p2.height) - 0.5f;
+                ball.direction_x = -fabs(ball.direction_x); // negative
+                ball.direction_y = t;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+        }
+        //Lower Bound
+        else if (!((ball.y - (ball.height/2)) > (floor.y + (floor.height/2)))){
+            //            else if (ball.y < -600 + (ceiling.height/2)){
+            //            else if (!(ball.y > -600)){
+            //                bottom_collison = true;
+            ball.y += position;
+            ball.direction_y = fabs(ball.direction_y); // positive
+            
+            glClear(GL_COLOR_BUFFER_BIT);
+            p2.Draw();
+            p1.Draw();
+            ceiling.Draw();
+            floor.Draw();
+            net.Draw();
+            ball.Draw();
+        }
+        // hit left wall
+        else if (ball.x < -1.0) {
+            //score_right;
+            p2.g = 0.0;
+            p2.b = 0.0;
+            
+            glClear(GL_COLOR_BUFFER_BIT);
+            p2.Draw();
+            p1.Draw();
+            ceiling.Draw();
+            floor.Draw();
+            net.Draw();
+            ball.Draw();
+            
+        }
+        // hit right wall
+        else if (ball.x > 1.0) {
+            //score_left;
+            p1.g = 0.0;
+            p1.b = 0.0;
+            
+            glClear(GL_COLOR_BUFFER_BIT);
+            p2.Draw();
+            p1.Draw();
+            ceiling.Draw();
+            floor.Draw();
+            net.Draw();
+            ball.Draw();
+            
+        }else{
+            //                ball.x += ball.direction_x * ball.speed;
+            //                ball.y += ball.direction_y * ball.speed;
+            if (ball.direction_x < 0.0) {
+                ball.x -= position;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }else if (ball.direction_x > 0.0){
+                ball.x += position;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+            if (ball.direction_y < 0.0) {
+                ball.y -= position;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }else if (ball.direction_y > 0.0){
+                ball.y += position;
+                
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+            
+            
+            
+            //                if ((top_collison == false) && (bottom_collison == false) && (right_collison == false) && (left_collison == false)) {
+            //                    ball.x -= positionX;
+            ////                    ball.y += positionY;
+            //                    glClear(GL_COLOR_BUFFER_BIT);
+            //                    p1.Draw();
+            //                    p2.Draw();
+            //                    ceiling.Draw();
+            //                    floor.Draw();
+            //                    net.Draw();
+            //                    ball.Draw();
+            //                }
+            //                else if(top_collison == true){
+            //                    ball.y -= positionY;
+            //                    glClear(GL_COLOR_BUFFER_BIT);
+            //                    p1.Draw();
+            //                    p2.Draw();
+            //                    ceiling.Draw();
+            //                    floor.Draw();
+            //                    net.Draw();
+            //                    ball.Draw();
+            //                }
+            //                else if(right_collison == true){
+            //                    ball.x -= positionX;
+            //                    glClear(GL_COLOR_BUFFER_BIT);
+            //                    p1.Draw();
+            //                    p2.Draw();
+            //                    ceiling.Draw();
+            //                    floor.Draw();
+            //                    net.Draw();
+            //                    ball.Draw();
+            //                }
+            //                else if(bottom_collison == true){
+            //                    ball.y += positionY;
+            //                    glClear(GL_COLOR_BUFFER_BIT);
+            //                    p1.Draw();
+            //                    p2.Draw();
+            //                    ceiling.Draw();
+            //                    floor.Draw();
+            //                    net.Draw();
+            //                    ball.Draw();
+            //                }
+            //                else if(left_collison == true){
+            //                    ball.x += positionX;
+            //                    glClear(GL_COLOR_BUFFER_BIT);
+            //                    p1.Draw();
+            //                    p2.Draw();
+            //                    ceiling.Draw();
+            //                    floor.Draw();
+            //                    net.Draw();
+            //                    ball.Draw();
+            //                }
+        }
+        
+        
+        
+        /*----------------------------------PLAYER-------------------------------------*/
+        if(keys[SDL_SCANCODE_UP]) {
+            //                std::cout<<"UP"<<std::endl;
+            if ((ceiling.y - (ceiling.height/2)) >= (p2.y + (p2.height/2))) {
+                float y_position = 0.02;
+                p2.y += y_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+            
+            
+        } else if(keys[SDL_SCANCODE_DOWN]) {
+            //                std::cout<<"DOWN"<<std::endl;
+            if ((floor.y + (floor.height/2)) <= (p2.y - (p2.height/2))) {
+                float y_position = 0.02;
+                p2.y -= y_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+            
+        }
+        if(keys[SDL_SCANCODE_W]) {
+            //                std::cout<<"W"<<std::endl;
+            if ((ceiling.y - (ceiling.height/2)) >= (p1.y + (p1.height/2))) {
+                float y_position = 0.02;
+                p1.y += y_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+            
+        } else if(keys[SDL_SCANCODE_S]) {
+            //                std::cout<<"S"<<std::endl;
+            if ((floor.y + (floor.height/2)) <= (p1.y - (p1.height/2))) {
+                float y_position = 0.02;
+                p1.y -= y_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                p2.Draw();
+                p1.Draw();
+                ceiling.Draw();
+                floor.Draw();
+                net.Draw();
+                ball.Draw();
+            }
+            
+        }
+        
+        
         SDL_GL_SwapWindow(displayWindow);
         
 //        Render();

@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     
     pace = elapsed;
     
-     Entity nullSpace(0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    Entity nullSpace(0, 0.0, 0.0, 0.0, 0.0, 0.0);
     
     /*----------------------------------PLAYER-------------------------------------*/
     Entity player(LoadTexture("playerShip1_red.png"), 0.0, -0.9, 0.1, 0.1, 0.005);
@@ -98,78 +98,86 @@ int main(int argc, char *argv[])
             if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
                 done = true;
             }
+            
+            //                glLoadIdentity();
+//                glTranslatef(-0.65, 0.0, 0.0);
+//                DrawText(LoadTexture("font1.png"), "SPACE INVADERS", 0.1, 0.000000000001, 1.0, 1.0, 1.0, 1.0);
 
-            /*----------------------------------PLAYER-------------------------------------*/
-            if(keys[SDL_SCANCODE_RIGHT]) {
-                if ((player.x + (player.height/2)) < 0.95) {
-                    float x_position = player.speed;
-//                    bullets[clip].x = player.x;
-                    player.x += x_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    //Update
-//                    bullets[clip].Draw();
-                    player.Draw();
+
+            }
+        /*----------------------------------PLAYER-------------------------------------*/
+        if(keys[SDL_SCANCODE_RIGHT]) {
+            if ((player.x + (player.height/2)) < 0.95) {
+                float x_position = player.speed;
+                //                    bullets[clip].x = player.x;
+                player.x += x_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                //Update
+                //                    bullets[clip].Draw();
+                player.Draw();
+            }
+        } else if(keys[SDL_SCANCODE_LEFT]) {
+            if ((player.x - (player.height/2)) > -0.95) {
+                float x_position = player.speed;
+                //                    bullets[clip].x = player.x;
+                player.x -= x_position;
+                glClear(GL_COLOR_BUFFER_BIT);
+                //Update
+                //                    bullets[clip].Draw();
+                player.Draw();
+            }
+        } else if(keys[SDL_SCANCODE_SPACE]) {
+            shot = true;
+            clip++;
+            bullets[clip].x = player.x;
+        }
+        
+        
+        if (clip < bullets.size()) {
+            if (shot == true) {
+                //                    bullets[clip].x = player.x;
+                //                    glLoadIdentity();
+                bullets[clip].y += 0.01;
+                glClear(GL_COLOR_BUFFER_BIT);
+                bullets[clip].Draw();
+                player.Draw();
+                if (bullets[clip].y > 1.1) {
+                    bullets[clip].y = player.y;
+                    bullets[clip].x = player.x;
+                    shot = false;
                 }
-            } else if(keys[SDL_SCANCODE_LEFT]) {
-                if ((player.x - (player.height/2)) > -0.95) {
-                    float x_position = player.speed;
-//                    bullets[clip].x = player.x;
-                    player.x -= x_position;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    //Update
-//                    bullets[clip].Draw();
-                    player.Draw();
-                }
-            } else if(keys[SDL_SCANCODE_SPACE]) {
-                shot = true;
-                clip++;
-                bullets[clip].x = player.x;
+                
             }
             
+        } else
+            clip = 0;
+        
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+        for (size_t i = 0; i < enemyLine1.size(); i++) {
             
-            if (clip < bullets.size()) {
-                if (shot == true) {
-//                    bullets[clip].x = player.x;
-//                    glLoadIdentity();
-                    bullets[clip].y += 0.01;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    bullets[clip].Draw();
-                    player.Draw();
-                    if (bullets[clip].y > 1.1) {
+            if (bullets[clip].x == enemyLine1[i].x || (bullets[clip].x >= (enemyLine1[i].x - (enemyLine1[i].width/2)) && bullets[clip].x <= (enemyLine1[i].x + (enemyLine1[i].width/2)))) {
+                if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine1[i].y - (enemyLine1[i].height/2))) {
+                    if (enemyLine1[i].textureID != 0) {
+                        enemyLine1[i] = nullSpace;
                         bullets[clip].y = player.y;
                         bullets[clip].x = player.x;
                         shot = false;
                     }
                     
                 }
-
-            } else
-                clip = 0;
-            
-            
-            glClear(GL_COLOR_BUFFER_BIT);
-            
-            for (size_t i = 0; i < enemyLine1.size(); i++) {
                 
-                if (bullets[clip].x == enemyLine1[i].x || (bullets[clip].x >= (enemyLine1[i].x - (enemyLine1[i].width/2)) && bullets[clip].x <= (enemyLine1[i].x + (enemyLine1[i].width/2)))) {
-                    if ((bullets[clip].y + (bullets[clip].height/2)) > (enemyLine1[i].y - (enemyLine1[i].height/2))) {
-                        if (enemyLine1[i].textureID != 0) {
-                            enemyLine1[i] = nullSpace;
-                            bullets[clip].y = player.y;
-                            bullets[clip].x = player.x;
-                            shot = false;
-                        }
-                        
-                    }
-
-                }
-                
-            
-                bullets[clip].Draw();
-                enemyLine1[i].Draw();
-                player.Draw();
-
             }
+            
+            
+            
+            if (shot == true) {
+                bullets[clip].Draw();
+            }
+            enemyLine1[i].Draw();
+            player.Draw();
+            
 
         }
         
@@ -247,7 +255,33 @@ std::vector<Entity> makeEnemyLine(int texture, float zero_position_x, float zero
     return enemyLine;
 }
 
-
+void DrawText(int fontTexture, std::string text, float size, float spacing, float r, float g, float b, float a) {
+    glBindTexture(GL_TEXTURE_2D, fontTexture);
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    float texture_size = 1.0/16.0f;
+    std::vector<float> vertexData;
+    std::vector<float> texCoordData;
+    std::vector<float> colorData;
+    for(int i=0; i < text.size(); i++) {
+        float texture_x = (float)(((int)text[i]) % 16) / 16.0f;
+        float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
+        colorData.insert(colorData.end(), {r,g,b,a, r,g,b,a, r,g,b,a, r,g,b,a});
+        vertexData.insert(vertexData.end(), {((size+spacing) * i) + (-0.5f * size), 0.5f * size, ((size+spacing) * i) +
+            (-0.5f * size), -0.5f * size, ((size+spacing) * i) + (0.5f * size), -0.5f * size, ((size+spacing) * i) + (0.5f * size), 0.5f
+            * size});
+        texCoordData.insert(texCoordData.end(), {texture_x, texture_y, texture_x, texture_y + texture_size, texture_x +
+            texture_size, texture_y + texture_size, texture_x + texture_size, texture_y});
+    }
+    glColorPointer(4, GL_FLOAT, 0, colorData.data());
+    glEnableClientState(GL_COLOR_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, vertexData.data());
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glTexCoordPointer(2, GL_FLOAT, 0, texCoordData.data());
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glDrawArrays(GL_QUADS, 0, text.size() * 4);
+}
 
 
 /*-----------------------------------------------------------------------------------------------------------------*/
