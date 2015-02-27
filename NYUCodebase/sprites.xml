@@ -1,0 +1,7 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="enemyBlack1.png" x="211" y="0" width="93" height="84"/>
+	<SubTexture name="enemyBlue2.png" x="0" y="0" width="104" height="84"/>
+	<SubTexture name="enemyGreen3.png" x="106" y="0" width="103" height="84"/>
+	<SubTexture name="enemyRed4.png" x="399" y="0" width="82" height="84"/>
+	<SubTexture name="ufoYellow.png" x="306" y="0" width="91" height="91"/>
+</TextureAtlas>

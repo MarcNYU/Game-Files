@@ -19,3 +19,7 @@ void SheetSprite::Draw(float scale) {
     GLfloat quadUVs[] = {u, v, u, v+height, u+width, v+height, u+width, v};
     // draw arrays
 }
+GLuint spriteSheetTexture = LoadTexture("sprites.png");
+
+mySprite = SheetSprite(spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f, 93.0f/
+                       1024.0f, 84.0f/1024.0f);

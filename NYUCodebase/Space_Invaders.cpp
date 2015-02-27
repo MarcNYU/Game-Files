@@ -16,6 +16,7 @@
 #include <math.h>
 #include <string>
 #include "Entity.h"
+#include "SpriteSheet.h"
 //#include "ClassDemoApp.h"
 
 SDL_Window* displayWindow;
