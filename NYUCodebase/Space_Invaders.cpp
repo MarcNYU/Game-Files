@@ -67,11 +67,12 @@ int main(int argc, char *argv[])
     
     int score = 0;
     
-    Entity nullSpace(0, 0.0, 0.0, 0.0, 0.0, 0.0);
+    
+    Entity nullSpace(0, 0.0, 0.0, 0.0, 0.0, 0.001);
     
     
     /*----------------------------------PLAYER-------------------------------------*/
-    Entity player(LoadTexture("playerShip1_red.png"), 0.0, -0.9, 0.1, 0.1, 0.03);
+    Entity player(LoadTexture("playerShip1_red.png"), 0.0, -0.9, 0.1, 0.1, 0.02);
     
     /*----------------------------------BULLETS-------------------------------------*/
     std::vector<Entity> bullets;
@@ -107,7 +108,9 @@ int main(int argc, char *argv[])
     std::vector<Entity> enemyLine4 = makeEnemyLine(LoadTexture("enemyBlue2.png"), zero_position_x, 0.3, 0.0625, 0.0625, 0.001);
     std::vector<Entity> enemyLine5 = makeEnemyLine(LoadTexture("enemyBlack1.png"), zero_position_x, 0.4, 0.0625, 0.0625, 0.001);
     Entity motherShip (LoadTexture("ufoYellow.png"), -1.5, 0.6, 0.125, 0.125, 0.001);
-    
+    Entity locator (0, -.75, 0.0, 0.0625, 0.0625, 0.001);
+    locator.direction_x = 1.0;
+    locator.direction_y = -1.0;
 
 /*-------------------------------------------------------GAME LOOP-------------------------------------------------*/
     while (!done) {
@@ -166,13 +169,14 @@ int main(int argc, char *argv[])
         
         
         /*----------------------------------ENENIES-------------------------------------*/
-        if (enemyLine1[0].direction_x > 0.0) {
-            if ((enemyLine1[0].x + enemyLine1[0].width/2) < -0.55) {
+        if (locator.direction_x > 0.0) {
+            if ((locator.x + locator.width/2) < -0.55) {
                 
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 
                 for (size_t i = 0; i < enemyLine1.size(); i++) {
+                    locator.x += pace/11;
                     enemyLine1[i].x += pace;
                     enemyLine2[i].x += pace;
                     enemyLine3[i].x += pace;
@@ -256,14 +260,14 @@ int main(int argc, char *argv[])
                         bullets[clip].Draw();
                     }
                     player.Draw();
-                    
+//                    locator.Draw();
                     enemyLine1[i].Draw();
                     enemyLine2[i].Draw();
                     enemyLine3[i].Draw();
                     enemyLine4[i].Draw();
                     enemyLine5[i].Draw();
                     motherShip.Draw();
-//                    UpdateScore(score);
+                    UpdateScore(score);
                     glDisableClientState(GL_COLOR_ARRAY);
 
                     
@@ -316,6 +320,7 @@ int main(int argc, char *argv[])
                 }
             }else {
                 phase++;
+                locator.direction_x = -1.0;
                 enemyLine1[0].direction_x = -1.0;
                 enemyLine2[0].direction_x = -1.0;
                 enemyLine3[0].direction_x = -1.0;
@@ -324,14 +329,15 @@ int main(int argc, char *argv[])
             }
         }
         
-        if (enemyLine1[0].direction_x < 0.0) {
-            if ((enemyLine1[0].x - enemyLine1[0].width/2) > -0.95) {
+        if (locator.direction_x < 0.0) {
+            if ((locator.x - enemyLine1[0].width/2) > -0.95) {
                 
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 
                 
                 for (size_t i = 0; i < enemyLine1.size(); i++) {
+                    locator.x -= pace/11;
                     enemyLine1[i].x -= pace;
                     enemyLine2[i].x -= pace;
                     enemyLine3[i].x -= pace;
@@ -415,14 +421,14 @@ int main(int argc, char *argv[])
                         bullets[clip].Draw();
                     }
                     player.Draw();
-                
+//                    locator.Draw();
                     enemyLine1[i].Draw();
                     enemyLine2[i].Draw();
                     enemyLine3[i].Draw();
                     enemyLine4[i].Draw();
                     enemyLine5[i].Draw();
                     motherShip.Draw();
-//                    UpdateScore(score);
+                    UpdateScore(score);
                     glDisableClientState(GL_COLOR_ARRAY);
                     
                     
@@ -476,6 +482,7 @@ int main(int argc, char *argv[])
                 }
             } else {
                 phase++;
+                locator.direction_x = 1.0;
                 enemyLine1[0].direction_x = 1.0;
                 enemyLine2[0].direction_x = 1.0;
                 enemyLine3[0].direction_x = 1.0;
