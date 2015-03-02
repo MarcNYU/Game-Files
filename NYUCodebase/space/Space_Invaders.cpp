@@ -268,12 +268,11 @@ int main(int argc, char *argv[])
                     enemyLine4[i].Draw();
                     enemyLine5[i].Draw();
                     motherShip.Draw();
-                    UpdateScore(score);
+//                    UpdateScore(score);
                     glDisableClientState(GL_COLOR_ARRAY);
 
                     
-                    
-                    
+
                     switch (phase) {
                         case 2:
                             pace += lastFrameTicks/9000;//SPEED SHIFT
@@ -429,11 +428,10 @@ int main(int argc, char *argv[])
                     enemyLine4[i].Draw();
                     enemyLine5[i].Draw();
                     motherShip.Draw();
-                    UpdateScore(score);
+//                    UpdateScore(score);
                     glDisableClientState(GL_COLOR_ARRAY);
                     
-                    
-                    
+
                     switch (phase) {
                         case 1:
                             pace += lastFrameTicks/9000;//SPEED SHIFT
