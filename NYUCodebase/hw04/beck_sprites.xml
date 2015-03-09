@@ -1,0 +1,30 @@
+<TextureAtlas imagePath="beck_sprites.png">
+	<SubTexture name="Untitled 1.png" x="160" y="0" width="24" height="28"/>
+	<SubTexture name="Untitled 10.png" x="99" y="86" width="29" height="28"/>
+	<SubTexture name="Untitled 11.png" x="184" y="118" width="8" height="8"/>
+	<SubTexture name="Untitled 12.png" x="100" y="30" width="28" height="32"/>
+	<SubTexture name="Untitled 13.png" x="34" y="0" width="32" height="32"/>
+	<SubTexture name="Untitled 14.png" x="34" y="62" width="32" height="30"/>
+	<SubTexture name="Untitled 15.png" x="0" y="96" width="32" height="28"/>
+	<SubTexture name="Untitled 16.png" x="158" y="64" width="24" height="28"/>
+	<SubTexture name="Untitled 17.png" x="158" y="94" width="24" height="28"/>
+	<SubTexture name="Untitled 18.png" x="130" y="34" width="26" height="28"/>
+	<SubTexture name="Untitled 19.png" x="186" y="0" width="19" height="26"/>
+	<SubTexture name="Untitled 2.png" x="158" y="34" width="24" height="28"/>
+	<SubTexture name="Untitled 20.png" x="184" y="60" width="22" height="28"/>
+	<SubTexture name="Untitled 21.png" x="68" y="30" width="30" height="26"/>
+	<SubTexture name="Untitled 22.png" x="68" y="0" width="32" height="28"/>
+	<SubTexture name="Untitled 23.png" x="130" y="94" width="26" height="26"/>
+	<SubTexture name="Untitled 24.png" x="68" y="86" width="29" height="28"/>
+	<SubTexture name="Untitled 25.png" x="130" y="0" width="28" height="32"/>
+	<SubTexture name="Untitled 26.png" x="0" y="62" width="32" height="32"/>
+	<SubTexture name="Untitled 27.png" x="0" y="30" width="32" height="30"/>
+	<SubTexture name="Untitled 28.png" x="0" y="0" width="32" height="28"/>
+	<SubTexture name="Untitled 3.png" x="130" y="64" width="26" height="28"/>
+	<SubTexture name="Untitled 4.png" x="184" y="90" width="19" height="26"/>
+	<SubTexture name="Untitled 5.png" x="184" y="30" width="22" height="28"/>
+	<SubTexture name="Untitled 6.png" x="34" y="34" width="32" height="26"/>
+	<SubTexture name="Untitled 7.png" x="68" y="58" width="30" height="26"/>
+	<SubTexture name="Untitled 8.png" x="34" y="94" width="32" height="28"/>
+	<SubTexture name="Untitled 9.png" x="102" y="0" width="26" height="26"/>
+</TextureAtlas>

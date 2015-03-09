@@ -9,38 +9,22 @@
 #ifndef NYUCodebase_Entity_h
 #define NYUCodebase_Entity_h
 
-#include "SpriteSheet.h"
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 
-//class Entity {
-//public:
-//    Entity (int texture, float xCord, float yCord, float w, float h, float spd) : x(xCord), y(yCord), rotation(0.0), textureID(texture), width(w), height(h), speed(spd), direction_x(0.0), direction_y(0.0){}
-//    void Draw();
-//    float x;
-//    float y;
-//    float rotation;
-//    int textureID;
-//    float width;
-//    float height;
-//    float speed;
-//    float direction_x;
-//    float direction_y;
-//};
 
 class Entity {
 public:
+    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0){}
     
-    Entity();
     void Update(float elapsed);
     void Render();
-    
+    void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
     bool collidesWith(Entity *entity);
     
     void FixedUpdate();
     
-    SheetSprite sprite;
     float x;
     float y;
     
@@ -65,6 +49,7 @@ public:
     
     
 };
+
 
 class Bullet {
 public:

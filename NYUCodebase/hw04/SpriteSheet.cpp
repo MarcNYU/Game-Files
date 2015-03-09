@@ -19,3 +19,4 @@ void SheetSprite::Draw(float scale) {
     GLfloat quadUVs[] = {u, v, u, v+height, u+width, v+height, u+width, v};
     // draw arrays
 }
+SheetSprite::SheetSprite(unsigned int textureID, float u, float v, float width, float height) : textureID(textureID), u(u), v(v), width(width), height(height){}
