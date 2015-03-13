@@ -102,7 +102,8 @@ void ClassDemoApp::Update(float elapsed) {
         }
         if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-                dynamicEntities[0].velocity_y += 200.0;
+                dynamicEntities[0].y += .01;
+                dynamicEntities[0].velocity_y = 1.0;
                 dynamicEntities[0].Update(elapsed);
             }
         }
