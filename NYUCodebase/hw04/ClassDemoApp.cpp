@@ -19,77 +19,82 @@ ClassDemoApp::ClassDemoApp() {
     done = false;
     lastFrameTicks = 0.0f;
 }
+float lerp(float v0, float v1, float t) {
+    return (1.0-t)*v0 + t*v1;
+}
+
 void ClassDemoApp::Init() {
     SDL_Init(SDL_INIT_VIDEO);
-    displayWindow = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED,
-                                     SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+    displayWindow = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
     
-    Entity player(0.0, 0.0, 0.125, 0.125);
-    player.velocity_x = 1.0;
-    player.velocity_y = 1.0;
-    player.acceleration_x = 1.0;
-    player.acceleration_y = 1.0;
-    player.friction_x = 1.0;
-    player.friction_y = 1.0;
-    player.gravity_x = 1.0;
-    player.gravity_y = 1.5;
     
-    Entity floor(0.0, -1.0, 2.0, 0.125);
+    Entity player(0.0, 0.0, 0.125, 0.125);
+    player.direction_x = 0.0;
+    player.direction_y = 1.0;
+    player.numFrames = 4;
+    player.framesPerSecond = 7.0f;
+    
+    Entity floor(0.0, -0.8, 1.75, 0.125);
+    Entity rightWall(0.845, 0.0, 0.0625, 1.5);
+    Entity leftWall(-0.844, 0.0, 0.0625, 1.5);
+    Entity platform1(-0.7, -0.5, 0.25, 0.0625);
+    Entity platform2(0.7, -0.5, 0.25, 0.0625);
+    Entity platform3(0.0, -0.2, 0.5, 0.0625);
+    Entity platform4(-0.7, 0.1, 0.25, 0.0625);
+    Entity platform5(0.7, 0.1, 0.25, 0.0625);
+    
+    dynamicEntities.push_back(player);
+    staticEntities.push_back(floor);
+    staticEntities.push_back(leftWall);
+    staticEntities.push_back(rightWall);
+    staticEntities.push_back(platform1);
+    staticEntities.push_back(platform2);
+//    staticEntities.push_back(platform3);
+    staticEntities.push_back(platform4);
+    staticEntities.push_back(platform5);
     
 }
 ClassDemoApp::~ClassDemoApp() {
     SDL_Quit();
 }
-void ClassDemoApp::Render() {
+void ClassDemoApp::Render(float elapsed) {
     // render stuff
     SDL_GL_SwapWindow(displayWindow);
     
     glClear(GL_COLOR_BUFFER_BIT);
     
-//    for(int i=0; i < dynamicEntities.size(); i++) {
-//        dynamicEntities[i].Render();
-//    }
-//    for(int i=0; i < staticEntities.size(); i++) {
-//        staticEntities[i].Render();
-//    }
+    for(int i=0; i < dynamicEntities.size(); i++) {
+        dynamicEntities[i].Render(elapsed);
+    }
+    for(int i=0; i < staticEntities.size(); i++) {
+        staticEntities[i].Render(elapsed);
+    }
+}
+void ClassDemoApp::FixedUpdate() {
+    dynamicEntities[0].velocity_x = lerp(dynamicEntities[0].velocity_x, 0.0f, FIXED_TIMESTEP * dynamicEntities[0].friction_x);
+    dynamicEntities[0].velocity_y = lerp(dynamicEntities[0].velocity_y, 0.0f, FIXED_TIMESTEP * dynamicEntities[0].friction_y);
+    dynamicEntities[0].velocity_x += dynamicEntities[0].acceleration_x * FIXED_TIMESTEP;
+    dynamicEntities[0].velocity_y += dynamicEntities[0].acceleration_y * FIXED_TIMESTEP;
+    dynamicEntities[0].x += dynamicEntities[0].velocity_x * FIXED_TIMESTEP;
+    dynamicEntities[0].y += dynamicEntities[0].velocity_y * FIXED_TIMESTEP;
+    
+//    dynamicEntities[0].gravity_x = lerp(dynamicEntities[0].gravity_x, 0.0f, FIXED_TIMESTEP * dynamicEntities[0].friction_x);
+//    dynamicEntities[0].gravity_y = lerp(dynamicEntities[0].gravity_y, 0.0f, FIXED_TIMESTEP * dynamicEntities[0].friction_y);
+//    dynamicEntities[0].gravity_x -= dynamicEntities[0].acceleration_x * FIXED_TIMESTEP;
+//    dynamicEntities[0].gravity_y -= dynamicEntities[0].acceleration_y * FIXED_TIMESTEP;
+//    dynamicEntities[0].x -= dynamicEntities[0].gravity_x * FIXED_TIMESTEP;
+//    dynamicEntities[0].y -= dynamicEntities[0].gravity_y * FIXED_TIMESTEP;
+    
 }
 void ClassDemoApp::Update(float elapsed) {
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
-            done = true;
-        }
-    }
-//    for(int i=0; i < dynamicEntities.size(); i++) {
-//        dynamicEntities[i].Update(elapsed);
-//    }
-//    for(int i=0; i < staticEntities.size(); i++) {
-//        staticEntities[i].Update(elapsed);
-//    }
     
-}
-bool ClassDemoApp::UpdateAndRender() {
-    float ticks = (float)SDL_GetTicks()/1000.0f;
-    float elapsed = ticks - lastFrameTicks;
-    lastFrameTicks = ticks;
+    dynamicEntities[0].velocity_x -= dynamicEntities[0].gravity_x * elapsed;
+    dynamicEntities[0].velocity_y -= dynamicEntities[0].gravity_y * elapsed;
     
-    timeLeftOver = fixedElapsed;
-    animationElapsed += elapsed;
-    
-//    Update(elapsed);
-//    Render();
-    const int runLeft[] = {18, 17, 18, 19, 16};
-    const int runRight[] = {3, 2, 3, 4, 2};
-    const int numFrames = 4;
-    float animationElapsed = 0.0f;
-    float framesPerSecond = 300.0f;
-    int currentIndex = 0;
-    
-    const Uint8 *keys = SDL_GetKeyboardState(NULL);
-    float timeLeftOver = 0.0f;
-    
-    float penetration = fabs((player.y - floor.y) - ((player.y - (player.height/2)) - (floor.y + (floor.height/2))));
+    dynamicEntities[0].gravity_y = 2.0;
+    dynamicEntities[0].friction_x = 2.0;
     
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
@@ -97,112 +102,80 @@ bool ClassDemoApp::UpdateAndRender() {
         }
         if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-                player.velocity_y = lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP * player.friction_y);
-                
-                player.velocity_y += player.acceleration_y * FIXED_TIMESTEP;
-                
-                player.y += player.velocity_y * FIXED_TIMESTEP;
-                
-                player.velocity_y += player.gravity_y * elapsed;
-                
-                glClear(GL_COLOR_BUFFER_BIT);
-                if (player.direction_x > 0.0) {
-                    player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-                    floor.DrawSprite(0, 0, 1.0, 1.0);
-                } else if (player.direction_x < 0.0) {
-                    player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-                    floor.DrawSprite(0, 0, 1.0, 1.0);
+                dynamicEntities[0].velocity_y += 200.0;
+                dynamicEntities[0].Update(elapsed);
+            }
+        }
+
+    }
+    
+    for(int i=0; i < staticEntities.size(); i++) {
+        if (dynamicEntities[0].collidesWith(&staticEntities[i])) {
+            if (dynamicEntities[0].collidedLeft || dynamicEntities[0].collidedRight) {
+                penetration = fabsf(fabsf(dynamicEntities[0].x - staticEntities[i].x) - dynamicEntities[0].x+dynamicEntities[0].width/2 - staticEntities[i].x+staticEntities[i].width/2);
+                if (dynamicEntities[0].collidedLeft) {
+                    dynamicEntities[0].x += penetration + dynamicEntities[0].offset;
+                    dynamicEntities[0].Update(elapsed);
                 }
-                
+                if (dynamicEntities[0].collidedRight) {
+                    dynamicEntities[0].x -= penetration + dynamicEntities[0].offset;
+                    dynamicEntities[0].Update(elapsed);
+                }
+            }
+            if (dynamicEntities[0].collidedTop || dynamicEntities[0].collidedBottom) {
+                 penetration = fabsf(fabsf(dynamicEntities[0].x - staticEntities[i].x) - dynamicEntities[0].x+dynamicEntities[0].width/2 - staticEntities[i].x+staticEntities[i].width/2);
+                if (dynamicEntities[0].collidedBottom) {
+                    dynamicEntities[0].velocity_y = 0.0;
+                    dynamicEntities[0].Update(elapsed);
+                }
+                if (dynamicEntities[0].collidedTop) {
+                    dynamicEntities[0].y -= penetration + dynamicEntities[0].offset;
+                    dynamicEntities[0].Update(elapsed);
+                }
             }
         }
-
-    }
-    if(animationElapsed > 1.0/framesPerSecond) {
-        currentIndex++;
-        animationElapsed = 0.0;
-        if(currentIndex > numFrames-1) {
-            currentIndex = 0;
-        }
+        
     }
     
-    player.y -= player.gravity_y * FIXED_TIMESTEP;
-    
-    if (player.direction_x > 0.0) {
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), 0, 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-    } else if (player.direction_x < 0.0) {
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), 15, 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-    }
-    if ((player.y - (player.height/2)) < (floor.y + (floor.height/2))){
-        player.y += player.gravity_y * FIXED_TIMESTEP;
-    }
-    
-    if(keys[SDL_SCANCODE_LEFT]) {
-        player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-        
-        player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-        
-        player.x -= player.velocity_x * FIXED_TIMESTEP;
-        
-        player.velocity_x -= player.gravity_x * elapsed;
-        
-        
-        player.direction_x = -1.0;
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), runLeft[4], 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), runLeft[currentIndex], 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-        if(keys[SDL_SCANCODE_UP]) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            if (player.direction_x < 0.0) {
-                player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-                floor.DrawSprite(0, 0, 1.0, 1.0);
+    for(int i=0; i < dynamicEntities.size(); i++) {
+        if (i == 0) {
+            if(keys[SDL_SCANCODE_LEFT]) {
+                dynamicEntities[0].direction_x = -1.0;
+                dynamicEntities[i].Update(elapsed);
+            } else if(keys[SDL_SCANCODE_RIGHT]) {
+                dynamicEntities[0].direction_x = 1.0;
+                dynamicEntities[i].Update(elapsed);
+            } else {
+                dynamicEntities[0].friction_x = 20.0;
+                dynamicEntities[0].acceleration_x = 0.0;
             }
-        }
-    } else if(keys[SDL_SCANCODE_RIGHT]) {
-        player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-        
-        player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-        
-        player.x += player.velocity_x * FIXED_TIMESTEP;
-        
-        player.velocity_x += player.gravity_x * elapsed;
-        
-        player.direction_x = 1.0;
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), runRight[4], 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-        glClear(GL_COLOR_BUFFER_BIT);
-        player.DrawSprite(LoadTexture("beck.png"), runRight[currentIndex], 28.0, 1.0);
-        floor.DrawSprite(0, 0, 1.0, 1.0);
-        if(keys[SDL_SCANCODE_UP]) {
-            glClear(GL_COLOR_BUFFER_BIT);
-            if (player.direction_x > 0.0) {
-                player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-                floor.DrawSprite(0, 0, 1.0, 1.0);
-            }
-        }
-    } else if(keys[SDL_SCANCODE_UP]) {
-        glClear(GL_COLOR_BUFFER_BIT);
-        if (player.direction_x > 0.0) {
-            player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-        } else if (player.direction_x < 0.0) {
-            player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
+            
         }
     }
     
-
-    SDL_GL_SwapWindow(displayWindow);
+    for(int i=0; i < staticEntities.size(); i++) {
+        staticEntities[i].Update(elapsed);
+    }
     
-    glClear(GL_COLOR_BUFFER_BIT);
+    
+    
+}
+bool ClassDemoApp::UpdateAndRender() {
+    float ticks = (float)SDL_GetTicks()/1000.0f;
+    float elapsed = ticks - lastFrameTicks;
+    lastFrameTicks = ticks;
+    float fixedElapsed = elapsed + timeLeftOver;
+    if(fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEPS) {
+        fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEPS;
+    }
+    while (fixedElapsed >= FIXED_TIMESTEP ) {
+        fixedElapsed -= FIXED_TIMESTEP;
+        FixedUpdate();
+    }
+    timeLeftOver = fixedElapsed;
+    
+    Update(fixedElapsed);
+    Render(elapsed);
     return done;
 }
 void ClassDemoApp::shootBullet() {

@@ -18,7 +18,7 @@
 // 60 FPS (1.0f/60.0f)
 #define FIXED_TIMESTEP 0.0166666f
 #define MAX_TIMESTEPS 6
-float timeLeftOver = 0.0f;
+
 
 #define MAX_BULLETS 30
 
@@ -30,19 +30,23 @@ public:
     void Init();
     bool UpdateAndRender();
     void shootBullet();
-    void Render();
+    void Render(float elapsed);
     void Update(float elapsed);
+    void FixedUpdate();
 private:
     bool done;
     float lastFrameTicks;
     SDL_Window* displayWindow;
     SDL_Event event;
+    const Uint8 *keys = SDL_GetKeyboardState(NULL);
     std::vector<Entity> staticEntities;
     std::vector<Entity> dynamicEntities;
     int bulletIndex = 0;
     Bullet bullets[MAX_BULLETS];
+    float timeLeftOver = 0.0f;
+    float penetration;
 };
 
-void makeWorldAssets();
+float lerp(float v0, float v1, float t);
 
 #endif

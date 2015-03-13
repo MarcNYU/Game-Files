@@ -16,14 +16,16 @@
 
 class Entity {
 public:
-    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0){}
+    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0) {}
     
     void Update(float elapsed);
-    void Render();
-    void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
+    void Render(float elapsed);
+    
     bool collidesWith(Entity *entity);
     
-    void FixedUpdate();
+    void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
+    
+//    void FixedUpdaate();
     
     float x;
     float y;
@@ -31,22 +33,32 @@ public:
     float width;
     float height;
     
+    float direction_x;
+    float direction_y;
     float velocity_x;
     float velocity_y;
     float acceleration_x;
     float acceleration_y;
     float friction_x;
     float friction_y;
+    float gravity_x;
+    float gravity_y;
     float mass;
     bool isStatic;
     
     bool enableCollisions;
     
-    bool collidedTop;
-    bool collidedBottom;
-    bool collidedLeft;
-    bool collidedRight;
+    bool collidedTop = false;
+    bool collidedBottom = false;
+    bool collidedLeft = false;
+    bool collidedRight = false;
     
+    int numFrames;
+    float animationElapsed = 0.0f;
+    float framesPerSecond;
+    int currentIndex = 0;
+    float offset;
+    float penetration;
     
 };
 

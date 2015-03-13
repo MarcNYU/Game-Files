@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C186E381AB22D76001CDB81 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D5A86B919AE5C710066C1FD /* main.cpp */; };
+		2C186E391AB22D7A001CDB81 /* ClassDemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA484DD1AA65649001557ED /* ClassDemoApp.cpp */; };
+		2C186E3A1AB22D7C001CDB81 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA484DF1AA65649001557ED /* Entity.cpp */; };
+		2C186E481AB23B8D001CDB81 /* laserRedVertical.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C186E471AB23B8D001CDB81 /* laserRedVertical.png */; };
+		2C186E4A1AB23B98001CDB81 /* floor.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C186E491AB23B98001CDB81 /* floor.png */; };
 		2C3261BE1AAB9A9A00AD9453 /* beck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3261BD1AAB9A9A00AD9453 /* beck.png */; };
-		2C3261C41AABAE6200AD9453 /* animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE844151AAB8C1400559DF9 /* animation.cpp */; };
+		2C723C751AB11E8A0027CB79 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C723C741AB11E8A0027CB79 /* enemy.png */; };
 		2CA484D81AA65597001557ED /* beck_sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA484D71AA65597001557ED /* beck_sprites.png */; };
 		2CA484DA1AA6560F001557ED /* beck_sprites.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2CA484D91AA6560F001557ED /* beck_sprites.xml */; };
 		2CA484DC1AA6563F001557ED /* 65483.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA484DB1AA6563F001557ED /* 65483.png */; };
@@ -22,7 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C186E471AB23B8D001CDB81 /* laserRedVertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = laserRedVertical.png; path = hw04/platform_sprites/laserRedVertical.png; sourceTree = "<group>"; };
+		2C186E491AB23B98001CDB81 /* floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floor.png; path = hw04/platform_sprites/floor.png; sourceTree = "<group>"; };
 		2C3261BD1AAB9A9A00AD9453 /* beck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beck.png; path = hw04/beck_sprites/beck.png; sourceTree = "<group>"; };
+		2C723C741AB11E8A0027CB79 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enemy.png; path = hw04/enemy_sprites/enemy.png; sourceTree = "<group>"; };
 		2CA484C91AA5FB64001557ED /* pong */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pong; sourceTree = "<group>"; };
 		2CA484CD1AA5FBEB001557ED /* space */ = {isa = PBXFileReference; lastKnownFileType = folder; path = space; sourceTree = "<group>"; };
 		2CA484CF1AA5FBFE001557ED /* hw01 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw01; sourceTree = "<group>"; };
@@ -125,7 +133,10 @@
 			isa = PBXGroup;
 			children = (
 				2C3261BD1AAB9A9A00AD9453 /* beck.png */,
+				2C723C741AB11E8A0027CB79 /* enemy.png */,
 				2CA484DB1AA6563F001557ED /* 65483.png */,
+				2C186E471AB23B8D001CDB81 /* laserRedVertical.png */,
+				2C186E491AB23B98001CDB81 /* floor.png */,
 				2CA484D71AA65597001557ED /* beck_sprites.png */,
 				2CA484D91AA6560F001557ED /* beck_sprites.xml */,
 				6D5A86C519AE5C710066C1FD /* Images.xcassets */,
@@ -228,10 +239,13 @@
 			files = (
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
 				6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */,
+				2C723C751AB11E8A0027CB79 /* enemy.png in Resources */,
 				2CA484DA1AA6560F001557ED /* beck_sprites.xml in Resources */,
 				6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */,
 				2CA484DC1AA6563F001557ED /* 65483.png in Resources */,
+				2C186E481AB23B8D001CDB81 /* laserRedVertical.png in Resources */,
 				2C3261BE1AAB9A9A00AD9453 /* beck.png in Resources */,
+				2C186E4A1AB23B98001CDB81 /* floor.png in Resources */,
 				2CA484D81AA65597001557ED /* beck_sprites.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,7 +257,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C3261C41AABAE6200AD9453 /* animation.cpp in Sources */,
+				2C186E381AB22D76001CDB81 /* main.cpp in Sources */,
+				2C186E3A1AB22D7C001CDB81 /* Entity.cpp in Sources */,
+				2C186E391AB22D7A001CDB81 /* ClassDemoApp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
