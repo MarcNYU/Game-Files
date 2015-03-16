@@ -26,45 +26,66 @@ void Entity::Render(float elapsed) {
                 currentIndex = 0;
             }
         }
+        
         if(keys[SDL_SCANCODE_RIGHT]) {
-            DrawSprite(LoadTexture("beck.png"), runRight[currentIndex], 28.0, 1.0);
+            if (collidedBottom) {
+                DrawSprite(LoadTexture("beck.png"), runRight[currentIndex], 28.0, 1.0);
+            }
         } else if(keys[SDL_SCANCODE_LEFT]) {
-            DrawSprite(LoadTexture("beck.png"), runLeft[currentIndex], 28.0, 1.0);
+            if (collidedBottom) {
+                DrawSprite(LoadTexture("beck.png"), runLeft[currentIndex], 28.0, 1.0);
+            }
         } else if(keys[SDL_SCANCODE_UP]) {
             if (direction_x < 0.0) {
                 DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
             } else
                 DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-        } else {
+        }
+        else {
+            if (collidedBottom) {
+                if (direction_x < 0.0) {
+                    DrawSprite(LoadTexture("beck.png"), 15, 28.0, 1.0);
+                } else
+                    DrawSprite(LoadTexture("beck.png"), 0, 28.0, 1.0);
+            }
+            else {
+                if (direction_x < 0.0) {
+                    DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
+                } else
+                    DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
+            }
+        }
+        if (!collidedBottom) {
             if (direction_x < 0.0) {
-                DrawSprite(LoadTexture("beck.png"), 15, 28.0, 1.0);
+                DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
             } else
-                DrawSprite(LoadTexture("beck.png"), 0, 28.0, 1.0);
+                DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
         }
     }
-    if (numFrames == 8) {
-        const int runLeft[] = {1, 2, 3, 4, 5, 6, 7, 8};
-        const int runRight[] = {10, 11, 12, 13, 14, 15, 16, 17};
-        animationElapsed += elapsed;
-        if(animationElapsed > 1.0/framesPerSecond) {
-            currentIndex++;
-            animationElapsed = 0.0;
-            if(currentIndex > numFrames-1) {
-                currentIndex = 0;
-            }
-        }
-        if (acceleration_x > 0.0) {
-            DrawSprite(LoadTexture("enemy.png"), runRight[currentIndex + 8], 18.0, 1.0);
-        } else if (acceleration_x < 0.0) {
-            this->DrawSprite(LoadTexture("enemy.png"), runLeft[currentIndex + 8], 18.0, 1.0);
-        } else {
-            if (direction_x > 0.0) {
-                DrawSprite(LoadTexture("enemy.png"), 0, 18.0, 1.0);
-            } else if (direction_x < 0.0) {
-                DrawSprite(LoadTexture("beck.png"), 9, 18.0, 1.0);
-            }
-        }
-    }
+//    if (numFrames == 8) {
+//        const int runLeft[] = {1, 2, 3, 4, 5, 6, 7, 8};
+//        const int runRight[] = {10, 11, 12, 13, 14, 15, 16, 17};
+//        animationElapsed += elapsed;
+//        if(animationElapsed > 1.0/framesPerSecond) {
+//            currentIndex++;
+//            animationElapsed = 0.0;
+//            if(currentIndex > numFrames-1) {
+//                currentIndex = 0;
+//            }
+//        }
+//        DrawSprite(LoadTexture("enemy.png"), 0, 18.0, 1.0);
+//        if (acceleration_x > 0.0) {
+//            DrawSprite(LoadTexture("enemy.png"), runRight[currentIndex], 18.0, 1.0);
+//        } else if (acceleration_x < 0.0) {
+//            DrawSprite(LoadTexture("enemy.png"), runLeft[currentIndex], 18.0, 1.0);
+//        } else {
+//            if (direction_x > 0.0) {
+//                DrawSprite(LoadTexture("enemy.png"), 0, 18.0, 1.0);
+//            } else if (direction_x < 0.0) {
+//                DrawSprite(LoadTexture("enemy.png"), 9, 18.0, 1.0);
+//            }
+//        }
+//    }
     else {
         if (width > height) {
             DrawSprite(0, 0, 1.0, 1.0);
@@ -82,6 +103,13 @@ void Entity::Update(float elapsed) {
             acceleration_x = -1.0;
         }
     }
+//    if (numFrames == 8) {
+//        if (x > 0.6) {
+//            acceleration_x = -1.0;
+//        } else if (x < -0.6) {
+//            acceleration_x = 1.0;
+//        } 
+//    }
 }
 void Entity::DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY) {
     
