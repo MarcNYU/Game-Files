@@ -30,16 +30,11 @@ void ClassDemoApp::Init() {
     SDL_GL_MakeCurrent(displayWindow, context);
     
     
-    Entity player(0.0, 0.0, 0.125, 0.125);
+    Entity player(0.0, -0.3, 0.125, 0.125);
     player.direction_x = 0.0;
     player.direction_y = 1.0;
     player.numFrames = 4;
     player.framesPerSecond = 7.0f;
-    
-//    Entity robot(0.0, -0.7, 0.0625, 0.0625);
-//    robot.direction_x = 0.0;
-//    robot.numFrames = 8;
-//    robot.framesPerSecond = 7.0f;
     
     
     Entity floor(0.0, -0.8, 1.75, 0.125);
@@ -52,13 +47,12 @@ void ClassDemoApp::Init() {
     Entity platform5(0.7, 0.1, 0.25, 0.0625);
     
     dynamicEntities.push_back(player);
-//    dynamicEntities.push_back(robot);
     staticEntities.push_back(floor);
-    staticEntities.push_back(leftWall);
-    staticEntities.push_back(rightWall);
+//    staticEntities.push_back(leftWall);
+//    staticEntities.push_back(rightWall);
     staticEntities.push_back(platform1);
     staticEntities.push_back(platform2);
-//    staticEntities.push_back(platform3);
+    staticEntities.push_back(platform3);
     staticEntities.push_back(platform4);
     staticEntities.push_back(platform5);
     
@@ -87,8 +81,9 @@ void ClassDemoApp::FixedUpdate() {
         dynamicEntities[i].velocity_y += dynamicEntities[i].acceleration_y * FIXED_TIMESTEP;
         dynamicEntities[i].x += dynamicEntities[i].velocity_x * FIXED_TIMESTEP;
         dynamicEntities[i].y += dynamicEntities[i].velocity_y * FIXED_TIMESTEP;
-
+        
     }
+    
 }
 void ClassDemoApp::Update(float elapsed) {
     for (int i = 0; i < dynamicEntities.size(); i++) {
@@ -107,7 +102,7 @@ void ClassDemoApp::Update(float elapsed) {
         if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
                 if (dynamicEntities[0].collidedBottom) {
-                    dynamicEntities[0].y += 0.01;
+//                    dynamicEntities[0].y += 0.01;
                     dynamicEntities[0].velocity_y = 1.0;
                     dynamicEntities[0].Update(elapsed);
                     dynamicEntities[0].collidedBottom = false;
@@ -115,26 +110,30 @@ void ClassDemoApp::Update(float elapsed) {
                 
             }
         }
-
+        
     }
     
     for(int i=0; i < staticEntities.size(); i++) {
         for (int j=0; j < dynamicEntities.size(); j++) {
             if (dynamicEntities[j].collidesWith(&staticEntities[i])) {
-                if (dynamicEntities[j].collidedLeft || dynamicEntities[j].collidedRight) {
-                    penetration = fabsf(fabsf(dynamicEntities[j].x - staticEntities[i].x) - dynamicEntities[j].x+dynamicEntities[j].width/2 - staticEntities[i].x+staticEntities[i].width/2);
-                    if (dynamicEntities[j].collidedLeft) {
-                        dynamicEntities[j].acceleration_x = 0.0;
-                        dynamicEntities[j].Update(elapsed);
-                    }
-                    if (dynamicEntities[j].collidedRight) {
-                        dynamicEntities[j].acceleration_x = 0.0;
-                        dynamicEntities[j].Update(elapsed);
-                    }
-                }
+                
+                float penetration = fabs((dynamicEntities[0].y - staticEntities[i].y) - ((dynamicEntities[0].y - (dynamicEntities[0].height/2)) - (staticEntities[0].y + (staticEntities[0].height/2))));
+                
+//                if (dynamicEntities[j].collidedLeft || dynamicEntities[j].collidedRight) {
+//                    penetration = fabsf(fabsf(dynamicEntities[j].x - staticEntities[i].x) - dynamicEntities[j].x+dynamicEntities[j].width/2 - staticEntities[i].x+staticEntities[i].width/2);
+//                    if (dynamicEntities[j].collidedLeft) {
+//                        dynamicEntities[j].acceleration_x = 0.0;
+//                        dynamicEntities[j].Update(elapsed);
+//                    }
+//                    if (dynamicEntities[j].collidedRight) {
+//                        dynamicEntities[j].acceleration_x = 0.0;
+//                        dynamicEntities[j].Update(elapsed);
+//                    }
+//                }
                 if (dynamicEntities[j].collidedTop || dynamicEntities[j].collidedBottom) {
                     penetration = fabsf(fabsf(dynamicEntities[j].x - staticEntities[i].x) - dynamicEntities[j].x+dynamicEntities[j].width/2 - staticEntities[i].x+staticEntities[i].width/2);
                     if (dynamicEntities[j].collidedBottom) {
+                        dynamicEntities[0].y += penetration + dynamicEntities[0].offset;
                         dynamicEntities[j].velocity_y = 0.0;
                         dynamicEntities[j].Update(elapsed);
                     }
@@ -144,7 +143,7 @@ void ClassDemoApp::Update(float elapsed) {
                     }
                 }
             }
-
+            
         }
         
     }
@@ -200,39 +199,3 @@ void ClassDemoApp::shootBullet() {
         bulletIndex = 0;
     }
 }
-
-
-//enum GameState { STATE_MAIN_MENU, STATE_GAME_LEVEL };
-//
-//int state;
-//
-//class gameStates : ClassDemoApp {
-//public:
-//    gameStates () : ClassDemoApp(){}
-//    void Render();
-//    void Update();
-//};
-//
-//gameStates mainMenu;
-//gameStates gameLevel;
-//void ClassDemoApp::Render() {
-//    switch(state) {
-//        case STATE_MAIN_MENU:
-//            mainMenu.Render();
-//            break;
-//        case STATE_GAME_LEVEL:
-//            gameLevel.Render();
-//            break;
-//    }
-//}
-//
-//void ClassDemoApp::Update() {
-//    switch(state) {
-//        case STATE_MAIN_MENU:
-//            mainMenu.Update();
-//            break;
-//        case STATE_GAME_LEVEL:
-//            gameLevel.Update();
-//            break;
-//    }
-//}

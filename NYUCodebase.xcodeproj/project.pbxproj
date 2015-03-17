@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C186E381AB22D76001CDB81 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D5A86B919AE5C710066C1FD /* main.cpp */; };
-		2C186E391AB22D7A001CDB81 /* ClassDemoApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA484DD1AA65649001557ED /* ClassDemoApp.cpp */; };
-		2C186E3A1AB22D7C001CDB81 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CA484DF1AA65649001557ED /* Entity.cpp */; };
 		2C186E481AB23B8D001CDB81 /* laserRedVertical.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C186E471AB23B8D001CDB81 /* laserRedVertical.png */; };
 		2C186E4A1AB23B98001CDB81 /* floor.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C186E491AB23B98001CDB81 /* floor.png */; };
+		2C25F6701AB8A199008100CF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6D5A86B919AE5C710066C1FD /* main.cpp */; };
+		2C25F6721AB8A1B3008100CF /* f.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C25F6711AB8A1B3008100CF /* f.cpp */; };
+		2C25F6741AB8A3C9008100CF /* c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C25F6731AB8A3C9008100CF /* c.cpp */; };
 		2C3261BE1AAB9A9A00AD9453 /* beck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C3261BD1AAB9A9A00AD9453 /* beck.png */; };
 		2C723C751AB11E8A0027CB79 /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C723C741AB11E8A0027CB79 /* enemy.png */; };
 		2CA484D81AA65597001557ED /* beck_sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CA484D71AA65597001557ED /* beck_sprites.png */; };
@@ -29,6 +29,8 @@
 /* Begin PBXFileReference section */
 		2C186E471AB23B8D001CDB81 /* laserRedVertical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = laserRedVertical.png; path = hw04/platform_sprites/laserRedVertical.png; sourceTree = "<group>"; };
 		2C186E491AB23B98001CDB81 /* floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = floor.png; path = hw04/platform_sprites/floor.png; sourceTree = "<group>"; };
+		2C25F6711AB8A1B3008100CF /* f.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = f.cpp; path = hw04/f.cpp; sourceTree = "<group>"; };
+		2C25F6731AB8A3C9008100CF /* c.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = c.cpp; path = hw04/c.cpp; sourceTree = "<group>"; };
 		2C3261BD1AAB9A9A00AD9453 /* beck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beck.png; path = hw04/beck_sprites/beck.png; sourceTree = "<group>"; };
 		2C723C741AB11E8A0027CB79 /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = enemy.png; path = hw04/enemy_sprites/enemy.png; sourceTree = "<group>"; };
 		2CA484C91AA5FB64001557ED /* pong */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pong; sourceTree = "<group>"; };
@@ -170,6 +172,8 @@
 			children = (
 				6D5A86B919AE5C710066C1FD /* main.cpp */,
 				2CE844151AAB8C1400559DF9 /* animation.cpp */,
+				2C25F6711AB8A1B3008100CF /* f.cpp */,
+				2C25F6731AB8A3C9008100CF /* c.cpp */,
 				2CA484DE1AA65649001557ED /* ClassDemoApp.h */,
 				2CA484DD1AA65649001557ED /* ClassDemoApp.cpp */,
 				2CA484E01AA65649001557ED /* Entity.h */,
@@ -257,9 +261,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C186E381AB22D76001CDB81 /* main.cpp in Sources */,
-				2C186E3A1AB22D7C001CDB81 /* Entity.cpp in Sources */,
-				2C186E391AB22D7A001CDB81 /* ClassDemoApp.cpp in Sources */,
+				2C25F6721AB8A1B3008100CF /* f.cpp in Sources */,
+				2C25F6741AB8A3C9008100CF /* c.cpp in Sources */,
+				2C25F6701AB8A199008100CF /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
