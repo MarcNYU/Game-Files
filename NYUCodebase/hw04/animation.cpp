@@ -173,41 +173,41 @@ int main(int argc, char *argv[])
             if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
                 done = true;
             }
-            if(event.type == SDL_KEYDOWN) {
-                if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-                    player.velocity_y = 100.0; //lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP * player.friction_y);
-                
-
-                    player.velocity_y += player.acceleration_y * FIXED_TIMESTEP;
-                    
-                    player.y += player.velocity_y * FIXED_TIMESTEP;
-                    
-                    player.velocity_y += player.gravity_y * elapsed;
-                    glClear(GL_COLOR_BUFFER_BIT);
-                    if (player.direction_x > 0.0) {
-                        player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-                        floor.DrawSprite(0, 0, 1.0, 1.0);
-                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                        platform1.DrawSprite(0, 0, 1.0, 1.0);
-                        platform2.DrawSprite(0, 0, 1.0, 1.0);
-                        platform3.DrawSprite(0, 0, 1.0, 1.0);
-                        platform4.DrawSprite(0, 0, 1.0, 1.0);
-                        platform5.DrawSprite(0, 0, 1.0, 1.0);
-                    } else if (player.direction_x < 0.0) {
-                        player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-                        floor.DrawSprite(0, 0, 1.0, 1.0);
-                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                        platform1.DrawSprite(0, 0, 1.0, 1.0);
-                        platform2.DrawSprite(0, 0, 1.0, 1.0);
-                        platform3.DrawSprite(0, 0, 1.0, 1.0);
-                        platform4.DrawSprite(0, 0, 1.0, 1.0);
-                        platform5.DrawSprite(0, 0, 1.0, 1.0);
-                    }
-                    
-                }
-            }
+//            if(event.type == SDL_KEYDOWN) {
+//                if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
+//                    player.velocity_y = 100.0; //lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP * player.friction_y);
+//                
+//
+//                    player.velocity_y += player.acceleration_y * FIXED_TIMESTEP;
+//                    
+//                    player.y += player.velocity_y * FIXED_TIMESTEP;
+//                    
+//                    player.velocity_y += player.gravity_y * elapsed;
+//                    glClear(GL_COLOR_BUFFER_BIT);
+//                    if (player.direction_x > 0.0) {
+//                        player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
+//                        floor.DrawSprite(0, 0, 1.0, 1.0);
+//                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
+//                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform1.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform2.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform3.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform4.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform5.DrawSprite(0, 0, 1.0, 1.0);
+//                    } else if (player.direction_x < 0.0) {
+//                        player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
+//                        floor.DrawSprite(0, 0, 1.0, 1.0);
+//                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
+//                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform1.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform2.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform3.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform4.DrawSprite(0, 0, 1.0, 1.0);
+//                        platform5.DrawSprite(0, 0, 1.0, 1.0);
+//                    }
+//                    
+//                }
+//            }
         }
         
         float fixedElapsed = elapsed + timeLeftOver;
@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
         
         if (player.direction_x > 0.0) {
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), 0, 28.0, 1.0);
+            player.DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
             floor.DrawSprite(0, 0, 1.0, 1.0);
             leftWall.DrawSprite(0, 0, 1.0, 1.0);
             rightWall.DrawSprite(0, 0, 1.0, 1.0);
@@ -245,7 +245,7 @@ int main(int argc, char *argv[])
             platform5.DrawSprite(0, 0, 1.0, 1.0);
         } else if (player.direction_x < 0.0) {
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), 15, 28.0, 1.0);
+            player.DrawSprite(LoadTexture("beck.png"), 0, 1.0, 1.0);
             floor.DrawSprite(0, 0, 1.0, 1.0);
             leftWall.DrawSprite(0, 0, 1.0, 1.0);
             rightWall.DrawSprite(0, 0, 1.0, 1.0);

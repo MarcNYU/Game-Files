@@ -10,6 +10,12 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
+
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <sstream>
+
 #include "ClassDemoApp.h"
 
 
@@ -29,32 +35,10 @@ void ClassDemoApp::Init() {
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
     
-    
-    Entity player(0.0, -0.3, 0.125, 0.125);
-    player.direction_x = 0.0;
-    player.direction_y = 1.0;
-    player.numFrames = 4;
-    player.framesPerSecond = 7.0f;
-    
-    
-    Entity floor(0.0, -0.8, 1.75, 0.125);
-    Entity rightWall(0.845, 0.0, 0.0625, 1.5);
-    Entity leftWall(-0.844, 0.0, 0.0625, 1.5);
-    Entity platform1(-0.7, -0.5, 0.25, 0.0625);
-    Entity platform2(0.7, -0.5, 0.25, 0.0625);
-    Entity platform3(0.0, -0.2, 0.5, 0.0625);
-    Entity platform4(-0.7, 0.1, 0.25, 0.0625);
-    Entity platform5(0.7, 0.1, 0.25, 0.0625);
-    
+    Entity player(0.0, 0.0, 0.125, 0.125);
+    player.numFrames = 16;
     dynamicEntities.push_back(player);
-    staticEntities.push_back(floor);
-//    staticEntities.push_back(leftWall);
-//    staticEntities.push_back(rightWall);
-    staticEntities.push_back(platform1);
-    staticEntities.push_back(platform2);
-    staticEntities.push_back(platform3);
-    staticEntities.push_back(platform4);
-    staticEntities.push_back(platform5);
+    
     
 }
 ClassDemoApp::~ClassDemoApp() {
@@ -81,18 +65,16 @@ void ClassDemoApp::FixedUpdate() {
         dynamicEntities[i].velocity_y += dynamicEntities[i].acceleration_y * FIXED_TIMESTEP;
         dynamicEntities[i].x += dynamicEntities[i].velocity_x * FIXED_TIMESTEP;
         dynamicEntities[i].y += dynamicEntities[i].velocity_y * FIXED_TIMESTEP;
-        
+
     }
-    
 }
 void ClassDemoApp::Update(float elapsed) {
     for (int i = 0; i < dynamicEntities.size(); i++) {
-        dynamicEntities[i].velocity_x -= dynamicEntities[i].gravity_x * elapsed;
-        dynamicEntities[i].velocity_y -= dynamicEntities[i].gravity_y * elapsed;
-        
+//        dynamicEntities[i].velocity_x -= dynamicEntities[i].gravity_x * elapsed;
+//        dynamicEntities[i].velocity_y -= dynamicEntities[i].gravity_y * elapsed;
+//        
 //        dynamicEntities[i].gravity_y = 3.0;
-        dynamicEntities[i].gravity_y = 0.1;
-        dynamicEntities[i].friction_x = 2.0;
+//        dynamicEntities[i].friction_x = 2.0;
     }
     
     
@@ -100,54 +82,10 @@ void ClassDemoApp::Update(float elapsed) {
         if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
             done = true;
         }
-        if(event.type == SDL_KEYDOWN) {
-            if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-                if (dynamicEntities[0].collidedBottom) {
-                    dynamicEntities[0].y += 0.01;
-                    dynamicEntities[0].velocity_y = 0.1;
-                    dynamicEntities[0].Update(elapsed);
-                    dynamicEntities[0].collidedBottom = false;
-                }
-                
-            }
-        }
-        
+        if(event.type == SDL_KEYDOWN) {}
     }
     
-    for(int i=0; i < staticEntities.size(); i++) {
-        for (int j=0; j < dynamicEntities.size(); j++) {
-            if (dynamicEntities[j].collidesWith(&staticEntities[i])) {
-                
-                float penetration = fabs((dynamicEntities[0].y - staticEntities[i].y) - ((dynamicEntities[0].y - (dynamicEntities[0].height/2)) - (staticEntities[0].y - (staticEntities[0].height/2))));
-                
-//                if (dynamicEntities[j].collidedLeft || dynamicEntities[j].collidedRight) {
-//                    penetration = fabsf(fabsf(dynamicEntities[j].x - staticEntities[i].x) - dynamicEntities[j].x+dynamicEntities[j].width/2 - staticEntities[i].x+staticEntities[i].width/2);
-//                    if (dynamicEntities[j].collidedLeft) {
-//                        dynamicEntities[j].acceleration_x = 0.0;
-//                        dynamicEntities[j].Update(elapsed);
-//                    }
-//                    if (dynamicEntities[j].collidedRight) {
-//                        dynamicEntities[j].acceleration_x = 0.0;
-//                        dynamicEntities[j].Update(elapsed);
-//                    }
-//                }
-                if (dynamicEntities[j].collidedTop || dynamicEntities[j].collidedBottom) {
-                    penetration = fabsf(fabsf(dynamicEntities[j].x - staticEntities[i].x) - dynamicEntities[j].x+dynamicEntities[j].width/2 - staticEntities[i].x+staticEntities[i].width/2);
-                    if (dynamicEntities[j].collidedBottom) {
-//                        dynamicEntities[0].y += dynamicEntities[0].offset;
-                        dynamicEntities[j].velocity_y = 0.0;
-                        dynamicEntities[j].Update(elapsed);
-                    }
-                    if (dynamicEntities[j].collidedTop) {
-                        dynamicEntities[j].velocity_y = -1.0;
-                        dynamicEntities[j].Update(elapsed);
-                    }
-                }
-            }
-            
-        }
-        
-    }
+    // Collison Check
     
     for(int i=0; i < dynamicEntities.size(); i++) {
         if (i == 0) {
@@ -200,3 +138,84 @@ void ClassDemoApp::shootBullet() {
         bulletIndex = 0;
     }
 }
+
+
+//
+//
+//bool readHeader(std::ifstream &stream) {
+//    string line;
+//    mapWidth = -1;
+//    mapHeight = -1;
+//    while(getline(stream, line)) {
+//        if(line == "") { break; }
+//        istringstream sStream(line);
+//        string key,value;
+//        getline(sStream, key, '=');
+//        getline(sStream, value);
+//        if(key == "width") {
+//            mapWidth = atoi(value.c_str());
+//        } else if(key == "height"){
+//            mapHeight = atoi(value.c_str());
+//        }
+//    }
+//    if(mapWidth == -1 || mapHeight == -1) {
+//        return false;
+//    } else { // allocate our map data
+//        levelData = new unsigned char*[mapHeight];
+//        for(int i = 0; i < mapHeight; ++i) {
+//            levelData[i] = new unsigned char[mapWidth];
+//        }
+//        return true;
+//    }
+//}
+//bool readLayerData(std::ifstream &stream) {
+//    string line;
+//    while(getline(stream, line)) {
+//        if(line == "") { break; }
+//        istringstream sStream(line);
+//        string key,value;
+//        getline(sStream, key, '=');
+//        getline(sStream, value);
+//        if(key == "data") {
+//            for(int y=0; y < mapHeight; y++) {
+//                getline(stream, line);
+//                istringstream lineStream(line);
+//                string tile;
+//                for(int x=0; x < mapWidth; x++) {
+//                    getline(lineStream, tile, ',');
+//                    unsigned char val = (unsigned char)atoi(tile.c_str());
+//                    if(val > 0) {
+//                        // be careful, the tiles in this format are indexed from 1 not 0
+//                        levelData[y][x] = val-1;
+//                    } else {
+//                        levelData[y][x] = 0;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//    return true;
+//}
+//bool readEntityData(std::ifstream &stream) {
+//    string line;
+//    string type;
+//    while(getline(stream, line)) {
+//        if(line == "") { break; }
+//        istringstream sStream(line);
+//        string key,value;
+//        getline(sStream, key, '=');
+//        getline(sStream, value);
+//        if(key == "type") {
+//            type = value;
+//        } else if(key == "location") {
+//            istringstream lineStream(value);
+//            string xPosition, yPosition;
+//            getline(lineStream, xPosition, ',');
+//            getline(lineStream, yPosition, ‘,');
+//                    float placeX = atoi(xPosition.c_str())/16*TILE_SIZE;
+//                    float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
+//                    placeEntity(type, placeX, placeY);
+//                    }
+//                    }
+//                    return true;
+//                    }

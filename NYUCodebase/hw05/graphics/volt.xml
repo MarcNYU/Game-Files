@@ -1,0 +1,7 @@
+<TextureAtlas imagePath="volt.png">
+	<SubTexture name="idel_shoot.png" x="0" y="0" width="113" height="31"/>
+	<SubTexture name="jump_n_gun.png" x="94" y="33" width="59" height="32"/>
+	<SubTexture name="jump_n_shoot.png" x="94" y="67" width="59" height="32"/>
+	<SubTexture name="run_n_gun.png" x="0" y="67" width="92" height="32"/>
+	<SubTexture name="run_n_shoot.png" x="0" y="33" width="92" height="32"/>
+</TextureAtlas>

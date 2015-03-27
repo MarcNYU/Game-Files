@@ -117,7 +117,7 @@ void Entity::DrawSprite(int spriteTexture, int index, int spriteCountX, int spri
 }
 bool Entity::collidesWith(Entity *entity) {
     if ((y-height/2) < (-.8+.125/2)) {
-        offset = fabsf(y+height/2 - entity->y-entity->height/2);
+        offset = fabsf(y-height/2 - entity->y+entity->height/2);
         collidedBottom = true;
         return collidedBottom;
     }
