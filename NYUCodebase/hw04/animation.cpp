@@ -11,6 +11,7 @@
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 #include <vector>
+#include <string>
 
 
 // 60 FPS (1.0f/60.0f)
@@ -20,35 +21,21 @@
 SDL_Window* displayWindow;
 
 
-class Entity {
+class SheetSprite {
 public:
-    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0){}
+    SheetSprite(unsigned int textureID, float u, float v, float width, float height) : textureID(textureID), u(u), v(v), width(width), height(height){}
     
-    void Update(float elapsed);
-    void Render();
-    void DrawSprite(int spriteTexture, int index, int spriteCountX, int
-                    spriteCountY) {
-        
+    void Draw(float scale) {
         glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, spriteTexture);
+        glBindTexture(GL_TEXTURE_2D, textureID);
         
         glMatrixMode(GL_MODELVIEW);
         
         glLoadIdentity();
-        glTranslatef(x, y, 0.0);
-        glScalef(width, height, 1.0);
+        GLfloat quad[] = {-width * scale , height * scale, -width * scale, -height * scale,
+            width * scale, -height * scale, width * scale, height * scale};
+        GLfloat quadUVs[] = {u, v, u, v+height, u+width, v+height, u+width, v};
         
-        GLfloat quad[] = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f};
-        // our regular sprite drawing
-        float u = (float)(((int)index) % spriteCountX) / (float) spriteCountX;
-        float v = (float)(((int)index) / spriteCountX) / (float) spriteCountY;
-        float spriteWidth = 1.0/(float)spriteCountX;
-        float spriteHeight = 1.0/(float)spriteCountY;
-        GLfloat quadUVs[] = { u, v,
-            u, v+spriteHeight,
-            u+spriteWidth, v+spriteHeight,
-            u+spriteWidth, v};
-        // our regular sprite drawing
         glVertexPointer(2, GL_FLOAT, 0, quad);
         glEnableClientState(GL_VERTEX_ARRAY);
         
@@ -60,29 +47,28 @@ public:
         
         glDrawArrays(GL_QUADS, 0, 4);
         glDisable(GL_TEXTURE_2D);
-        
     }
-    bool collidesWith(Entity *entity) {
-        if (x+width/2 > entity->x-entity->width/2) {
-            collidedRight = true;
-            return collidedRight;
-        }
-        if (x-width/2 < entity->x+entity->width/2) {
-            collidedLeft = true;
-            return collidedLeft;
-        }
-        if (y+height/2 > entity->y-entity->height/2) {
-            collidedTop = true;
-            return collidedTop;
-        }
-        if (y-height/2 < entity->y+entity->height/2) {
-            collidedBottom = true;
-            return collidedBottom;
-        }
-        return false;
-    }
+
+    
+    float scale;
+    unsigned int textureID;
+    float u;
+    float v;
+    float width;
+    float height;
+};
+
+class Entity {
+public:
+    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, 0.0, 0.0, width, height) {}
+    
+    void Update(float elapsed);
+    void Render(float elapsed);
+    
+    bool collidesWith(Entity *entity);
     
     void FixedUpdate();
+    SheetSprite sprite;
     
     float x;
     float y;
@@ -105,12 +91,30 @@ public:
     
     bool enableCollisions;
     
-    bool collidedTop;
-    bool collidedBottom;
-    bool collidedLeft;
-    bool collidedRight;
+    bool collidedTop = false;
+    bool collidedBottom = false;
+    bool collidedLeft = false;
+    bool collidedRight = false;
     
-    
+    int numFrames;
+    std::string name;
+    float animationElapsed = 0.0f;
+    float framesPerSecond;
+    int currentIndex = 0;
+    float offset;
+    float penetration;
+    float scale;
+    unsigned int spriteSheetTexture;
+};
+
+
+class Bullet {
+public:
+    void Update(float elapsed);
+    float x;
+    float y;
+    bool visible;
+    float angle;
 };
 
 GLuint LoadTexture(const char *image_path);
@@ -133,310 +137,74 @@ int main(int argc, char *argv[])
     float elapsed = ticks - lastFrameTicks;
     lastFrameTicks = ticks;
     
-    
-    Entity player(0.0, 0.0, 0.125, 0.125);
-    player.velocity_x = 1.0;
-    player.velocity_y = 35.0;
-    player.acceleration_x = 1.0;
-    player.acceleration_y = 1.0;
-    player.friction_x = 1.0;
-    player.friction_y = 1.0;
-    player.gravity_x = 1.0;
-    player.gravity_y = 1.0;
-    
-    Entity floor(0.0, -0.8, 1.75, 0.125);
-    Entity rightWall(0.845, 0.0, 0.0625, 1.5);
-    Entity leftWall(-0.844, 0.0, 0.0625, 1.5);
-    Entity platform1(-0.7, -0.5, 0.25, 0.0625);
-    Entity platform2(0.7, -0.5, 0.25, 0.0625);
-    Entity platform3(0.0, -0.2, 0.5, 0.0625);
-    Entity platform4(-0.7, 0.1, 0.25, 0.0625);
-    Entity platform5(0.7, 0.1, 0.25, 0.0625);
-
-
-    
-    const int runLeft[] = {18, 17, 18, 19, 16};
-    const int runRight[] = {3, 2, 3, 4, 1};
-    const int numFrames = 4;
-    float animationElapsed = 0.0f;
-    float framesPerSecond = 300.0f;
-    int currentIndex = 0;
+    Entity player(0.0, 0.0, 0.104, 0.22);
+    player.name = "player";
+    player.scale = 0.7f;
+    player.spriteSheetTexture = LoadTexture("volt.png");
+    player.sprite = SheetSprite(player.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
+                                93.0f/1024.0f, 84.0f/1024.0f);
     
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     float timeLeftOver = 0.0f;
     
     while (!done) {
         
-        
-        
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
                 done = true;
             }
-//            if(event.type == SDL_KEYDOWN) {
-//                if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-//                    player.velocity_y = 100.0; //lerp(player.velocity_y, 0.0f, FIXED_TIMESTEP * player.friction_y);
-//                
-//
-//                    player.velocity_y += player.acceleration_y * FIXED_TIMESTEP;
-//                    
-//                    player.y += player.velocity_y * FIXED_TIMESTEP;
-//                    
-//                    player.velocity_y += player.gravity_y * elapsed;
-//                    glClear(GL_COLOR_BUFFER_BIT);
-//                    if (player.direction_x > 0.0) {
-//                        player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-//                        floor.DrawSprite(0, 0, 1.0, 1.0);
-//                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
-//                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform1.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform2.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform3.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform4.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform5.DrawSprite(0, 0, 1.0, 1.0);
-//                    } else if (player.direction_x < 0.0) {
-//                        player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-//                        floor.DrawSprite(0, 0, 1.0, 1.0);
-//                        leftWall.DrawSprite(0, 0, 1.0, 1.0);
-//                        rightWall.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform1.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform2.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform3.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform4.DrawSprite(0, 0, 1.0, 1.0);
-//                        platform5.DrawSprite(0, 0, 1.0, 1.0);
-//                    }
-//                    
-//                }
-//            }
         }
-        
-        float fixedElapsed = elapsed + timeLeftOver;
-        if(fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEPS) {
-            fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEPS;
-        }
-        while (fixedElapsed >= FIXED_TIMESTEP ) {
-            fixedElapsed -= FIXED_TIMESTEP;
-        }
-        timeLeftOver = fixedElapsed;
-        
-        animationElapsed += elapsed;
-        if(animationElapsed > 1.0/framesPerSecond) {
-            currentIndex++;
-            animationElapsed = 0.0;
-            if(currentIndex > numFrames-1) {
-                currentIndex = 0;
-            }
-        }
-        
-        float penetration = fabs((player.y - floor.y) - ((player.y - (player.height/2)) - (floor.y + (floor.height/2))));
-        
-        player.y -= player.gravity_y * FIXED_TIMESTEP;
         
         if (player.direction_x > 0.0) {
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
+            player.Render(elapsed);
+           
         } else if (player.direction_x < 0.0) {
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), 0, 1.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
+            player.Render(elapsed);
+            
         }
         
         
         if(keys[SDL_SCANCODE_LEFT]) {
-            player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-            
-            player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-            
-            player.x -= player.velocity_x * FIXED_TIMESTEP;
-            
-            player.velocity_x -= player.gravity_x * elapsed;
-            
             
             player.direction_x = -1.0;
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), runLeft[4], 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
-            glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), runLeft[currentIndex], 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
+            player.Render(elapsed);
+           
             if(keys[SDL_SCANCODE_UP]) {
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 if (player.direction_x < 0.0) {
-                    player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-                    floor.DrawSprite(0, 0, 1.0, 1.0);
-                    leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                    rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                    platform1.DrawSprite(0, 0, 1.0, 1.0);
-                    platform2.DrawSprite(0, 0, 1.0, 1.0);
-                    platform3.DrawSprite(0, 0, 1.0, 1.0);
-                    platform4.DrawSprite(0, 0, 1.0, 1.0);
-                    platform5.DrawSprite(0, 0, 1.0, 1.0);
+                    player.Render(elapsed);
+                    
                 }
             }
         } else if(keys[SDL_SCANCODE_RIGHT]) {
-            player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-            
-            player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-            
-            player.x += player.velocity_x * FIXED_TIMESTEP;
-            
-            player.velocity_x += player.gravity_x * elapsed;
             
             player.direction_x = 1.0;
             glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), runRight[4], 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
-            glClear(GL_COLOR_BUFFER_BIT);
-            player.DrawSprite(LoadTexture("beck.png"), runRight[currentIndex], 28.0, 1.0);
-            floor.DrawSprite(0, 0, 1.0, 1.0);
-            leftWall.DrawSprite(0, 0, 1.0, 1.0);
-            rightWall.DrawSprite(0, 0, 1.0, 1.0);
-            platform1.DrawSprite(0, 0, 1.0, 1.0);
-            platform2.DrawSprite(0, 0, 1.0, 1.0);
-            platform3.DrawSprite(0, 0, 1.0, 1.0);
-            platform4.DrawSprite(0, 0, 1.0, 1.0);
-            platform5.DrawSprite(0, 0, 1.0, 1.0);
+            player.Render(elapsed);
+ 
             if(keys[SDL_SCANCODE_UP]) {
                 
                 glClear(GL_COLOR_BUFFER_BIT);
                 if (player.direction_x > 0.0) {
-                    player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-                    floor.DrawSprite(0, 0, 1.0, 1.0);
-                    leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                    rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                    platform1.DrawSprite(0, 0, 1.0, 1.0);
-                    platform2.DrawSprite(0, 0, 1.0, 1.0);
-                    platform3.DrawSprite(0, 0, 1.0, 1.0);
-                    platform4.DrawSprite(0, 0, 1.0, 1.0);
-                    platform5.DrawSprite(0, 0, 1.0, 1.0);
+                    player.Render(elapsed);
+                    
                 }
             }
         } else if(keys[SDL_SCANCODE_UP]) {
             
             glClear(GL_COLOR_BUFFER_BIT);
             if (player.direction_x > 0.0) {
-                player.DrawSprite(LoadTexture("beck.png"), 11, 28.0, 1.0);
-                floor.DrawSprite(0, 0, 1.0, 1.0);
-                leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                platform1.DrawSprite(0, 0, 1.0, 1.0);
-                platform2.DrawSprite(0, 0, 1.0, 1.0);
-                platform3.DrawSprite(0, 0, 1.0, 1.0);
-                platform4.DrawSprite(0, 0, 1.0, 1.0);
-                platform5.DrawSprite(0, 0, 1.0, 1.0);
+                player.Render(elapsed);
+                
             } else if (player.direction_x < 0.0) {
-                player.DrawSprite(LoadTexture("beck.png"), 24, 28.0, 1.0);
-                floor.DrawSprite(0, 0, 1.0, 1.0);
-                leftWall.DrawSprite(0, 0, 1.0, 1.0);
-                rightWall.DrawSprite(0, 0, 1.0, 1.0);
-                platform1.DrawSprite(0, 0, 1.0, 1.0);
-                platform2.DrawSprite(0, 0, 1.0, 1.0);
-                platform3.DrawSprite(0, 0, 1.0, 1.0);
-                platform4.DrawSprite(0, 0, 1.0, 1.0);
-                platform5.DrawSprite(0, 0, 1.0, 1.0);
-            }
-        }
-        float offset;
-        if (player.x < floor.x + floor.width/2 && player.x > floor.x - floor.width/2) {
-            if ((player.y - (player.height/2)) <= (floor.y + (floor.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        if (player.x < platform1.x + platform1.width/2 && player.x > platform1.x - platform1.width/2) {
-            if ((player.y - (player.height/2)) <= (platform1.y + (platform1.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        if (player.x < platform2.x + platform2.width/2 && player.x > platform2.x - platform2.width/2) {
-            if ((player.y - (player.height/2)) <= (platform2.y + (platform2.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        if (player.x < platform3.x + platform3.width/2 && player.x > platform3.x - platform3.width/2) {
-            if ((player.y - (player.height/2)) <= (platform3.y + (platform3.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        if (player.x < platform4.x + platform4.width/2 && player.x > platform4.x - platform4.width/2) {
-            if ((player.y - (player.height/2)) <= (platform4.y + (platform4.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        if (player.x < platform5.x + platform5.width/2 && player.x > platform5.x - platform5.width/2) {
-            if ((player.y - (player.height/2)) <= (platform5.y + (platform5.height/2))){
-                player.y += player.gravity_y * FIXED_TIMESTEP;
-                //            player.y += penetration + offset;
-            }
-        }
-        
-        if (player.x + player.width/2 >= rightWall.x - rightWall.width/2) {
-            if ((player.y - (player.height/2)) <= (rightWall.y + (rightWall.height/2))){
-                player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-                
-                player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-                
-                player.x -= player.velocity_x * FIXED_TIMESTEP;
-                
-                player.velocity_x -= player.gravity_x * elapsed;
+                player.Render(elapsed);
                 
             }
         }
-        if (player.x - player.width/2 <= leftWall.x + leftWall.width/2) {
-            if ((player.y - (player.height/2)) <= (leftWall.y + (leftWall.height/2))){
-                player.velocity_x = lerp(player.velocity_x, 0.0f, FIXED_TIMESTEP * player.friction_x);
-                
-                player.velocity_x += player.acceleration_x * FIXED_TIMESTEP;
-                
-                player.x += player.velocity_x * FIXED_TIMESTEP;
-                
-                player.velocity_x += player.gravity_x * elapsed;
-                
-            }
-        }
-        
-
         
         SDL_GL_SwapWindow(displayWindow);
     }
@@ -457,7 +225,208 @@ GLuint LoadTexture(const char *image_path) {
     SDL_FreeSurface(surface);
     return textureID;
 }
+void Entity::Render(float elapsed) {
+    //    sprite.u = 0.1;//increment .1
+    //    sprite.v = 0.0;//0
+    //    sprite.v = 0.23;//1
+    //    sprite.v = 0.45;//2
+    //    sprite.v = 0.7;//3
+    if (name == "player") {
+        sprite.width = 0.104;
+        sprite.height = 0.22;
+        sprite.Draw(scale);
+        std::vector<float> idel_r_s = {0.0, 0.1};
+        std::vector<float> idel_r = {0.1, 0.3};
+        std::vector<float> run_r_s = {0.0, 0.1, 0.2, 0.1};
+        std::vector<float> run_r = {0.0, 0.1, 0.2, 0.1};
+        std::vector<float> jump_r_s = {0.3, 0.4};
+        std::vector<float> jump_r = {0.3, 0.4};
+        std::vector<float> idel_l_s = {0.9, 0.8};
+        std::vector<float> idel_l = {0.8, 0.6};
+        std::vector<float> run_l_s = {0.9, 0.8, 0.7, 0.8};
+        std::vector<float> run_l = {0.9, 0.8, 0.7, 0.8};
+        std::vector<float> jump_l_s = {0.6, 0.5};
+        std::vector<float> jump_l = {0.6, 0.5};
+        animationElapsed += elapsed;
+        if(animationElapsed > 1.0/framesPerSecond) {
+            currentIndex++;
+            animationElapsed = 0.0;
+            if(currentIndex > 8) {
+                currentIndex = 0;
+            }
+        }
+        const Uint8 *keys = SDL_GetKeyboardState(NULL);
+//        if (keys[SDL_SCANCODE_SPACE]) {
+//            if(keys[SDL_SCANCODE_RIGHT]) {
+//                if (collidedBottom) {
+//                    //Rigth Running Animation
+//                    sprite.v = 0.45;
+//                    for (currentIndex; currentIndex < run_r_s.size(); currentIndex++) {
+//                        sprite.u = run_r_s[currentIndex];
+//                    }
+//                    
+//                }
+//            } else if(keys[SDL_SCANCODE_LEFT]) {
+//                if (collidedBottom) {
+//                    //Left Running Animation
+//                    sprite.v = 0.45;
+//                    for (currentIndex; currentIndex < run_l_s.size(); currentIndex++) {
+//                        sprite.u = run_l_s[currentIndex];
+//                    }
+//                }
+//            } else if(keys[SDL_SCANCODE_UP]) {
+//                if (direction_x < 0.0) {
+//                    //Left Jump
+//                    sprite.v = 0.45;
+//                    for (currentIndex; currentIndex < jump_l_s.size(); currentIndex++) {
+//                        sprite.u = jump_l_s[currentIndex];
+//                    }
+//                } else
+//                    //Right Jump
+//                    sprite.v = 0.45;
+//                for (currentIndex; currentIndex < jump_r_s.size(); currentIndex++) {
+//                    sprite.u = jump_r_s[currentIndex];
+//                }
+//            }
+//            else {
+//                if (true) {
+//                    if (direction_x < 0.0) {
+//                        //Left Idel
+//                        sprite.v = 0.0;
+//                        for (currentIndex; currentIndex < idel_l_s.size(); currentIndex++) {
+//                            sprite.u = idel_l_s[currentIndex];
+//                        }
+//                    } else
+//                        //Right Idel
+//                        sprite.v = 0.0;
+//                    for (currentIndex; currentIndex < idel_r_s.size(); currentIndex++) {
+//                        sprite.u = idel_r_s[currentIndex];
+//                    }
+//                } else {
+//                    if (direction_x < 0.0) {
+//                        //Left Fall
+//                        sprite.v = 0.0;
+//                        sprite.u = 0.7;
+//                    } else
+//                        //Right Fall
+//                        sprite.v = 0.0;
+//                    sprite.u = 0.2;
+//                }
+//            }
+////            if (!collidedBottom) {
+////                if (direction_x < 0.0) {
+////                    //Left Fall
+////                    sprite.v = 0.0;
+////                    sprite.u = 0.7;
+////                } else
+////                    //Right Fall
+////                    sprite.v = 0.0;
+////                sprite.u = 0.2;
+////            }
+//            
+//        }
+//        else {
+            if(keys[SDL_SCANCODE_RIGHT]) {
+                    //Rigth Running Animation
+                 direction_x = 1.0;
+                sprite.v = 0.7;
+//                sprite.u = 0.0;
+//                for (float num : run_r) {
+//                    sprite.u = num;
+//                }
+                sprite.u = run_r[currentIndex];
+                
+            } else if(keys[SDL_SCANCODE_LEFT]) {
+                    //Left Running Animation
+                direction_x = -1.0;
+                    sprite.v = 0.7;
+                    sprite.u = 0.9;
+                
+            } else if(keys[SDL_SCANCODE_UP]) {
+                if (direction_x < 0.0) {
+                    //Left Jump
+                    sprite.v = 0.7;
+                     sprite.u = 0.5;
+                } else
+                    //Right Jump
+                    sprite.v = 0.7;
+                    sprite.u = 0.4;
+                
+            } else {
+                    if (direction_x < 0.0) {
+                        //Left Idel
+                        sprite.v = 0.0;
+                        sprite.u = 0.8;
+                        
+                    } else
+                        //Right Idel
+                        sprite.v = 0.0;
+                        sprite.u = 0.1;
+                    
+                }
+//            else {
+//                    if (direction_x < 0.0) {
+//                        //Left Fall
+//                        sprite.v = 0.0;
+//                        sprite.u = 0.7;
+//                    } else
+//                        //Right Fall
+//                        sprite.v = 0.0;
+//                        sprite.u = 0.2;
+//                }
+            }
+            //            if (!collidedBottom) {
+            //                if (direction_x < 0.0) {
+            //                    //Left Fall
+            //                    sprite.v = 0.0;
+            //                    sprite.u = 0.7;
+            //                } erlse
+            //                    //Right Fall
+            //                    sprite.v = 0.0;
+            //                sprite.u = 0.2;
+            //            }
+//        }
+        
+//    }
+}
+
 float lerp(float v0, float v1, float t) {
     return (1.0-t)*v0 + t*v1;
 }
 
+void Entity::FixedUpdate() {
+    velocity_x = lerp(velocity_x, 0.0f, FIXED_TIMESTEP * friction_x);
+    velocity_y = lerp(velocity_y, 0.0f, FIXED_TIMESTEP * friction_y);
+    velocity_x += acceleration_x * FIXED_TIMESTEP;
+    velocity_y += acceleration_y * FIXED_TIMESTEP;
+    x += velocity_x * FIXED_TIMESTEP;
+    y += velocity_y * FIXED_TIMESTEP;
+}
+bool Entity::collidesWith(Entity *entity) {
+    //Bottom Collison
+    if (y-height/2 < entity->height) {
+        collidedBottom = true;
+        return true;
+    }
+    //Right Collison
+    if (x+width/2 > entity->width) {
+        collidedRight = true;
+        return true;
+    }
+    //Left Collison
+    if (x-width/2 < entity->width) {
+        collidedLeft = true;
+        return true;
+    }
+    //Top Collison
+    if (y+height/2 > entity->height) {
+        collidedTop = true;
+        return true;
+    }
+    return false;
+}
+
+
+void Bullet::Update(float elapsed) {
+    x += elapsed;
+}

@@ -12,6 +12,7 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
+#include <string>
 #include "SpriteSheet.h"
 
 
@@ -19,10 +20,10 @@
 
 class Entity {
 public:
-    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, x, y, width, height) {}
+    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, 0.0, 0.0, width, height) {}
     
     void Update(float elapsed);
-    void Render();
+    void Render(float elapsed);
     
     bool collidesWith(Entity *entity);
     
@@ -56,6 +57,7 @@ public:
     bool collidedRight = false;
     
     int numFrames;
+    std::string name;
     float animationElapsed = 0.0f;
     float framesPerSecond;
     int currentIndex = 0;
@@ -74,6 +76,8 @@ public:
     bool visible;
     float angle;
 };
+
+void animatePlayer (SheetSprite sprite);
 
 float lerp(float v0, float v1, float t);
 

@@ -60,6 +60,7 @@ void Setup() {
     glMatrixMode(GL_PROJECTION);
     glMatrixMode(GL_MODELVIEW);
     
+    
 }
 int main()
 {

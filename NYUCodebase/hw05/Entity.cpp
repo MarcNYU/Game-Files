@@ -26,108 +26,108 @@ void Entity::Render(float elapsed) {
                 currentIndex = 0;
             }
         }
-        
-        if (keys[SDL_SCANCODE_SPACE]) {
-            if(keys[SDL_SCANCODE_RIGHT]) {
-                if (collidedBottom) {
-                    //Rigth Running Animation
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            } else if(keys[SDL_SCANCODE_LEFT]) {
-                if (collidedBottom) {
-                    //Left Running Animation
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            } else if(keys[SDL_SCANCODE_UP]) {
-                if (direction_x < 0.0) {
-                    //Left Jump
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else
-                    //Right Jump
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-            }
-            else {
-                if (collidedBottom) {
-                    if (direction_x < 0.0) {
-                        //Left Idel
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                    } else
-                        //Right Idel
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else {
-                    if (direction_x < 0.0) {
-                        //Left Fall
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                    } else
-                        //Right Fall
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            }
-            if (!collidedBottom) {
-                if (direction_x < 0.0) {
-                    //Left Fall
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else
-                    //Right Fall
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-            }
-
-        } else {
-            if(keys[SDL_SCANCODE_RIGHT]) {
-                if (collidedBottom) {
-                    //Rigth Running Animation
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            } else if(keys[SDL_SCANCODE_LEFT]) {
-                if (collidedBottom) {
-                    //Left Running Animation
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            } else if(keys[SDL_SCANCODE_UP]) {
-                if (direction_x < 0.0) {
-                    //Left Jump
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else
-                    //Right Jump
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-            } else {
-                if (collidedBottom) {
-                    if (direction_x < 0.0) {
-                        //Left Idel
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                    } else
-                        //Right Idel
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else {
-                    if (direction_x < 0.0) {
-                        //Left Fall
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                    } else
-                        //Right Fall
-                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                }
-            }
-            if (true) {
-                if (direction_x < 0.0) {
-                    //Left Fall
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-                } else
-                    //Right Fall
-                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
-            }
-        }
-        
-    }
-        
-        
-    
-    else {
-        if (width > height) {
-            DrawSprite(0, 0, 1.0, 1.0);
-        }
-        else if (width < height) {
-            DrawSprite(0, 0, 1.0, 1.0);
-        }
+        DrawSprite(LoadTexture("idel.png"), 0, 1.0, 1.0);
+//        if (keys[SDL_SCANCODE_SPACE]) {
+//            if(keys[SDL_SCANCODE_RIGHT]) {
+//                if (collidedBottom) {
+//                    //Rigth Running Animation
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            } else if(keys[SDL_SCANCODE_LEFT]) {
+//                if (collidedBottom) {
+//                    //Left Running Animation
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            } else if(keys[SDL_SCANCODE_UP]) {
+//                if (direction_x < 0.0) {
+//                    //Left Jump
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else
+//                    //Right Jump
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//            }
+//            else {
+//                if (collidedBottom) {
+//                    if (direction_x < 0.0) {
+//                        //Left Idel
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                    } else
+//                        //Right Idel
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else {
+//                    if (direction_x < 0.0) {
+//                        //Left Fall
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                    } else
+//                        //Right Fall
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            }
+//            if (!collidedBottom) {
+//                if (direction_x < 0.0) {
+//                    //Left Fall
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else
+//                    //Right Fall
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//            }
+//
+//        } else {
+//            if(keys[SDL_SCANCODE_RIGHT]) {
+//                if (collidedBottom) {
+//                    //Rigth Running Animation
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            } else if(keys[SDL_SCANCODE_LEFT]) {
+//                if (collidedBottom) {
+//                    //Left Running Animation
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            } else if(keys[SDL_SCANCODE_UP]) {
+//                if (direction_x < 0.0) {
+//                    //Left Jump
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else
+//                    //Right Jump
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//            } else {
+//                if (collidedBottom) {
+//                    if (direction_x < 0.0) {
+//                        //Left Idel
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                    } else
+//                        //Right Idel
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else {
+//                    if (direction_x < 0.0) {
+//                        //Left Fall
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                    } else
+//                        //Right Fall
+//                        DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                }
+//            }
+//            if (true) {
+//                if (direction_x < 0.0) {
+//                    //Left Fall
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//                } else
+//                    //Right Fall
+//                    DrawSprite(LoadTexture("game_sprites.png"), 0, 1.0, 1.0);
+//            }
+//        }
+//        
+//    }
+//        
+//        
+//    
+//    else {
+//        if (width > height) {
+//            DrawSprite(0, 0, 1.0, 1.0);
+//        }
+//        else if (width < height) {
+//            DrawSprite(0, 0, 1.0, 1.0);
+//        }
     }
 }
 void Entity::Update(float elapsed) {
