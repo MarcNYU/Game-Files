@@ -99,7 +99,7 @@ public:
     int numFrames;
     std::string name;
     float animationElapsed = 0.0f;
-    float framesPerSecond;
+    float framesPerSecond = 1;
     int currentIndex = 0;
     float offset;
     float penetration;
@@ -117,8 +117,10 @@ public:
     float angle;
 };
 
+
 GLuint LoadTexture(const char *image_path);
 float lerp(float v0, float v1, float t);
+void animateSprite(Entity entity, SheetSprite sprite, std::vector<float> frames, float elapsed, int index, int spriteCountX, int spriteCountY, float scale);
 
 
 int main(int argc, char *argv[])
@@ -226,6 +228,7 @@ GLuint LoadTexture(const char *image_path) {
     return textureID;
 }
 void Entity::Render(float elapsed) {
+    int idx = 0.0;
     //    sprite.u = 0.1;//increment .1
     //    sprite.v = 0.0;//0
     //    sprite.v = 0.23;//1
@@ -250,144 +253,23 @@ void Entity::Render(float elapsed) {
         animationElapsed += elapsed;
         if(animationElapsed > 1.0/framesPerSecond) {
             currentIndex++;
+            idx += .1;
             animationElapsed = 0.0;
-            if(currentIndex > 8) {
+            if(currentIndex > 3) {
                 currentIndex = 0;
+                idx = 0;
             }
         }
         const Uint8 *keys = SDL_GetKeyboardState(NULL);
-//        if (keys[SDL_SCANCODE_SPACE]) {
-//            if(keys[SDL_SCANCODE_RIGHT]) {
-//                if (collidedBottom) {
-//                    //Rigth Running Animation
-//                    sprite.v = 0.45;
-//                    for (currentIndex; currentIndex < run_r_s.size(); currentIndex++) {
-//                        sprite.u = run_r_s[currentIndex];
-//                    }
-//                    
-//                }
-//            } else if(keys[SDL_SCANCODE_LEFT]) {
-//                if (collidedBottom) {
-//                    //Left Running Animation
-//                    sprite.v = 0.45;
-//                    for (currentIndex; currentIndex < run_l_s.size(); currentIndex++) {
-//                        sprite.u = run_l_s[currentIndex];
-//                    }
-//                }
-//            } else if(keys[SDL_SCANCODE_UP]) {
-//                if (direction_x < 0.0) {
-//                    //Left Jump
-//                    sprite.v = 0.45;
-//                    for (currentIndex; currentIndex < jump_l_s.size(); currentIndex++) {
-//                        sprite.u = jump_l_s[currentIndex];
-//                    }
-//                } else
-//                    //Right Jump
-//                    sprite.v = 0.45;
-//                for (currentIndex; currentIndex < jump_r_s.size(); currentIndex++) {
-//                    sprite.u = jump_r_s[currentIndex];
-//                }
-//            }
-//            else {
-//                if (true) {
-//                    if (direction_x < 0.0) {
-//                        //Left Idel
-//                        sprite.v = 0.0;
-//                        for (currentIndex; currentIndex < idel_l_s.size(); currentIndex++) {
-//                            sprite.u = idel_l_s[currentIndex];
-//                        }
-//                    } else
-//                        //Right Idel
-//                        sprite.v = 0.0;
-//                    for (currentIndex; currentIndex < idel_r_s.size(); currentIndex++) {
-//                        sprite.u = idel_r_s[currentIndex];
-//                    }
-//                } else {
-//                    if (direction_x < 0.0) {
-//                        //Left Fall
-//                        sprite.v = 0.0;
-//                        sprite.u = 0.7;
-//                    } else
-//                        //Right Fall
-//                        sprite.v = 0.0;
-//                    sprite.u = 0.2;
-//                }
-//            }
-////            if (!collidedBottom) {
-////                if (direction_x < 0.0) {
-////                    //Left Fall
-////                    sprite.v = 0.0;
-////                    sprite.u = 0.7;
-////                } else
-////                    //Right Fall
-////                    sprite.v = 0.0;
-////                sprite.u = 0.2;
-////            }
-//            
-//        }
-//        else {
-            if(keys[SDL_SCANCODE_RIGHT]) {
-                    //Rigth Running Animation
-                 direction_x = 1.0;
-                sprite.v = 0.7;
-//                sprite.u = 0.0;
-//                for (float num : run_r) {
-//                    sprite.u = num;
-//                }
-                sprite.u = run_r[currentIndex];
-                
-            } else if(keys[SDL_SCANCODE_LEFT]) {
-                    //Left Running Animation
-                direction_x = -1.0;
-                    sprite.v = 0.7;
-                    sprite.u = 0.9;
-                
-            } else if(keys[SDL_SCANCODE_UP]) {
-                if (direction_x < 0.0) {
-                    //Left Jump
-                    sprite.v = 0.7;
-                     sprite.u = 0.5;
-                } else
-                    //Right Jump
-                    sprite.v = 0.7;
-                    sprite.u = 0.4;
-                
-            } else {
-                    if (direction_x < 0.0) {
-                        //Left Idel
-                        sprite.v = 0.0;
-                        sprite.u = 0.8;
-                        
-                    } else
-                        //Right Idel
-                        sprite.v = 0.0;
-                        sprite.u = 0.1;
-                    
-                }
-//            else {
-//                    if (direction_x < 0.0) {
-//                        //Left Fall
-//                        sprite.v = 0.0;
-//                        sprite.u = 0.7;
-//                    } else
-//                        //Right Fall
-//                        sprite.v = 0.0;
-//                        sprite.u = 0.2;
-//                }
-            }
-            //            if (!collidedBottom) {
-            //                if (direction_x < 0.0) {
-            //                    //Left Fall
-            //                    sprite.v = 0.0;
-            //                    sprite.u = 0.7;
-            //                } erlse
-            //                    //Right Fall
-            //                    sprite.v = 0.0;
-            //                sprite.u = 0.2;
-            //            }
-//        }
-        
-//    }
+        if(keys[SDL_SCANCODE_RIGHT]) {
+            //Rigth Running Animation
+            direction_x = 1.0;
+            sprite.v = 0.7;
+            sprite.u = run_r[currentIndex];
+        }else
+            sprite.v = 0.0;
+            sprite.u = 0.1;
+    }
 }
 
 float lerp(float v0, float v1, float t) {
@@ -430,3 +312,47 @@ bool Entity::collidesWith(Entity *entity) {
 void Bullet::Update(float elapsed) {
     x += elapsed;
 }
+
+void animateSprite(SheetSprite obj, float u, float v) {
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, obj.textureID);
+    
+    glMatrixMode(GL_MODELVIEW);
+    
+    glLoadIdentity();
+    GLfloat quad[] = {-obj.width * obj.scale , obj.height * obj.scale, -obj.width * obj.scale, -obj.height * obj.scale,
+        obj.width * obj.scale, -obj.height * obj.scale, obj.width * obj.scale, obj.height * obj.scale};
+    GLfloat quadUVs[] = {u, v, u, v+obj.height, u+obj.width, v+obj.height, u+obj.width, v};
+    
+    glVertexPointer(2, GL_FLOAT, 0, quad);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    
+    glTexCoordPointer(2, GL_FLOAT, 0, quadUVs);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glDrawArrays(GL_QUADS, 0, 4);
+    glDisable(GL_TEXTURE_2D);
+
+}
+
+void animateSprite(Entity entity, SheetSprite sprite, std::vector<float> frames, float elapsed, int index, int spriteCountX, int spriteCountY, float scale) {
+    entity.animationElapsed += elapsed;
+    if(entity.animationElapsed > 1.0/entity.framesPerSecond) {
+        index++;
+        entity.animationElapsed = 0.0;
+        if(index > frames.size()) {
+            index = 0;
+        }
+    }
+    
+    sprite.u = (float)(((int)index) % spriteCountX) / (float) spriteCountX;
+    sprite.v = (float)(((int)index) / spriteCountX) / (float) spriteCountY;
+    float spriteWidth = 1.0/(float)spriteCountX;
+    float spriteHeight = 1.0/(float)spriteCountY;
+    sprite.Draw(scale);
+    
+}
+

@@ -7,16 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C1749441ACDDC2300653228 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30971AC5859E00215747 /* main.cpp */; };
-		2C1749461ACDDC2C00653228 /* ClassDemoApp copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309E1AC5913200215747 /* ClassDemoApp copy.cpp */; };
-		2C1749471ACDDC2E00653228 /* Entity copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30A11AC5913900215747 /* Entity copy.cpp */; };
-		2C1749481ACDDC3100653228 /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309B1AC5906800215747 /* SpriteSheet.cpp */; };
 		2C52DDF01AC834250023AFA4 /* game_sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDEF1AC834250023AFA4 /* game_sprites.png */; };
 		2C52DDF41AC8344E0023AFA4 /* level_map.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDF31AC8344E0023AFA4 /* level_map.txt */; };
 		2C52DDF91AC838780023AFA4 /* volt.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDF81AC838780023AFA4 /* volt.png */; };
 		2C60902C1AC04F51000061AF /* hw05 in Resources */ = {isa = PBXBuildFile; fileRef = 2C60902B1AC04F51000061AF /* hw05 */; };
+		2C7556651ADAB4C70055DC2E /* other.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7556641ADAB4C70055DC2E /* other.txt */; };
+		2C7556671ADAB4D80055DC2E /* new_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7556661ADAB4D80055DC2E /* new_map.png */; };
+		2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30971AC5859E00215747 /* main.cpp */; };
+		2C75FCA41AD475E500D73AD9 /* ClassDemoApp copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309E1AC5913200215747 /* ClassDemoApp copy.cpp */; };
+		2C75FCA51AD475E800D73AD9 /* Entity copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30A11AC5913900215747 /* Entity copy.cpp */; };
+		2C75FCA61AD475EA00D73AD9 /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309B1AC5906800215747 /* SpriteSheet.cpp */; };
+		2C75FCA81AD4891300D73AD9 /* beck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75FCA71AD4891300D73AD9 /* beck.png */; };
 		2CF291A61ACB28F1000ACA40 /* robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF291A51ACB28F1000ACA40 /* robot.png */; };
 		2CF291A81ACB2B23000ACA40 /* tiger.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF291A71ACB2B23000ACA40 /* tiger.png */; };
+		2CF8B4E81AD9FF02000A2733 /* sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF8B4E71AD9FF02000A2733 /* sprites.png */; };
+		2CF8B4EA1AD9FF5C000A2733 /* map.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CF8B4E91AD9FF5C000A2733 /* map.txt */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86B619AE5C710066C1FD /* InfoPlist.strings */; };
 		6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86BC19AE5C710066C1FD /* Credits.rtf */; };
@@ -31,6 +36,9 @@
 		2C52DDF31AC8344E0023AFA4 /* level_map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level_map.txt; path = hw05/graphics/level_map.txt; sourceTree = "<group>"; };
 		2C52DDF81AC838780023AFA4 /* volt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volt.png; path = hw05/graphics/volt.png; sourceTree = "<group>"; };
 		2C60902B1AC04F51000061AF /* hw05 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw05; sourceTree = "<group>"; };
+		2C7556641ADAB4C70055DC2E /* other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = other.txt; path = hw05/graphics/other.txt; sourceTree = "<group>"; };
+		2C7556661ADAB4D80055DC2E /* new_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = new_map.png; path = hw05/graphics/new_map.png; sourceTree = "<group>"; };
+		2C75FCA71AD4891300D73AD9 /* beck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beck.png; path = hw04/beck_sprites/beck.png; sourceTree = "<group>"; };
 		2CA484C91AA5FB64001557ED /* pong */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pong; sourceTree = "<group>"; };
 		2CA484CD1AA5FBEB001557ED /* space */ = {isa = PBXFileReference; lastKnownFileType = folder; path = space; sourceTree = "<group>"; };
 		2CA484CF1AA5FBFE001557ED /* hw01 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw01; sourceTree = "<group>"; };
@@ -49,6 +57,8 @@
 		2CAB30A21AC5913900215747 /* Entity copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entity copy.h"; path = "hw05/Entity copy.h"; sourceTree = "<group>"; };
 		2CF291A51ACB28F1000ACA40 /* robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = robot.png; path = hw05/graphics/robot.png; sourceTree = "<group>"; };
 		2CF291A71ACB2B23000ACA40 /* tiger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tiger.png; path = hw05/graphics/tiger.png; sourceTree = "<group>"; };
+		2CF8B4E71AD9FF02000A2733 /* sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprites.png; path = hw05/graphics/sprites.png; sourceTree = "<group>"; };
+		2CF8B4E91AD9FF5C000A2733 /* map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.txt; path = hw05/graphics/map.txt; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* NYUCodebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUCodebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -135,7 +145,12 @@
 		6D5A86B419AE5C710066C1FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2C7556661ADAB4D80055DC2E /* new_map.png */,
+				2C75FCA71AD4891300D73AD9 /* beck.png */,
+				2C7556641ADAB4C70055DC2E /* other.txt */,
+				2CF8B4E91AD9FF5C000A2733 /* map.txt */,
 				2C52DDF31AC8344E0023AFA4 /* level_map.txt */,
+				2CF8B4E71AD9FF02000A2733 /* sprites.png */,
 				2C52DDEF1AC834250023AFA4 /* game_sprites.png */,
 				2C52DDF81AC838780023AFA4 /* volt.png */,
 				2CF291A51ACB28F1000ACA40 /* robot.png */,
@@ -246,9 +261,14 @@
 				2C52DDF91AC838780023AFA4 /* volt.png in Resources */,
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
 				2C52DDF01AC834250023AFA4 /* game_sprites.png in Resources */,
+				2CF8B4EA1AD9FF5C000A2733 /* map.txt in Resources */,
+				2C7556651ADAB4C70055DC2E /* other.txt in Resources */,
 				2CF291A61ACB28F1000ACA40 /* robot.png in Resources */,
 				6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */,
 				2C52DDF41AC8344E0023AFA4 /* level_map.txt in Resources */,
+				2C75FCA81AD4891300D73AD9 /* beck.png in Resources */,
+				2C7556671ADAB4D80055DC2E /* new_map.png in Resources */,
+				2CF8B4E81AD9FF02000A2733 /* sprites.png in Resources */,
 				6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */,
 				2C60902C1AC04F51000061AF /* hw05 in Resources */,
 				2CF291A81ACB2B23000ACA40 /* tiger.png in Resources */,
@@ -262,10 +282,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C1749481ACDDC3100653228 /* SpriteSheet.cpp in Sources */,
-				2C1749441ACDDC2300653228 /* main.cpp in Sources */,
-				2C1749471ACDDC2E00653228 /* Entity copy.cpp in Sources */,
-				2C1749461ACDDC2C00653228 /* ClassDemoApp copy.cpp in Sources */,
+				2C75FCA61AD475EA00D73AD9 /* SpriteSheet.cpp in Sources */,
+				2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */,
+				2C75FCA51AD475E800D73AD9 /* Entity copy.cpp in Sources */,
+				2C75FCA41AD475E500D73AD9 /* ClassDemoApp copy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,9 +21,9 @@
 #define MAX_BULLETS 30
 #define LEVEL_WIDTH 128
 #define LEVEL_HEIGHT 32
-#define TILE_SIZE 16
-#define SPRITE_COUNT_X 50
-#define SPRITE_COUNT_Y 33
+#define TILE_SIZE 0.05f
+#define SPRITE_COUNT_X 36
+#define SPRITE_COUNT_Y 19
 #define WORLD_OFFSET_X 1
 #define WORLD_OFFSET_Y 1
 
@@ -39,7 +39,7 @@ public:
     void shootBullet();
     void Render(float elapsed);
     void Update(float elapsed);
-    void buildLevel();
+    void drawLevel();
     bool readHeader(std::ifstream &stream);
     bool readLayerData(std::ifstream &stream);
     bool readEntityData(std::ifstream &stream);
@@ -58,8 +58,6 @@ private:
     unsigned char **levelData;
     int mapWidth;
     int mapHeight;
-    std::vector<int> vertexData;
-    std::vector<float>  texCoordData;
     
 };
 

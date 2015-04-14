@@ -12,20 +12,23 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
+#include <string>
+#include "SpriteSheet.h"
+
+
 
 
 class Entity {
 public:
-    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0) {}
+    Entity (float x, float y, float w, float h) : x(x), y(y), width(w), height(h), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), numFrames(0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, 0.0, 0.0, width, height) {}
     
     void Update(float elapsed);
     void Render(float elapsed);
     
     bool collidesWith(Entity *entity);
     
-    void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
-    
-//    void FixedUpdaate();
+    void FixedUpdate();
+    SheetSprite sprite;
     
     float x;
     float y;
@@ -54,12 +57,14 @@ public:
     bool collidedRight = false;
     
     int numFrames;
+    std::string name;
     float animationElapsed = 0.0f;
     float framesPerSecond;
     int currentIndex = 0;
     float offset;
     float penetration;
-    
+    float scale;
+    unsigned int spriteSheetTexture;
 };
 
 
@@ -72,6 +77,8 @@ public:
     float angle;
 };
 
-GLuint LoadTexture(const char *image_path);
+void animatePlayer (SheetSprite sprite);
+
+float lerp(float v0, float v1, float t);
 
 #endif

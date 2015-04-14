@@ -31,61 +31,65 @@ ClassDemoApp::~ClassDemoApp() {
 
 void ClassDemoApp::Init() {
     SDL_Init(SDL_INIT_VIDEO);
-    displayWindow = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 1000, SDL_WINDOW_OPENGL);
+    displayWindow = SDL_CreateWindow("My Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
     
-    readFile("NYUCodebase.app/Contents/Resources/level_map.txt");
+    glViewport(0, 0, 800, 600);    
+    glMatrixMode(GL_PROJECTION);
+    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
+    
+    
+    readFile("NYUCodebase.app/Contents/Resources/other.txt");
     
     Entity player(0.0, 0.0, 0.104, 0.22);
     player.name = "player";
-    player.scale = 0.7f;
+    player.scale = 0.3f;
     player.spriteSheetTexture = LoadTexture("volt.png");
     player.sprite = SheetSprite(player.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
                                   93.0f/1024.0f, 84.0f/1024.0f);
     entities.push_back(player);
     Entity robot(0.0, 0.0, 0.103, 0.22);
     robot.name = "robot";
-    robot.scale = 0.7f;
+    robot.scale = 0.3f;
     robot.spriteSheetTexture = LoadTexture("robot.png");
     robot.sprite = SheetSprite(robot.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
                                 93.0f/1024.0f, 84.0f/1024.0f);
     entities.push_back(robot);
-    Entity tiger(0.0, 0.0, 0.103, 0.22);
-    tiger.name = "tiger";
-    tiger.scale = 0.7f;
-    tiger.spriteSheetTexture = LoadTexture("tiger.png");
-    tiger.sprite = SheetSprite(tiger.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
-                               93.0f/1024.0f, 84.0f/1024.0f);
-    entities.push_back(tiger);
+//    Entity tiger(0.0, 0.0, 0.103, 0.22);
+//    tiger.name = "tiger";
+//    tiger.scale = 0.7f;
+//    tiger.spriteSheetTexture = LoadTexture("tiger.png");
+//    tiger.sprite = SheetSprite(tiger.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
+//                               93.0f/1024.0f, 84.0f/1024.0f);
+//    entities.push_back(tiger);
     
     
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glTranslatef(entities[0].y, entities[0].x, 0.0f);
-    buildLevel();
-    glPopMatrix();
+    
     
 }
 
 void ClassDemoApp::Render(float elapsed) {
     // render stuff
+    
     SDL_GL_SwapWindow(displayWindow);
     glClearColor(0.33f, 0.33f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    glViewport(0, 0, 800, 600);
-    glMatrixMode(GL_PROJECTION);
+
+
     glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+//    glTranslatef(-entities[0].y, -entities[0].x, 0.0f);
     
-    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
     
     glClear(GL_COLOR_BUFFER_BIT);
     for (size_t i = 0; i < entities.size(); i++) {
-//        entities[i].Render(elapsed);
+        entities[i].Render(elapsed);
     }
-    for (size_t i = 0; i < texCoordData.size(); i++) {
-        texCoordData[i];
-    }
+    
+    glPushMatrix();
+    drawLevel();
+    glPopMatrix();
 }
 void ClassDemoApp::Update(float elapsed) {
     while (SDL_PollEvent(&event)) {
@@ -101,7 +105,7 @@ bool ClassDemoApp::UpdateAndRender() {
     
     
     Update(elapsed);
-//    Render(elapsed);
+    Render(elapsed);
     return done;
 }
 void ClassDemoApp::shootBullet() {
@@ -114,14 +118,17 @@ void ClassDemoApp::shootBullet() {
         bulletIndex = 0;
     }
 }
-void ClassDemoApp::buildLevel() {
-    glLoadIdentity();
-    glTranslatef(-TILE_SIZE * LEVEL_WIDTH/2, TILE_SIZE * LEVEL_HEIGHT/2, 0.0f);
+void ClassDemoApp::drawLevel() {
+    int textureID = LoadTexture("new_map.png");
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    
+    std::vector<float> vertexData;
+    std::vector<float>  texCoordData;
     
     for(int y=0; y < LEVEL_HEIGHT; y++) {
         for(int x=0; x < LEVEL_WIDTH; x++) {
             if(levelData[y][x] != 0) {
-                // add vertices
                 float u = (float)(((int)levelData[y][x]) % SPRITE_COUNT_X) / (float) SPRITE_COUNT_X;
                 float v = (float)(((int)levelData[y][x]) / SPRITE_COUNT_X) / (float) SPRITE_COUNT_Y;
                 float spriteWidth = 1.0f/(float)SPRITE_COUNT_X;
@@ -141,6 +148,10 @@ void ClassDemoApp::buildLevel() {
             }
         }
     }
+    
+    glLoadIdentity();
+    glTranslatef(-TILE_SIZE * LEVEL_WIDTH/2, TILE_SIZE * LEVEL_HEIGHT/2, 0.0f);
+    
     glVertexPointer(2, GL_FLOAT, 0, vertexData.data());
     glEnableClientState(GL_VERTEX_ARRAY);
     
@@ -262,24 +273,16 @@ void ClassDemoApp::readFile(std::string levelFile){
             }
         } else if(line == "[layer]") {
             readLayerData(infile);
-        } else if(line == "[Player]") {
+        } else if(line == "[player]") {
             readEntityData(infile);
-        } else if(line == "[Enemy]") {
+        } else if(line == "[enemy]") {
             readEntityData(infile);
         }
     }
 }
 
 void ClassDemoApp::placeEntity(std::string type, float placeX, float placeY) {
-    /*
-    if (type == "Player") {
-        entities[0].x = placeX;
-        entities[0].y = placeY;
-    } else
-        for (int i = 1; i < entities.size(); i++) {
-            entities[i].x = placeX;
-            entities[i].y = placeY;
-    }
-     */
+//    worldToTileCoordinates(placeX, placeY, LEVEL_WIDTH, LEVEL_HEIGHT);
+    
 }
 
