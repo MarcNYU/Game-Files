@@ -43,7 +43,10 @@ void ClassDemoApp::Init() {
     
     readFile("NYUCodebase.app/Contents/Resources/level1.txt");
     
-    
+    Entity player;
+    player.type = "Player";
+    player.scale = 0.25;
+    entities.push_back(player);
     
     
 }
@@ -59,9 +62,9 @@ void ClassDemoApp::Render() {
     glLoadIdentity();
     
     glClear(GL_COLOR_BUFFER_BIT);
-//    for (size_t i = 0; i < entities.size(); i++) {
-//        entities[i].Render(elapsed);
-//    }
+    for (size_t i = 0; i < entities.size(); i++) {
+        entities[i].Render();
+    }
     
     glPushMatrix();
     drawLevel();
@@ -240,16 +243,22 @@ void ClassDemoApp::readFile(std::string levelFile){
             }
         } else if(line == "[layer]") {
             readLayerData(infile);
-        } else if(line == "[player]") {
+        } else if(line == "[Player]") {
             readEntityData(infile);
-        } else if(line == "[enemy]") {
+        } else if(line == "[Goal]") {
+            readEntityData(infile);
+        } else if(line == "[Crate]") {
             readEntityData(infile);
         }
     }
 }
 
 void ClassDemoApp::placeEntity(std::string type, float placeX, float placeY) {
-//    worldToTileCoordinates(placeX, placeY, LEVEL_WIDTH, LEVEL_HEIGHT);
-    
+    for (Entity target : entities) {
+        if (target.type == type) {
+            target.x = placeX;
+            target.y = placeY;
+        }
+    }
 }
 

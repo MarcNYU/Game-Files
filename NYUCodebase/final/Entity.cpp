@@ -18,7 +18,16 @@
 #define MAX_TIMESTEPS 6
 float timeLeftOver = 0.0f;
 
-void Entity::Render() {}
+void Entity::Render() {
+    spriteSheetTexture = LoadTexture("8-bit.png");
+    if (type == "Player") {
+        sprite.width = 0.1;
+        sprite.height = 0.11;
+        sprite.u = 0.0;
+        sprite.v = 0.0;
+        sprite.Draw(scale);
+    }
+}
 void Entity::Update(float elapsed) {
     float fixedElapsed = elapsed + timeLeftOver;
     if(fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEPS) {
