@@ -7,21 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C52DDF01AC834250023AFA4 /* game_sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDEF1AC834250023AFA4 /* game_sprites.png */; };
-		2C52DDF41AC8344E0023AFA4 /* level_map.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDF31AC8344E0023AFA4 /* level_map.txt */; };
-		2C52DDF91AC838780023AFA4 /* volt.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C52DDF81AC838780023AFA4 /* volt.png */; };
+		2C54913C1AF02D290014D400 /* hw06 in Resources */ = {isa = PBXBuildFile; fileRef = 2C54913B1AF02D290014D400 /* hw06 */; };
+		2C5491411AF031570014D400 /* final in Resources */ = {isa = PBXBuildFile; fileRef = 2C5491401AF031570014D400 /* final */; };
+		2C5491451AF0316F0014D400 /* ClassDemoApp copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5491421AF0316F0014D400 /* ClassDemoApp copy.cpp */; };
+		2C5491471AF057D60014D400 /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C5491461AF057D60014D400 /* level1.txt */; };
+		2C5491491AF059360014D400 /* tremor_sprite_sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C5491481AF059360014D400 /* tremor_sprite_sheet.png */; };
+		2C54914B1AF0593C0014D400 /* level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C54914A1AF0593C0014D400 /* level2.txt */; };
+		2C54914D1AF059420014D400 /* level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C54914C1AF059420014D400 /* level3.txt */; };
+		2C54914F1AF05B830014D400 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C54914E1AF05B830014D400 /* Entity.cpp */; };
 		2C60902C1AC04F51000061AF /* hw05 in Resources */ = {isa = PBXBuildFile; fileRef = 2C60902B1AC04F51000061AF /* hw05 */; };
-		2C7556651ADAB4C70055DC2E /* other.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C7556641ADAB4C70055DC2E /* other.txt */; };
-		2C7556671ADAB4D80055DC2E /* new_map.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7556661ADAB4D80055DC2E /* new_map.png */; };
 		2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30971AC5859E00215747 /* main.cpp */; };
-		2C75FCA41AD475E500D73AD9 /* ClassDemoApp copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309E1AC5913200215747 /* ClassDemoApp copy.cpp */; };
-		2C75FCA51AD475E800D73AD9 /* Entity copy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30A11AC5913900215747 /* Entity copy.cpp */; };
-		2C75FCA61AD475EA00D73AD9 /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB309B1AC5906800215747 /* SpriteSheet.cpp */; };
-		2C75FCA81AD4891300D73AD9 /* beck.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C75FCA71AD4891300D73AD9 /* beck.png */; };
-		2CF291A61ACB28F1000ACA40 /* robot.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF291A51ACB28F1000ACA40 /* robot.png */; };
-		2CF291A81ACB2B23000ACA40 /* tiger.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF291A71ACB2B23000ACA40 /* tiger.png */; };
-		2CF8B4E81AD9FF02000A2733 /* sprites.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CF8B4E71AD9FF02000A2733 /* sprites.png */; };
-		2CF8B4EA1AD9FF5C000A2733 /* map.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2CF8B4E91AD9FF5C000A2733 /* map.txt */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86B619AE5C710066C1FD /* InfoPlist.strings */; };
 		6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86BC19AE5C710066C1FD /* Credits.rtf */; };
@@ -32,33 +27,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2C52DDEF1AC834250023AFA4 /* game_sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = game_sprites.png; path = hw05/graphics/game_sprites.png; sourceTree = "<group>"; };
-		2C52DDF31AC8344E0023AFA4 /* level_map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level_map.txt; path = hw05/graphics/level_map.txt; sourceTree = "<group>"; };
-		2C52DDF81AC838780023AFA4 /* volt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = volt.png; path = hw05/graphics/volt.png; sourceTree = "<group>"; };
+		2C54913B1AF02D290014D400 /* hw06 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw06; sourceTree = "<group>"; };
+		2C5491401AF031570014D400 /* final */ = {isa = PBXFileReference; lastKnownFileType = folder; path = final; sourceTree = "<group>"; };
+		2C5491421AF0316F0014D400 /* ClassDemoApp copy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "ClassDemoApp copy.cpp"; path = "final/ClassDemoApp copy.cpp"; sourceTree = "<group>"; };
+		2C5491431AF0316F0014D400 /* ClassDemoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassDemoApp.h; path = final/ClassDemoApp.h; sourceTree = "<group>"; };
+		2C5491441AF0316F0014D400 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = final/Entity.h; sourceTree = "<group>"; };
+		2C5491461AF057D60014D400 /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level1.txt; path = final/final_sprites/level1.txt; sourceTree = "<group>"; };
+		2C5491481AF059360014D400 /* tremor_sprite_sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tremor_sprite_sheet.png; path = final/final_sprites/tremor_sprite_sheet.png; sourceTree = "<group>"; };
+		2C54914A1AF0593C0014D400 /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level2.txt; path = final/final_sprites/level2.txt; sourceTree = "<group>"; };
+		2C54914C1AF059420014D400 /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level3.txt; path = final/final_sprites/level3.txt; sourceTree = "<group>"; };
+		2C54914E1AF05B830014D400 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = final/Entity.cpp; sourceTree = "<group>"; };
 		2C60902B1AC04F51000061AF /* hw05 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw05; sourceTree = "<group>"; };
-		2C7556641ADAB4C70055DC2E /* other.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = other.txt; path = hw05/graphics/other.txt; sourceTree = "<group>"; };
-		2C7556661ADAB4D80055DC2E /* new_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = new_map.png; path = hw05/graphics/new_map.png; sourceTree = "<group>"; };
-		2C75FCA71AD4891300D73AD9 /* beck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = beck.png; path = hw04/beck_sprites/beck.png; sourceTree = "<group>"; };
 		2CA484C91AA5FB64001557ED /* pong */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pong; sourceTree = "<group>"; };
 		2CA484CD1AA5FBEB001557ED /* space */ = {isa = PBXFileReference; lastKnownFileType = folder; path = space; sourceTree = "<group>"; };
 		2CA484CF1AA5FBFE001557ED /* hw01 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw01; sourceTree = "<group>"; };
 		2CA484D51AA65541001557ED /* hw04 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw04; sourceTree = "<group>"; };
-		2CAB30911AC5858B00215747 /* ClassDemoApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClassDemoApp.cpp; path = hw05/ClassDemoApp.cpp; sourceTree = "<group>"; };
-		2CAB30921AC5858B00215747 /* ClassDemoApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassDemoApp.h; path = hw05/ClassDemoApp.h; sourceTree = "<group>"; };
-		2CAB30931AC5858B00215747 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = hw05/Entity.cpp; sourceTree = "<group>"; };
-		2CAB30941AC5858B00215747 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Entity.h; path = hw05/Entity.h; sourceTree = "<group>"; };
 		2CAB30971AC5859E00215747 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2CAB30991AC58F1C00215747 /* animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animation.cpp; path = hw04/animation.cpp; sourceTree = "<group>"; };
-		2CAB309B1AC5906800215747 /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpriteSheet.cpp; path = hw04/SpriteSheet.cpp; sourceTree = "<group>"; };
-		2CAB309C1AC5906800215747 /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteSheet.h; path = hw04/SpriteSheet.h; sourceTree = "<group>"; };
-		2CAB309E1AC5913200215747 /* ClassDemoApp copy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "ClassDemoApp copy.cpp"; path = "hw05/ClassDemoApp copy.cpp"; sourceTree = "<group>"; };
-		2CAB309F1AC5913200215747 /* ClassDemoApp copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ClassDemoApp copy.h"; path = "hw05/ClassDemoApp copy.h"; sourceTree = "<group>"; };
-		2CAB30A11AC5913900215747 /* Entity copy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Entity copy.cpp"; path = "hw05/Entity copy.cpp"; sourceTree = "<group>"; };
-		2CAB30A21AC5913900215747 /* Entity copy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Entity copy.h"; path = "hw05/Entity copy.h"; sourceTree = "<group>"; };
-		2CF291A51ACB28F1000ACA40 /* robot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = robot.png; path = hw05/graphics/robot.png; sourceTree = "<group>"; };
-		2CF291A71ACB2B23000ACA40 /* tiger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tiger.png; path = hw05/graphics/tiger.png; sourceTree = "<group>"; };
-		2CF8B4E71AD9FF02000A2733 /* sprites.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sprites.png; path = hw05/graphics/sprites.png; sourceTree = "<group>"; };
-		2CF8B4E91AD9FF5C000A2733 /* map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = map.txt; path = hw05/graphics/map.txt; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* NYUCodebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUCodebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -145,16 +129,10 @@
 		6D5A86B419AE5C710066C1FD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2C7556661ADAB4D80055DC2E /* new_map.png */,
-				2C75FCA71AD4891300D73AD9 /* beck.png */,
-				2C7556641ADAB4C70055DC2E /* other.txt */,
-				2CF8B4E91AD9FF5C000A2733 /* map.txt */,
-				2C52DDF31AC8344E0023AFA4 /* level_map.txt */,
-				2CF8B4E71AD9FF02000A2733 /* sprites.png */,
-				2C52DDEF1AC834250023AFA4 /* game_sprites.png */,
-				2C52DDF81AC838780023AFA4 /* volt.png */,
-				2CF291A51ACB28F1000ACA40 /* robot.png */,
-				2CF291A71ACB2B23000ACA40 /* tiger.png */,
+				2C5491481AF059360014D400 /* tremor_sprite_sheet.png */,
+				2C5491461AF057D60014D400 /* level1.txt */,
+				2C54914A1AF0593C0014D400 /* level2.txt */,
+				2C54914C1AF059420014D400 /* level3.txt */,
 				6D5A86C519AE5C710066C1FD /* Images.xcassets */,
 				6D5A86B519AE5C710066C1FD /* NYUCodebase-Info.plist */,
 				6D5A86B619AE5C710066C1FD /* InfoPlist.strings */,
@@ -185,17 +163,12 @@
 			isa = PBXGroup;
 			children = (
 				2CAB30971AC5859E00215747 /* main.cpp */,
-				2CAB30991AC58F1C00215747 /* animation.cpp */,
-				2CAB30911AC5858B00215747 /* ClassDemoApp.cpp */,
-				2CAB30921AC5858B00215747 /* ClassDemoApp.h */,
-				2CAB30931AC5858B00215747 /* Entity.cpp */,
-				2CAB30941AC5858B00215747 /* Entity.h */,
-				2CAB309E1AC5913200215747 /* ClassDemoApp copy.cpp */,
-				2CAB309F1AC5913200215747 /* ClassDemoApp copy.h */,
-				2CAB30A11AC5913900215747 /* Entity copy.cpp */,
-				2CAB30A21AC5913900215747 /* Entity copy.h */,
-				2CAB309B1AC5906800215747 /* SpriteSheet.cpp */,
-				2CAB309C1AC5906800215747 /* SpriteSheet.h */,
+				2C5491421AF0316F0014D400 /* ClassDemoApp copy.cpp */,
+				2C5491431AF0316F0014D400 /* ClassDemoApp.h */,
+				2C54914E1AF05B830014D400 /* Entity.cpp */,
+				2C5491441AF0316F0014D400 /* Entity.h */,
+				2C5491401AF031570014D400 /* final */,
+				2C54913B1AF02D290014D400 /* hw06 */,
 				2C60902B1AC04F51000061AF /* hw05 */,
 				2CA484D51AA65541001557ED /* hw04 */,
 				2CA484CF1AA5FBFE001557ED /* hw01 */,
@@ -258,20 +231,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C52DDF91AC838780023AFA4 /* volt.png in Resources */,
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
-				2C52DDF01AC834250023AFA4 /* game_sprites.png in Resources */,
-				2CF8B4EA1AD9FF5C000A2733 /* map.txt in Resources */,
-				2C7556651ADAB4C70055DC2E /* other.txt in Resources */,
-				2CF291A61ACB28F1000ACA40 /* robot.png in Resources */,
+				2C5491491AF059360014D400 /* tremor_sprite_sheet.png in Resources */,
+				2C54913C1AF02D290014D400 /* hw06 in Resources */,
 				6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */,
-				2C52DDF41AC8344E0023AFA4 /* level_map.txt in Resources */,
-				2C75FCA81AD4891300D73AD9 /* beck.png in Resources */,
-				2C7556671ADAB4D80055DC2E /* new_map.png in Resources */,
-				2CF8B4E81AD9FF02000A2733 /* sprites.png in Resources */,
+				2C5491471AF057D60014D400 /* level1.txt in Resources */,
+				2C54914D1AF059420014D400 /* level3.txt in Resources */,
 				6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */,
 				2C60902C1AC04F51000061AF /* hw05 in Resources */,
-				2CF291A81ACB2B23000ACA40 /* tiger.png in Resources */,
+				2C5491411AF031570014D400 /* final in Resources */,
+				2C54914B1AF0593C0014D400 /* level2.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,10 +251,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C75FCA61AD475EA00D73AD9 /* SpriteSheet.cpp in Sources */,
 				2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */,
-				2C75FCA51AD475E800D73AD9 /* Entity copy.cpp in Sources */,
-				2C75FCA41AD475E500D73AD9 /* ClassDemoApp copy.cpp in Sources */,
+				2C54914F1AF05B830014D400 /* Entity.cpp in Sources */,
+				2C5491451AF0316F0014D400 /* ClassDemoApp copy.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,7 +16,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "ClassDemoApp copy.h"
+#include "ClassDemoApp.h"
 
 
 
@@ -35,57 +35,33 @@ void ClassDemoApp::Init() {
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
     
-    glViewport(0, 0, 800, 600);    
+    glViewport(0, 0, 800, 600);
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
+//    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
+    glOrtho(-0.43, 0.43, -0.4, 0.4, -0.4, 0.4);
     
     
-    readFile("NYUCodebase.app/Contents/Resources/other.txt");
-    
-    Entity player(0.0, 0.0, 0.104, 0.22);
-    player.name = "player";
-    player.scale = 0.3f;
-    player.spriteSheetTexture = LoadTexture("volt.png");
-    player.sprite = SheetSprite(player.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
-                                  93.0f/1024.0f, 84.0f/1024.0f);
-    entities.push_back(player);
-    Entity robot(0.0, 0.0, 0.103, 0.22);
-    robot.name = "robot";
-    robot.scale = 0.3f;
-    robot.spriteSheetTexture = LoadTexture("robot.png");
-    robot.sprite = SheetSprite(robot.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
-                                93.0f/1024.0f, 84.0f/1024.0f);
-    entities.push_back(robot);
-//    Entity tiger(0.0, 0.0, 0.103, 0.22);
-//    tiger.name = "tiger";
-//    tiger.scale = 0.7f;
-//    tiger.spriteSheetTexture = LoadTexture("tiger.png");
-//    tiger.sprite = SheetSprite(tiger.spriteSheetTexture, 425.0f/1024.0f, 468.0f/1024.0f,
-//                               93.0f/1024.0f, 84.0f/1024.0f);
-//    entities.push_back(tiger);
+    readFile("NYUCodebase.app/Contents/Resources/level1.txt");
     
     
     
     
 }
 
-void ClassDemoApp::Render(float elapsed) {
+void ClassDemoApp::Render() {
     // render stuff
     
     SDL_GL_SwapWindow(displayWindow);
     glClearColor(0.33f, 0.33f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-//    glTranslatef(-entities[0].y, -entities[0].x, 0.0f);
-    
     
     glClear(GL_COLOR_BUFFER_BIT);
-    for (size_t i = 0; i < entities.size(); i++) {
-        entities[i].Render(elapsed);
-    }
+//    for (size_t i = 0; i < entities.size(); i++) {
+//        entities[i].Render(elapsed);
+//    }
     
     glPushMatrix();
     drawLevel();
@@ -105,21 +81,12 @@ bool ClassDemoApp::UpdateAndRender() {
     
     
     Update(elapsed);
-    Render(elapsed);
+    Render();
     return done;
 }
-void ClassDemoApp::shootBullet() {
-    bullets[bulletIndex].visible = true;
-    bullets[bulletIndex].x = -1.2;
-    bullets[bulletIndex].y = 0.0;
-    bullets[bulletIndex].angle = (float)(45 - (rand() % 90));
-    bulletIndex++;
-    if(bulletIndex > MAX_BULLETS-1) {
-        bulletIndex = 0;
-    }
-}
+
 void ClassDemoApp::drawLevel() {
-    int textureID = LoadTexture("new_map.png");
+    int textureID = LoadTexture("tremor_sprite_sheet.png");
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureID);
     
