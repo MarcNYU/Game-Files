@@ -12,6 +12,7 @@
 #include <SDL_image.h>
 #include <vector>
 #include "Entity.h"
+#include <iostream>
 
 // 60 FPS (1.0f/60.0f)
 #define FIXED_TIMESTEP 0.0166666f
@@ -19,13 +20,21 @@
 float timeLeftOver = 0.0f;
 
 void Entity::Render() {
-    spriteSheetTexture = LoadTexture("8-bit.png");
     if (type == "Player") {
-        sprite.width = 0.1;
-        sprite.height = 0.11;
-        sprite.u = 0.0;
-        sprite.v = 0.0;
-        sprite.Draw(scale);
+        std::cout << sprite.x << " : " << sprite.y << std::endl;
+//        sprite.width = 0.125;
+//        sprite.height = 0.125;
+//        sprite.u = 0.0;
+//        sprite.v = 0.0;
+//        sprite.Draw(scale);
+        // HACK NOTE
+         DrawSprite(LoadTexture("8-bit.png"), 0, 1.0, 1.0);
+    }
+    if (type == "Crate") {
+        DrawSprite(LoadTexture("crate.png"), 0, 1.0, 1.0);
+    }
+    if (type == "Goal") {
+        DrawSprite(LoadTexture("waffle.png"), 0, 1.0, 1.0);
     }
 }
 void Entity::Update(float elapsed) {
@@ -37,11 +46,17 @@ void Entity::Update(float elapsed) {
         fixedElapsed -= FIXED_TIMESTEP;
         FixedUpdate();
     }
+    
     timeLeftOver = fixedElapsed;
     if (direction_x > 0.0) {
         acceleration_x = 1.0;
     } else if (direction_x < 0.0) {
         acceleration_x = -1.0;
+    }
+    if (direction_y < 0.0) {
+        velocity_y = -1.0;
+    } else if (direction_y > 0.0) {
+        velocity_y = 1.0;
     }
 }
 float lerp(float v0, float v1, float t) {
@@ -78,6 +93,56 @@ bool Entity::collidesWith(Entity *entity) {
         return true;
     }
     return false;
+}
+bool collision(Entity sprite_1, Entity sprite_2){
+    //If the leftmost or rightmost point of the first sprite lies somewhere inside the second, continue.
+    if( (sprite_1.x >= sprite_2.x && sprite_1.x <= (sprite_2.x + sprite_2.width)) ||
+       ((sprite_1.x + sprite_1.width) >= sprite_2.x && (sprite_1.x + sprite_1.width) <= (sprite_2.x + sprite_2.width)) ){
+        //Now we look at the y axis:
+        if( (sprite_1.y >= sprite_2.y && sprite_1.y <= (sprite_2.y + sprite_2.height)) ||
+           ((sprite_1.y + sprite_1.height) >= sprite_2.y && (sprite_1.y + sprite_1.height) <= (sprite_2.y + sprite_2.height)) ){
+            //The sprites appear to overlap.
+            return true;
+        }
+    }
+    //The sprites do not overlap:
+    return false;
+}
+// HACK NOTE
+void Entity::DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY) {
+    
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, spriteTexture);
+    
+    glMatrixMode(GL_MODELVIEW);
+    
+    glLoadIdentity();
+    glTranslatef(x, y, 0.0);
+    glScalef(width, height, 1.0);
+    
+    GLfloat quad[] = {-0.5f, 0.5f, -0.5f, -0.5f, 0.5f, -0.5f, 0.5f, 0.5f};
+    // our regular sprite drawing
+    float u = (float)(((int)index) % spriteCountX) / (float) spriteCountX;
+    float v = (float)(((int)index) / spriteCountX) / (float) spriteCountY;
+    float spriteWidth = 1.0/(float)spriteCountX;
+    float spriteHeight = 1.0/(float)spriteCountY;
+    GLfloat quadUVs[] = { u, v,
+        u, v+spriteHeight,
+        u+spriteWidth, v+spriteHeight,
+        u+spriteWidth, v};
+    // our regular sprite drawing
+    glVertexPointer(2, GL_FLOAT, 0, quad);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    
+    glTexCoordPointer(2, GL_FLOAT, 0, quadUVs);
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    glDrawArrays(GL_QUADS, 0, 4);
+    glDisable(GL_TEXTURE_2D);
+    
 }
 
 

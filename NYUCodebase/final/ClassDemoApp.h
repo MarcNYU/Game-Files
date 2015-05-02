@@ -21,8 +21,7 @@
 #define TILE_SIZE 0.05f
 #define SPRITE_COUNT_X 10
 #define SPRITE_COUNT_Y 7
-#define WORLD_OFFSET_X 1
-#define WORLD_OFFSET_Y 1
+
 
 GLuint LoadTexture(const char *image_path);
 void worldToTileCoordinates(float worldX, float worldY, int *gridX, int *gridY);

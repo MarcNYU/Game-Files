@@ -18,11 +18,12 @@
 
 class Entity {
 public:
-    Entity () : x(0.0), y(0.0), width(0.0), height(0.0), rotation(0.0), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, 0.0, 0.0, width, height) {}
+    Entity () : x(0.0), y(0.0), width(0.0), height(0.0), rotation(0.0), velocity_x (0.0), velocity_y(0.0), acceleration_x(0.0), acceleration_y(0.0), friction_x(0.0), friction_y(0.0), mass(1.0), direction_x(0.0), direction_y(0.0), framesPerSecond(0.0), gravity_x(0.0), gravity_y(0.0), spriteSheetTexture(0), sprite(spriteSheetTexture, x, y, 0.0, 0.0, width, height) {}
     
     void Update(float elapsed);
     void Render();
     
+    void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
     bool collidesWith(Entity *entity);
     
     void FixedUpdate();

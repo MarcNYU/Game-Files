@@ -10,6 +10,8 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
+#include <iostream>
+
 
 void SheetSprite::Draw(float scale) {
     glEnable(GL_TEXTURE_2D);
@@ -18,6 +20,10 @@ void SheetSprite::Draw(float scale) {
     glMatrixMode(GL_MODELVIEW);
     
     glLoadIdentity();
+    std::cout << "x, y = " << x << ", " << y << std::endl;
+    glTranslatef(x, y, 0.0);
+    
+    std::cout << "u, v = " << u << ", " << v << std::endl;
     GLfloat quad[] = {-width * scale , height * scale, -width * scale, -height * scale,
         width * scale, -height * scale, width * scale, height * scale};
     GLfloat quadUVs[] = {u, v, u, v+height, u+width, v+height, u+width, v};
@@ -34,4 +40,4 @@ void SheetSprite::Draw(float scale) {
     glDrawArrays(GL_QUADS, 0, 4);
     glDisable(GL_TEXTURE_2D);
 }
-SheetSprite::SheetSprite(unsigned int textureID, float u, float v, float width, float height) : textureID(textureID), u(u), v(v), width(width), height(height){}
+SheetSprite::SheetSprite(unsigned int textureID, float x, float y, float u, float v, float width, float height) : textureID(textureID), x(x), y(y), u(u), v(v), width(width), height(height){}

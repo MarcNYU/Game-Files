@@ -19,6 +19,8 @@
 		2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30971AC5859E00215747 /* main.cpp */; };
 		2CC63BBC1AF119BA001CBB9F /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC63BBA1AF119BA001CBB9F /* SpriteSheet.cpp */; };
 		2CC63BBE1AF1641C001CBB9F /* 8-bit.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC63BBD1AF1641C001CBB9F /* 8-bit.png */; };
+		2CE628BA1AF3C66F00D31746 /* crate.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE628B91AF3C66F00D31746 /* crate.png */; };
+		2CE628BE1AF3C70900D31746 /* waffle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE628BD1AF3C70900D31746 /* waffle.png */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86B619AE5C710066C1FD /* InfoPlist.strings */; };
 		6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6D5A86BC19AE5C710066C1FD /* Credits.rtf */; };
@@ -48,6 +50,8 @@
 		2CC63BBA1AF119BA001CBB9F /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpriteSheet.cpp; path = final/SpriteSheet.cpp; sourceTree = "<group>"; };
 		2CC63BBB1AF119BA001CBB9F /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteSheet.h; path = final/SpriteSheet.h; sourceTree = "<group>"; };
 		2CC63BBD1AF1641C001CBB9F /* 8-bit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "8-bit.png"; path = "final/final_sprites/8-bit.png"; sourceTree = "<group>"; };
+		2CE628B91AF3C66F00D31746 /* crate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crate.png; path = final/final_sprites/crate.png; sourceTree = "<group>"; };
+		2CE628BD1AF3C70900D31746 /* waffle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waffle.png; path = final/final_sprites/waffle.png; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* NYUCodebase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NYUCodebase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -135,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				2CC63BBD1AF1641C001CBB9F /* 8-bit.png */,
+				2CE628B91AF3C66F00D31746 /* crate.png */,
+				2CE628BD1AF3C70900D31746 /* waffle.png */,
 				2C5491481AF059360014D400 /* tremor_sprite_sheet.png */,
 				2C5491461AF057D60014D400 /* level1.txt */,
 				2C54914A1AF0593C0014D400 /* level2.txt */,
@@ -239,9 +245,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CE628BE1AF3C70900D31746 /* waffle.png in Resources */,
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
 				2C5491491AF059360014D400 /* tremor_sprite_sheet.png in Resources */,
 				2C54913C1AF02D290014D400 /* hw06 in Resources */,
+				2CE628BA1AF3C66F00D31746 /* crate.png in Resources */,
 				6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */,
 				2C5491471AF057D60014D400 /* level1.txt in Resources */,
 				2C54914D1AF059420014D400 /* level3.txt in Resources */,

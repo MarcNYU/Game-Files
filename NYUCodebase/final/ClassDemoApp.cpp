@@ -37,16 +37,38 @@ void ClassDemoApp::Init() {
     
     glViewport(0, 0, 800, 600);
     glMatrixMode(GL_PROJECTION);
-//    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
-    glOrtho(-0.43, 0.43, -0.4, 0.4, -0.4, 0.4);
+    glOrtho(-1.33, 1.33, -1.0, 1.0, -1.0, 1.0);
+//    glOrtho(-0.38, 0.38, -0.4, 0.4, -0.4, 0.4);
     
-    
-    readFile("NYUCodebase.app/Contents/Resources/level1.txt");
     
     Entity player;
     player.type = "Player";
-    player.scale = 0.25;
+//    player.scale = 0.25;
+    player.width = 0.0625;
+    player.height = 0.0625;
+    player.spriteSheetTexture = LoadTexture("8-bit.png");
+    std::cout << "current textID: " << player.sprite.textureID << std::endl;
+    std::cout << "initial: " << player.x << "," << player.y << std::endl;
+
+    Entity goal;
+    goal.type = "Goal";
+//    goal.scale = 0.25;
+    goal.width = 0.0625;
+    goal.height = 0.0625;
+    
+    Entity crate;
+    crate.type = "Crate";
+//    crate.scale = 0.25;
+    crate.width = 0.0625;
+    crate.height = 0.0625;
+
     entities.push_back(player);
+    entities.push_back(goal);
+    entities.push_back(crate);
+    
+    readFile("NYUCodebase.app/Contents/Resources/level1.txt");
+    //    readFile("NYUCodebase.app/Contents/Resources/level2.txt");
+    //    readFile("NYUCodebase.app/Contents/Resources/level3.txt");
     
     
 }
@@ -63,6 +85,7 @@ void ClassDemoApp::Render() {
     
     glClear(GL_COLOR_BUFFER_BIT);
     for (size_t i = 0; i < entities.size(); i++) {
+        std::cout << "rendering at " << entities[i].x << "," << entities[i].y << std::endl;
         entities[i].Render();
     }
     
@@ -75,6 +98,48 @@ void ClassDemoApp::Update(float elapsed) {
         if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
             done = true;
         }
+        if(event.type == SDL_KEYDOWN) {
+            if(event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
+                if (entities[0].collidedBottom) {
+                    //cause tremor
+                    //update all entites
+                }
+            }
+        }
+        if(event.type == SDL_KEYDOWN) {
+            if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
+                if (entities[0].collidedBottom) {
+                    entities[0].direction_y = 1.0;
+                }
+            }
+        }
+    }
+    
+    for (Entity target : entities) {
+        if (target.type == "Player") {
+            if (!target.collidedBottom) {
+                target.direction_y = -1.0;
+            }
+            if (keys[SDL_SCANCODE_RIGHT]) {
+                if (target.collidedBottom && !target.collidedRight) {
+                    target.direction_x = 1.0;
+                }
+            }
+            if (keys[SDL_SCANCODE_LEFT]) {
+                if (target.collidedBottom && !target.collidedLeft) {
+                    target.direction_x = -1.0;
+                }
+            }
+        }
+        if (target.type == "Crate") {
+            if (!target.collidedBottom) {
+                target.direction_y = -1.0;
+            }
+        }
+//        target.Update(elapsed);
+    }
+    for (size_t i = 0; i < entities.size(); i++) {
+        entities[i].Update(elapsed);
     }
 }
 bool ClassDemoApp::UpdateAndRender() {
@@ -90,6 +155,7 @@ bool ClassDemoApp::UpdateAndRender() {
 
 void ClassDemoApp::drawLevel() {
     int textureID = LoadTexture("tremor_sprite_sheet.png");
+    
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, textureID);
     
@@ -149,8 +215,8 @@ GLuint LoadTexture(const char *image_path) {
 }
 
 void worldToTileCoordinates(float worldX, float worldY, int *gridX, int *gridY) {
-    *gridX = (int)((worldX + (WORLD_OFFSET_X)) / TILE_SIZE);
-    *gridY = (int)((-worldY + (WORLD_OFFSET_Y)) / TILE_SIZE);
+    *gridX = (int)(worldX / TILE_SIZE);
+    *gridY = (int)(-worldY / TILE_SIZE);
 }
 
 bool ClassDemoApp::readHeader(std::ifstream &stream) {
@@ -225,8 +291,12 @@ bool ClassDemoApp::readEntityData(std::ifstream &stream) {
             std::string xPosition, yPosition;
             std::getline(lineStream, xPosition, ',');
             std::getline(lineStream, yPosition, ',');
-            float placeX = atoi(xPosition.c_str())/16*TILE_SIZE;
-            float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
+//            float placeX = atoi(xPosition.c_str())*TILE_SIZE;
+//            float placeY = atoi(yPosition.c_str())*-TILE_SIZE;
+            
+            float placeX = atoi(xPosition.c_str())*TILE_SIZE;
+            float placeY = atoi(yPosition.c_str())*-TILE_SIZE;
+            
             placeEntity(type, placeX, placeY);
         }
     }
@@ -254,11 +324,26 @@ void ClassDemoApp::readFile(std::string levelFile){
 }
 
 void ClassDemoApp::placeEntity(std::string type, float placeX, float placeY) {
-    for (Entity target : entities) {
-        if (target.type == type) {
-            target.x = placeX;
-            target.y = placeY;
+//    for (Entity target : entities) {
+//        if (target.type == type) {
+//            std::cout << target.type << " = " << type << std::endl;
+//            target.x = placeX;
+//            target.y = placeY;
+//        }
+//        std::cout << "set at " << target.x << "," << target.y << std::endl;
+//    }
+//    std::cout << "current: " << entities[0].x << "," << entities[0].y << std::endl;
+    for (size_t i = 0; i < entities.size(); i++) {
+        if (entities[i].type == type) {
+            std::cout << entities[i].type << " = " << type << std::endl;
+            entities[i].x = placeX;
+            entities[i].y = placeY;
+            
+            entities[i].sprite.x = placeX;
+            entities[i].sprite.y = placeY;
         }
+        std::cout << "set at " << entities[i].x << "," << entities[i].y << std::endl;
     }
+    std::cout << "current: " << entities[0].x << "," << entities[0].y << std::endl;
 }
 

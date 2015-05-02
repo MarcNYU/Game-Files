@@ -11,12 +11,14 @@
 
 class SheetSprite {
 public:
-    SheetSprite(unsigned int textureID, float u, float v, float width, float height);
+    SheetSprite(unsigned int textureID, float x, float y, float u, float v, float width, float height);
     
     void Draw(float scale);
     
     float scale;
     unsigned int textureID;
+    float x;
+    float y;
     float u;
     float v;
     float width;
