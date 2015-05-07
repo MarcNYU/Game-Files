@@ -17,6 +17,16 @@
 		2C54914F1AF05B830014D400 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C54914E1AF05B830014D400 /* Entity.cpp */; };
 		2C60902C1AC04F51000061AF /* hw05 in Resources */ = {isa = PBXBuildFile; fileRef = 2C60902B1AC04F51000061AF /* hw05 */; };
 		2C75FCA31AD475E200D73AD9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB30971AC5859E00215747 /* main.cpp */; };
+		2C8802881AF929AF0080BC81 /* pixel_sprites_sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8802871AF929AF0080BC81 /* pixel_sprites_sheet.png */; };
+		2C88028A1AF95F270080BC81 /* level1_new.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C8802891AF95F270080BC81 /* level1_new.txt */; };
+		2C88028C1AF95F350080BC81 /* level2_new.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C88028B1AF95F350080BC81 /* level2_new.txt */; };
+		2C88028E1AF95F430080BC81 /* level3_new.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C88028D1AF95F430080BC81 /* level3_new.txt */; };
+		2C8802901AF95F4E0080BC81 /* level4_new.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2C88028F1AF95F4E0080BC81 /* level4_new.txt */; };
+		2C8802921AF964330080BC81 /* saw.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8802911AF964330080BC81 /* saw.png */; };
+		2CB1F0B71AF66F37006843A5 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CB1F0B61AF66F37006843A5 /* SDL2_mixer.framework */; };
+		2CC5D8521AF7C68C008C64D6 /* button0.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC5D8511AF7C68C008C64D6 /* button0.png */; };
+		2CC5D8541AF7C7C7008C64D6 /* ice.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC5D8531AF7C7C7008C64D6 /* ice.png */; };
+		2CC5D8561AF7E176008C64D6 /* log.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC5D8551AF7E176008C64D6 /* log.png */; };
 		2CC63BBC1AF119BA001CBB9F /* SpriteSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC63BBA1AF119BA001CBB9F /* SpriteSheet.cpp */; };
 		2CC63BBE1AF1641C001CBB9F /* 8-bit.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CC63BBD1AF1641C001CBB9F /* 8-bit.png */; };
 		2CE628BA1AF3C66F00D31746 /* crate.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CE628B91AF3C66F00D31746 /* crate.png */; };
@@ -42,11 +52,22 @@
 		2C54914C1AF059420014D400 /* level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level3.txt; path = final/final_sprites/level3.txt; sourceTree = "<group>"; };
 		2C54914E1AF05B830014D400 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Entity.cpp; path = final/Entity.cpp; sourceTree = "<group>"; };
 		2C60902B1AC04F51000061AF /* hw05 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw05; sourceTree = "<group>"; };
+		2C8373791AFA430F00AA324F /* clean collision.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "clean collision.cpp"; path = "final/clean collision.cpp"; sourceTree = "<group>"; };
+		2C8802871AF929AF0080BC81 /* pixel_sprites_sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pixel_sprites_sheet.png; path = final/final_sprites/pixel_sprites_sheet.png; sourceTree = "<group>"; };
+		2C8802891AF95F270080BC81 /* level1_new.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level1_new.txt; path = final/final_sprites/level1_new.txt; sourceTree = "<group>"; };
+		2C88028B1AF95F350080BC81 /* level2_new.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level2_new.txt; path = final/final_sprites/level2_new.txt; sourceTree = "<group>"; };
+		2C88028D1AF95F430080BC81 /* level3_new.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level3_new.txt; path = final/final_sprites/level3_new.txt; sourceTree = "<group>"; };
+		2C88028F1AF95F4E0080BC81 /* level4_new.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = level4_new.txt; path = final/final_sprites/level4_new.txt; sourceTree = "<group>"; };
+		2C8802911AF964330080BC81 /* saw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = saw.png; path = final/final_sprites/saw.png; sourceTree = "<group>"; };
 		2CA484C91AA5FB64001557ED /* pong */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pong; sourceTree = "<group>"; };
 		2CA484CD1AA5FBEB001557ED /* space */ = {isa = PBXFileReference; lastKnownFileType = folder; path = space; sourceTree = "<group>"; };
 		2CA484CF1AA5FBFE001557ED /* hw01 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw01; sourceTree = "<group>"; };
 		2CA484D51AA65541001557ED /* hw04 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = hw04; sourceTree = "<group>"; };
 		2CAB30971AC5859E00215747 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2CB1F0B61AF66F37006843A5 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2_mixer.framework; sourceTree = "<group>"; };
+		2CC5D8511AF7C68C008C64D6 /* button0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button0.png; path = final/final_sprites/button0.png; sourceTree = "<group>"; };
+		2CC5D8531AF7C7C7008C64D6 /* ice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ice.png; path = final/final_sprites/ice.png; sourceTree = "<group>"; };
+		2CC5D8551AF7E176008C64D6 /* log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = log.png; path = final/final_sprites/log.png; sourceTree = "<group>"; };
 		2CC63BBA1AF119BA001CBB9F /* SpriteSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpriteSheet.cpp; path = final/SpriteSheet.cpp; sourceTree = "<group>"; };
 		2CC63BBB1AF119BA001CBB9F /* SpriteSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteSheet.h; path = final/SpriteSheet.h; sourceTree = "<group>"; };
 		2CC63BBD1AF1641C001CBB9F /* 8-bit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "8-bit.png"; path = "final/final_sprites/8-bit.png"; sourceTree = "<group>"; };
@@ -76,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */,
+				2CB1F0B71AF66F37006843A5 /* SDL2_mixer.framework in Frameworks */,
 				6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */,
 				6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */,
 				6D5AC2D219AE6A1E004CB1BF /* SDL2_image.framework in Frameworks */,
@@ -106,6 +128,7 @@
 		6D5A86AC19AE5C710066C1FD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2CB1F0B61AF66F37006843A5 /* SDL2_mixer.framework */,
 				6D5AC2D119AE6A1E004CB1BF /* SDL2_image.framework */,
 				6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */,
 				6D5A86E219AE5CD10066C1FD /* SDL2.framework */,
@@ -141,10 +164,19 @@
 				2CC63BBD1AF1641C001CBB9F /* 8-bit.png */,
 				2CE628B91AF3C66F00D31746 /* crate.png */,
 				2CE628BD1AF3C70900D31746 /* waffle.png */,
+				2CC5D8511AF7C68C008C64D6 /* button0.png */,
+				2CC5D8531AF7C7C7008C64D6 /* ice.png */,
+				2CC5D8551AF7E176008C64D6 /* log.png */,
+				2C8802911AF964330080BC81 /* saw.png */,
 				2C5491481AF059360014D400 /* tremor_sprite_sheet.png */,
+				2C8802871AF929AF0080BC81 /* pixel_sprites_sheet.png */,
 				2C5491461AF057D60014D400 /* level1.txt */,
+				2C8802891AF95F270080BC81 /* level1_new.txt */,
 				2C54914A1AF0593C0014D400 /* level2.txt */,
+				2C88028B1AF95F350080BC81 /* level2_new.txt */,
 				2C54914C1AF059420014D400 /* level3.txt */,
+				2C88028D1AF95F430080BC81 /* level3_new.txt */,
+				2C88028F1AF95F4E0080BC81 /* level4_new.txt */,
 				6D5A86C519AE5C710066C1FD /* Images.xcassets */,
 				6D5A86B519AE5C710066C1FD /* NYUCodebase-Info.plist */,
 				6D5A86B619AE5C710066C1FD /* InfoPlist.strings */,
@@ -176,6 +208,7 @@
 			children = (
 				2CAB30971AC5859E00215747 /* main.cpp */,
 				2C5491421AF0316F0014D400 /* ClassDemoApp.cpp */,
+				2C8373791AFA430F00AA324F /* clean collision.cpp */,
 				2C5491431AF0316F0014D400 /* ClassDemoApp.h */,
 				2C54914E1AF05B830014D400 /* Entity.cpp */,
 				2C5491441AF0316F0014D400 /* Entity.h */,
@@ -245,17 +278,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C88028A1AF95F270080BC81 /* level1_new.txt in Resources */,
+				2C88028C1AF95F350080BC81 /* level2_new.txt in Resources */,
+				2CC5D8521AF7C68C008C64D6 /* button0.png in Resources */,
 				2CE628BE1AF3C70900D31746 /* waffle.png in Resources */,
+				2C88028E1AF95F430080BC81 /* level3_new.txt in Resources */,
 				6D5A86B819AE5C710066C1FD /* InfoPlist.strings in Resources */,
+				2C8802881AF929AF0080BC81 /* pixel_sprites_sheet.png in Resources */,
 				2C5491491AF059360014D400 /* tremor_sprite_sheet.png in Resources */,
 				2C54913C1AF02D290014D400 /* hw06 in Resources */,
 				2CE628BA1AF3C66F00D31746 /* crate.png in Resources */,
 				6D5A86C619AE5C710066C1FD /* Images.xcassets in Resources */,
 				2C5491471AF057D60014D400 /* level1.txt in Resources */,
 				2C54914D1AF059420014D400 /* level3.txt in Resources */,
+				2C8802921AF964330080BC81 /* saw.png in Resources */,
 				6D5A86BE19AE5C710066C1FD /* Credits.rtf in Resources */,
 				2C60902C1AC04F51000061AF /* hw05 in Resources */,
 				2CC63BBE1AF1641C001CBB9F /* 8-bit.png in Resources */,
+				2C8802901AF95F4E0080BC81 /* level4_new.txt in Resources */,
+				2CC5D8561AF7E176008C64D6 /* log.png in Resources */,
+				2CC5D8541AF7C7C7008C64D6 /* ice.png in Resources */,
 				2C5491411AF031570014D400 /* final in Resources */,
 				2C54914B1AF0593C0014D400 /* level2.txt in Resources */,
 			);
@@ -383,6 +425,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";
@@ -406,6 +449,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "";

@@ -16,8 +16,8 @@
 #include "Entity.h"
 
 
-#define LEVEL_WIDTH 15
-#define LEVEL_HEIGHT 15
+#define LEVEL_WIDTH 20
+#define LEVEL_HEIGHT 20
 #define TILE_SIZE 0.05f
 #define SPRITE_COUNT_X 10
 #define SPRITE_COUNT_Y 7
@@ -47,10 +47,13 @@ private:
     SDL_Event event;
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     std::vector<Entity> entities;
+    std::vector<float> vertexData;
+    std::vector<float>  texCoordData;
     float penetration;
     unsigned char **levelData;
     int mapWidth;
     int mapHeight;
+    int charge = 0;
     
     
 };
