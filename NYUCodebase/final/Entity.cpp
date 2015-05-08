@@ -84,18 +84,30 @@ void Entity::Update(float elapsed) {
     }
     
     timeLeftOver = fixedElapsed;
-    if (direction_x > 0.0) {
-        acceleration_x = 1.0;
-    } else if (direction_x < 0.0) {
-        acceleration_x = -1.0;
-    } //else {acceleration_x = 0.0;}
-    if (direction_y < 0.0) {
-        velocity_y = -1.0;
-    } else if (direction_y > 0.0) {
-        velocity_y = 1.0;
-    } else if (direction_y == 0.0) {
-        velocity_y = 0.0;
+    if (type == "Player") {
+        if (direction_x > 0.0) {
+            acceleration_x = 1.0;
+        } else if (direction_x < 0.0) {
+            acceleration_x = -1.0;
+        }
     }
+//    if (direction_x > 0.0) {
+//        acceleration_x = 1.0;
+//    } else if (direction_x < 0.0) {
+//        acceleration_x = -1.0;
+//    }
+//    
+//    if (direction_y > 0.0) {
+//        velocity_x -= gravity_x * elapsed;
+//        velocity_y -= gravity_y * elapsed;
+//        gravity_y = 3.0;
+//    }
+//    else if (direction_y > 0.0) {
+//        velocity_y = 1.0;
+//    }
+//    else if (direction_y == 0.0) {
+//        velocity_y = 0.0;
+//    }
     if (type == "Goal") {
 
     }
@@ -161,27 +173,34 @@ void Entity::FixedUpdate() {
         rotation += FIXED_TIMESTEP;
     }
 }
-bool Entity::collidesWith(Entity *entity) {
-    //Bottom Collison
-    if (y-height/2 < entity->height) {
+bool Entity::checkBottomCollison() {
+    if (y-height/2 <= -0.6) {
         collidedBottom = true;
         return true;
     }
-    //Right Collison
-    if (x+width/2 > entity->width) {
-        collidedRight = true;
+    return false;
+}
+bool Entity::collidesWith(Entity *entity) {
+    //Bottom Collison
+    if (y-height/2 < -0.9) {
+        collidedBottom = true;
         return true;
     }
-    //Left Collison
-    if (x-width/2 < entity->width) {
-        collidedLeft = true;
-        return true;
-    }
-    //Top Collison
-    if (y+height/2 > entity->height) {
-        collidedTop = true;
-        return true;
-    }
+//    //Right Collison
+//    if (x+width/2 > entity->width) {
+//        collidedRight = true;
+//        return true;
+//    }
+//    //Left Collison
+//    if (x-width/2 < entity->width) {
+//        collidedLeft = true;
+//        return true;
+//    }
+//    //Top Collison
+//    if (y+height/2 > entity->height) {
+//        collidedTop = true;
+//        return true;
+//    }
     return false;
 }
 

@@ -25,6 +25,7 @@ public:
     
     void DrawSprite(int spriteTexture, int index, int spriteCountX, int spriteCountY);
     bool collidesWith(Entity *entity);
+    bool checkBottomCollison();
     
     void FixedUpdate();
     SheetSprite sprite;
@@ -38,14 +39,22 @@ public:
     
     float direction_x;
     float direction_y;
+    
     float velocity_x;
     float velocity_y;
+    
+    float max_velocity_x;
+    float max_velocity_y;
+    
     float acceleration_x;
     float acceleration_y;
+    
     float friction_x;
     float friction_y;
+    
     float gravity_x;
     float gravity_y;
+    
     float mass;
     bool isStatic;
     
@@ -61,6 +70,7 @@ public:
     int currentIndex = 0;
     float offset;
     float penetration;
+    int charge = 0;
     std::string type;
     float scale;
     unsigned int spriteSheetTexture;

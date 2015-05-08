@@ -47,7 +47,7 @@ void ClassDemoApp::Init() {
 //    player.scale = 0.25;
     player.width = 0.05;
     player.height = 0.05;
-    player.friction_x = 2.0;
+    player.friction_x = 100.0;
 //    player.spriteSheetTexture = LoadTexture("8-bit.png");
 //    std::cout << "current textID: " << player.sprite.textureID << std::endl;
     std::cout << "initial: " << player.x << "," << player.y << std::endl;
@@ -129,10 +129,10 @@ void ClassDemoApp::Init() {
 //    readFile("NYUCodebase.app/Contents/Resources/level2.txt");
 //    readFile("NYUCodebase.app/Contents/Resources/level3.txt");
     
-//     readFile("NYUCodebase.app/Contents/Resources/level1_new.txt");
+     readFile("NYUCodebase.app/Contents/Resources/level1_new.txt");
 //     readFile("NYUCodebase.app/Contents/Resources/level2_new.txt");
 //     readFile("NYUCodebase.app/Contents/Resources/level3_new.txt");
-     readFile("NYUCodebase.app/Contents/Resources/level4_new.txt");
+//     readFile("NYUCodebase.app/Contents/Resources/level4_new.txt");
     
     
 }
@@ -173,68 +173,6 @@ bool entityCollision(Entity sprite_1, Entity sprite_2){
     return false;
 }
 
-//void ClassDemoApp::Update(float elapsed) {
-//    while (SDL_PollEvent(&event)) {
-//        if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
-//            done = true;
-//        }
-//        if(event.type == SDL_KEYDOWN) {
-//            if(event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
-//                if (entities[0].collidedBottom) {
-//                    //cause tremor
-//                    //update all entites
-//                }
-//            }
-//        }
-//        if(event.type == SDL_KEYDOWN) {
-//            if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
-//                if (entities[0].collidedBottom) {
-//                    entities[0].direction_y = 1.0;
-//                }
-//            }
-//        }
-//    }
-//    
-//    for (size_t j = 0; j < entities.size(); j++) {
-//        if (entities[j].type == "Player") {
-//           
-////            if (!entities[j].collidedBottom) {
-////                entities[j].direction_y = -1.0;
-////            }
-//            if (entities[j].y > -0.6) {
-//                entities[j].direction_y = -1.0;
-//            }
-//            else
-//                entities[j].direction_y = 0.0;
-//            if (keys[SDL_SCANCODE_RIGHT]) {
-//                entities[j].direction_x = 1.0;
-////                if (target.collidedBottom && !target.collidedRight) {
-////                    target.direction_x = 1.0;
-////                }
-//            }
-//            
-//            if (keys[SDL_SCANCODE_LEFT]) {
-//                entities[j].direction_x = -1.0;
-////                if (target.collidedBottom && !target.collidedLeft) {
-////                    target.direction_x = -1.0;
-////                }
-//            }
-//        }
-//        if (entities[j].type == "Crate") {
-////            if (!entities[j].collidedBottom) {
-////                entities[j].direction_y = -1.0;
-////            }
-//        }
-////        target.Update(elapsed);
-//        if ((entities[j].type == "Saw1") || (entities[j].type == "Saw2") || (entities[j].type == "Saw3") || (entities[j].type == "Saw4")) {
-//            
-//            entities[j].rotation -= elapsed*1000;
-//        }
-//    }
-//    for (size_t i = 0; i < entities.size(); i++) {
-//        entities[i].Update(elapsed);
-//    }
-//}
 void ClassDemoApp::Update(float elapsed) {
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
@@ -248,50 +186,60 @@ void ClassDemoApp::Update(float elapsed) {
                     //update all entites
 //                    charge++;
                 }
+                std::cout << "SPACE" << std::endl;
                 std::cout << "Meter: " << charge << std::endl;
             }
         }
         if(event.type == SDL_KEYDOWN) {
             if(event.key.keysym.scancode == SDL_SCANCODE_UP) {
                 if (entities[0].collidedBottom) {
-                    entities[0].direction_y = 1.0;
+                    entities[0].velocity_y = 1.0;
+                    entities[0].Update(elapsed);
+                    entities[0].collidedBottom = false;
                 }
+                
             }
         }
     }
+    int *x;
+    int *y;
     std::cout << "Player: " << entities[0].type << std::endl;
-    for (size_t i = 1; i < entities.size(); i++) {
-        if (entities[i].type == "Player" || entities[i].type == "Crate") {
+    for (size_t i = 0; i < entities.size(); i++) {
+        if (entities[i].type == "Player") {
+            worldToTileCoordinates(entities[i].x, entities[i].y, x, y);
             //Apply Gravity
-//            entities[j].direction_y = -1.0;
-//            if (!entities[j].collidedBottom) {
-//                entities[j].direction_y = -1.0;
-//            } else {entities[j].direction_y = 0.0;}
+            if (entities[i].collidedBottom) {
+                entities[i].velocity_y = 0.0;
+                entities[i].Update(elapsed);
+            }
+            if (entities[i].collidedTop) {
+                entities[i].velocity_y = -1.0;
+                entities[i].Update(elapsed);
+            }
+            if (keys[SDL_SCANCODE_RIGHT]) {
+                if (entities[i].collidedBottom && !entities[i].collidedRight) {
+                    entities[i].direction_x = 1.0;
+                    entities[i].Update(elapsed);
+                }
+                std::cout << "Direction: " << entities[0].direction_x << std::endl;
+            }
+            if (keys[SDL_SCANCODE_LEFT]) {
+                if (entities[i].collidedBottom && !entities[i].collidedLeft) {
+                    entities[i].direction_x = -1.0;
+                    entities[i].Update(elapsed);
+                }
+                std::cout << "Direction: " << entities[0].direction_x << std::endl;
+            }
         }
-        if (!entityCollision(entities[0], entities[i])) {
+        if (entityCollision(entities[0], entities[i])) {
             if ((entities[i].type == "Saw1") || (entities[i].type == "Saw2") || (entities[i].type == "Saw3") || (entities[i].type == "Saw4")) {
                 //Activate Game Over
             }
             if (entities[i].type == "Goal") {
                 //Win State
             }
-            if (keys[SDL_SCANCODE_RIGHT]) {
-                entities[0].direction_x = 1.0;
-//                if (target.collidedBottom && !target.collidedRight) {
-//                    target.direction_x = 1.0;
-//                }
-                std::cout << "Direction: " << entities[0].direction_x << std::endl;
-            } else if (!keys[SDL_SCANCODE_RIGHT]) {
-                entities[0].direction_x = 0.0;
-            }
-            if (keys[SDL_SCANCODE_LEFT]) {
-                entities[0].direction_x = -1.0;
-//                if (target.collidedBottom && !target.collidedLeft) {
-//                    target.direction_x = -1.0;
-//                }
-                std::cout << "Direction: " << entities[0].direction_x << std::endl;
-            } else if (!keys[SDL_SCANCODE_LEFT]) {
-                entities[0].direction_x = 0.0;
+            if (entities[i].type == "Crate") {
+                //Do something
             }
         }
         if ((entities[i].type == "Saw1") || (entities[i].type == "Saw2") || (entities[i].type == "Saw3") || (entities[i].type == "Saw4")) {
@@ -303,6 +251,7 @@ void ClassDemoApp::Update(float elapsed) {
                 //ADD SMALL SMOKE EFFECT
                 if (entities[i].type == "Crate") {
                     entities[i].direction_y = 1.0;
+                    entities[i].Update(elapsed);
                 }
                 charge = 0;
             }
@@ -326,10 +275,12 @@ void ClassDemoApp::Update(float elapsed) {
                     if (entities[0].x > entities[i].x) {
                         entities[i].direction_x = -1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     if (entities[0].x < entities[i].x) {
                         entities[i].direction_x = 1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     
                 }
@@ -338,6 +289,7 @@ void ClassDemoApp::Update(float elapsed) {
                 }
                 if ((entities[i].type == "Saw1") || (entities[i].type == "Saw2") || (entities[i].type == "Saw3") || (entities[i].type == "Saw4")) {
                     entities[i].direction_y = 1.0;
+                    entities[i].Update(elapsed);
                 }
                 charge = 0;
             }
@@ -361,10 +313,12 @@ void ClassDemoApp::Update(float elapsed) {
                     if (entities[0].x > entities[i].x) {
                         entities[i].direction_x = -1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     if (entities[0].x < entities[i].x) {
                         entities[i].direction_x = 1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     
                 }
@@ -375,9 +329,14 @@ void ClassDemoApp::Update(float elapsed) {
                 }
                 if ((entities[i].type == "Saw1") || (entities[i].type == "Saw2") || (entities[i].type == "Saw3") || (entities[i].type == "Saw4")) {
                     entities[i].direction_y = 1.0;
+                    entities[i].Update(elapsed);
                 }
                 charge = 0;
                 //Shake Screen
+                screenShakeValue += elapsed;
+                screenShakeIntensity = 10.0;
+                screenShakeSpeed = 2.0;
+                glTranslatef(0.0f, sin(screenShakeValue * screenShakeSpeed)* screenShakeIntensity, 0.0f);
             }
             if (charge >= 10) {
                 //ADD SMOKE EFFECT
@@ -399,10 +358,12 @@ void ClassDemoApp::Update(float elapsed) {
                     if (entities[0].x > entities[i].x) {
                         entities[i].direction_x = -1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     if (entities[0].x < entities[i].x) {
                         entities[i].direction_x = 1.0;
                         entities[i].direction_y = 1.0;
+                        entities[i].Update(elapsed);
                     }
                     
                 }
@@ -411,13 +372,18 @@ void ClassDemoApp::Update(float elapsed) {
                 }
                 if ((entities[i].type == "Saw1") || (entities[i].type == "Saw2") || (entities[i].type == "Saw3") || (entities[i].type == "Saw4")) {
                     entities[i].direction_y = 1.0;
+                    entities[i].Update(elapsed);
                 }
                 charge = 0;
                 //Violently Shake Screen
+                screenShakeValue += elapsed;
+                screenShakeIntensity = 50.0;
+                screenShakeSpeed = 4.0;
+                glTranslatef(0.0f, sin(screenShakeValue * screenShakeSpeed)* screenShakeIntensity, 0.0f);
             }
 
         }
-        entities[i].Update(elapsed);
+        
     }
 }
 

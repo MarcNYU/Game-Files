@@ -48,12 +48,15 @@ private:
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     std::vector<Entity> entities;
     std::vector<float> vertexData;
-    std::vector<float>  texCoordData;
+    std::vector<float> texCoordData;
     float penetration;
+    float screenShakeValue;
+    float screenShakeSpeed;
+    float screenShakeIntensity;
     unsigned char **levelData;
     int mapWidth;
     int mapHeight;
-    int charge = 0;
+   
     
     
 };
