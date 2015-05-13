@@ -2,7 +2,7 @@
 //  SpriteSheet.cpp
 //  NYUCodebase
 //
-//  Created by Marcus Williams on 2/21/15.
+//  Created by Marcus Williams on 5/11/15.
 //  Copyright (c) 2015 Ivan Safrin. All rights reserved.
 //
 

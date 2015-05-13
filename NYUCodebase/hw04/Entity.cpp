@@ -116,31 +116,35 @@ void Entity::DrawSprite(int spriteTexture, int index, int spriteCountX, int spri
     
 }
 bool Entity::collidesWith(Entity *entity) {
-//    if ((entity->x-entity->width/2) <= (x) < (entity->x+entity->width/2)) {
-//        offset = fabsf(x+width/2 - entity->x-entity->width/2);
-//        collidedRight = true;
-//        return collidedRight;
-//    }
-//    if ((entity->x-entity->width/2) < (x-width/2) <= (entity->x-entity->width/2)) {
-//        offset = fabsf(x+width/2 - entity->x-entity->width/2);
-//        collidedLeft = true;
-//        return collidedLeft;
-//    }
-//    if ((entity->y-entity->height/2) <= (y+height/2) < (entity->y+entity->height/2)) {
-//        offset = fabsf(y+height/2 - entity->y-entity->height/2);
-//        collidedTop = true;
-//        return collidedTop;
-//    }
-//    if ((entity->y+entity->height/2) < (y-height/2) <= (entity->y-entity->height/2)) {
-//        offset = fabsf(y+height/2 - entity->y-entity->height/2);
-//        collidedBottom = true;
-//        return collidedBottom;
-//    }
-    if ((y-height/2) < (-.8+.125/2)) {
+    if ((entity->x-entity->width/2) <= (x) < (entity->x+entity->width/2))
+    {
+        offset = fabsf(x+width/2 - entity->x-entity->width/2);
+        collidedRight = true;
+        return collidedRight;
+    }
+    if ((entity->x-entity->width/2) < (x-width/2) <= (entity->x-entity->width/2))
+    {
+        offset = fabsf(x+width/2 - entity->x-entity->width/2);
+        collidedLeft = true;
+        return collidedLeft;
+    }
+    if ((entity->y-entity->height/2) <= (y+height/2) < (entity->y+entity->height/2))
+    {
+        offset = fabsf(y+height/2 - entity->y-entity->height/2);
+        collidedTop = true;
+        return collidedTop;
+    }
+    if ((entity->y+entity->height/2) < (y-height/2) <= (entity->y-entity->height/2))
+    {
         offset = fabsf(y+height/2 - entity->y-entity->height/2);
         collidedBottom = true;
         return collidedBottom;
     }
+//    if ((y-height/2) < (-.8+.125/2)) {
+//        offset = fabsf(y+height/2 - entity->y-entity->height/2);
+//        collidedBottom = true;
+//        return collidedBottom;
+//    }
     return false;
 }
 

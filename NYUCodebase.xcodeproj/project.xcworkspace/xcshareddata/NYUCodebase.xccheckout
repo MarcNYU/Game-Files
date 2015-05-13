@@ -12,6 +12,8 @@
 	<dict>
 		<key>1D99E6E89B2B71AC6674F71902635293F3D03A1A</key>
 		<string>https://github.com/MarcNYU/Game-Files.git</string>
+		<key>87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC</key>
+		<string>https://github.com/ivansafrin/CS3113.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>NYUCodebase.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>1D99E6E89B2B71AC6674F71902635293F3D03A1A</key>
 		<string>../..</string>
+		<key>87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC</key>
+		<string>../../../Dropbox/CS3113</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/MarcNYU/Game-Files.git</string>
@@ -28,6 +32,14 @@
 	<string>1D99E6E89B2B71AC6674F71902635293F3D03A1A</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CS3113</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

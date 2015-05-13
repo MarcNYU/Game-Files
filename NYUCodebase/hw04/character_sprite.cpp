@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
     
     std::vector<SheetSprite> playerAnimations;
     Entity player(LoadTexture("beck_sprites.png"), 0.0, 0.0, 1.0, 1.0);
-    SheetSprite character = player.makeSprite(160.0, 0.0, 24.0,28.0);
+//    SheetSprite character = player.makeSprite(160.0, 0.0, 24.0,28.0);
     
     while (!done) {
         while (SDL_PollEvent(&event)) {
